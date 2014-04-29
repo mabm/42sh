@@ -5,16 +5,18 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:55 2014 Nicolas Ades
-** Last update Mon Apr 28 13:55:56 2014 Nicolas Ades
+** Last update Tue Apr 29 09:40:07 2014 Nicolas Ades
 */
 
 #include "main.h"
 
 int	main(int ac, char **av, char **envp)
 {
+  t_env	*i_env;
+
   (void)ac;
   (void)av;
-  if (get_env(envp) == -1)
+  if (check_env(envp, i_env) == -1)
     return (-1);
   if (prompt == 0)
     return (O);
