@@ -5,7 +5,7 @@
 ## Login   <nicolas@epitech.net>
 ## 
 ## Started on  Mon Apr 28 13:47:00 2014 Nicolas Ades
-## Last update Wed May  7 18:04:47 2014 Jeremy Mediavilla
+## Last update Wed May  7 18:13:52 2014 Jeremy Mediavilla
 ##
 
 CC		=	gcc
@@ -44,11 +44,13 @@ libs		:
 			make -C $(LIB)
 
 clean		:
+			(cd $(LIB); make clean)
 			$(RM) $(OBJ)
 
 fclean		:	clean
+			(cd $(LIB); make fclean)
 			$(RM) $(NAME)
 
 re		:	fclean all
 
-.PHONY		:	all clean fclean re
+.PHONY		:	all clean fclean re libs
