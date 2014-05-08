@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:12 2014 Jeremy Mediavilla
-** Last update Thu May  8 18:13:37 2014 Jeremy Mediavilla
+** Last update Thu May  8 18:23:36 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -32,7 +32,7 @@ void		my_unsetenv(t_list *list, char *cmd)
   int           name_len;
   char		**command;
 
-  command = my_strd_to_wordtab(cmd, " ");
+  command = my_strd_to_wordtab(cmd, " \t");
   if (tab_size(command) != 2)
     printf("Unsetenv : wrong number of arguments\n");
   else
@@ -64,7 +64,7 @@ void		my_setenv(t_list *list, char *cmd)
   int           value_len;
   char		**command;
 
-  command = my_strd_to_wordtab(cmd, " ");
+  command = my_strd_to_wordtab(cmd, " \t");
   if (tab_size(command) != 3)
     printf("Setenv : wrong number of arguments\n");
   else
