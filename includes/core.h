@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Thu May  8 17:21:11 2014 Jeremy Mediavilla
+** Last update Thu May  8 18:31:46 2014 Jeremy Mediavilla
 */
 
 #ifndef		CORE_H_
@@ -15,8 +15,12 @@
 # include "my_list.h"
 # include "my.h"
 
+/* fonctions dans init.c */
+char		*init_unsetenv_var(int, char **);
+
 /* fonctions dans tab_functions.c */
 int		tab_size(char **);
+void		print_tab(char **);
 
 /* fonctions dans builtin.c */
 void		my_setenv(t_list *, char *);

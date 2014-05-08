@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:12 2014 Jeremy Mediavilla
-** Last update Thu May  8 18:23:36 2014 Jeremy Mediavilla
+** Last update Thu May  8 18:31:13 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -38,10 +38,7 @@ void		my_unsetenv(t_list *list, char *cmd)
   else
     {
       name_len = strlen(command[1]);
-      var = my_xmalloc((name_len + 2) * sizeof(char));
-      memset(var, '\0', (name_len + 2));
-      var = strcat(var, command[1]);
-      var = strcat(var, "=");
+      var = init_unsetenv_var(name_len, command);
       while (list != NULL)
 	{
 	  if (list->data != NULL)
