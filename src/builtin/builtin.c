@@ -5,10 +5,26 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:12 2014 Jeremy Mediavilla
-** Last update Thu May  8 16:58:57 2014 Jeremy Mediavilla
+** Last update Thu May  8 17:22:53 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
+
+int             already_here(t_list *list, char *var, int len)
+{
+  while (list != NULL)
+    {
+      if (list->data != NULL)
+        if (strncmp(list->data, var, len) == 0)
+          {
+            memset(list->data, '\0', strlen(list->data));
+            list->data = var;
+            return (1);
+          }
+      list = list->next;
+    }
+  return (0);
+}
 
 void		my_unsetenv(t_list *list, char *cmd)
 {
@@ -19,14 +35,35 @@ void		my_unsetenv(t_list *list, char *cmd)
 
 void		my_setenv(t_list *list, char *cmd)
 {
-  (void)list;
-  (void)cmd;
-  printf("setenv OK\n");
+  char          *var;
+  int           name_len;
+  int           value_len;
+  char		**command;
+
+  command = my_strd_to_wordtab(cmd, " ");
+  if (tab_size(command) != 3)
+    {
+      my_putstr("Setenv : wrong number of arguments\n");
+      /* free(command); */
+    }
+  else
+    {
+      name_len = strlen(command[1]);
+      value_len = strlen(command[2]);
+      var = my_xmalloc((name_len + value_len + 2) * sizeof(char));
+      memset(var, '\0' , (name_len + value_len + 2));
+      var = strcat(var, command[1]);
+      var = strcat(var, "=");
+      var = strcat(var, command[2]);
+      if (already_here(list, var, (name_len + 1)) != 1)
+	add_to_end(list, var);
+    }
+  /* free(command); */
 }
 
 void		my_cd(t_list *list, char *cmd)
 {
- (void)list;
+  (void)list;
   (void)cmd;
   printf("cd OK\n");
 }

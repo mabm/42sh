@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Thu May  8 17:03:01 2014 Jeremy Mediavilla
+** Last update Thu May  8 17:24:24 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -45,7 +45,7 @@ int		prompt(t_list *env)
 
   my_putstr("\033[1;31mMABM[42sh] : \033[1;00m");
   cmd = get_next_line(0);
-  if (strcmp(cmd, "exit") == 0)
+  if (strncmp(cmd, "exit", 4) == 0)
     return (0);
   /* fonction parsing et edition de ligne */
   check_builtin(env, cmd);
