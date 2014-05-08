@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:12 2014 Jeremy Mediavilla
-** Last update Thu May  8 17:59:47 2014 Jeremy Mediavilla
+** Last update Thu May  8 18:13:37 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -48,7 +48,6 @@ void		my_unsetenv(t_list *list, char *cmd)
 	    if (strncmp(list->data, var, (name_len + 1)) == 0)
 	      {
 		remove_from_list(list);
-		free(var);
 		return ;
 	      }
 	  list = list->next;

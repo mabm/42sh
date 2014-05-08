@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Fri Oct 25 13:42:22 2013 Jeremy Mediavilla
-** Last update Thu May  8 16:08:18 2014 Jeremy Mediavilla
+** Last update Thu May  8 18:15:04 2014 Jeremy Mediavilla
 */
 
 #include <stdlib.h>
@@ -64,8 +64,6 @@ void		remove_from_list(t_list *list)
       else
 	list->prev->next = NULL;
     }
-  /* la ligne du dessous peu poser problème */
-  free(list->data);
   free(list);
 }
 
