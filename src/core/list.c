@@ -5,14 +5,12 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Fri Oct 25 13:42:22 2013 Jeremy Mediavilla
-** Last update Wed May  7 18:08:19 2014 Jeremy Mediavilla
+** Last update Thu May  8 16:08:18 2014 Jeremy Mediavilla
 */
 
 #include <stdlib.h>
 #include "my_list.h"
 #include "core.h"
-
-void		*my_xmalloc(int);
 
 t_list		*create_list(char *str)
 {

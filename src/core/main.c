@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Wed May  7 18:09:18 2014 Jeremy Mediavilla
+** Last update Thu May  8 16:10:06 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -18,7 +18,8 @@ int		main(int ac, char **av, char **env)
   (void)av;
   list = create_list(NULL);
   get_all_env(list, env);
-  aff_env(list);
+  /* printf("%i\n", is_in_env(list, "PWD=")); */
+  /* printf("%s\n", check_env_var(list, "PWD=", 4)); */
   /* prompt(list); */
   return (0);
 }
