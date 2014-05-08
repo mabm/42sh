@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:45:44 2014 Jeremy Mediavilla
-** Last update Thu May  8 15:49:59 2014 Jeremy Mediavilla
+** Last update Thu May  8 16:57:40 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -62,8 +62,9 @@ char            *check_env_var(t_list *list, char *name, int len)
   return ("\0");
 }
 
-void		aff_env(t_list *list)
+void		aff_env(t_list *list, char *cmd)
 {
+  (void)cmd;
   while (list != NULL)
     {
       if (list->data != NULL)

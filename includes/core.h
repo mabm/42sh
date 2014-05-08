@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Thu May  8 16:46:57 2014 Jeremy Mediavilla
+** Last update Thu May  8 16:59:35 2014 Jeremy Mediavilla
 */
 
 #ifndef		CORE_H_
@@ -15,15 +15,19 @@
 # include "my_list.h"
 # include "my.h"
 
+/* fonctions dans builtin.c */
+void		my_setenv(t_list *, char *);
+void		my_unsetenv(t_list *, char *);
+void		my_cd(t_list *, char *);
+
 /* fonctions dans env.c */
 void		get_all_env(t_list *, char **);
-void		aff_env(t_list *);
+void		aff_env(t_list *, char *);
 int		is_in_env(t_list *, char *);
 char		*get_env_var(char *, int);
 char		*check_env_var(t_list *, char *, int);
 
 /* fonctions dans prompt.c */
-
 int		prompt(t_list *);
 
 #endif /* CORE_H_ */

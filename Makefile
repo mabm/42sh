@@ -5,7 +5,7 @@
 ## Login   <nicolas@epitech.net>
 ## 
 ## Started on  Mon Apr 28 13:47:00 2014 Nicolas Ades
-## Last update Wed May  7 18:13:52 2014 Jeremy Mediavilla
+## Last update Thu May  8 16:57:09 2014 Jeremy Mediavilla
 ##
 
 CC		=	gcc
@@ -28,6 +28,7 @@ SRC		=	$(D_CORE)main.c			\
 			$(D_CORE)prompt.c		\
 			$(D_CORE)gnl.c			\
 			$(D_BUILTIN)env.c		\
+			$(D_BUILTIN)builtin.c		\
 			$(D_CORE)list.c			\
 
 OBJ		=	$(SRC:.c=.o)
