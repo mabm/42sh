@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:12 2014 Jeremy Mediavilla
-** Last update Thu May  8 17:22:53 2014 Jeremy Mediavilla
+** Last update Thu May  8 17:59:47 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -28,9 +28,34 @@ int             already_here(t_list *list, char *var, int len)
 
 void		my_unsetenv(t_list *list, char *cmd)
 {
-  (void)list;
-  (void)cmd;
-  printf("unsetenv OK\n");
+  char          *var;
+  int           name_len;
+  char		**command;
+
+  command = my_strd_to_wordtab(cmd, " ");
+  if (tab_size(command) != 2)
+    printf("Unsetenv : wrong number of arguments\n");
+  else
+    {
+      name_len = strlen(command[1]);
+      var = my_xmalloc((name_len + 2) * sizeof(char));
+      memset(var, '\0', (name_len + 2));
+      var = strcat(var, command[1]);
+      var = strcat(var, "=");
+      while (list != NULL)
+	{
+	  if (list->data != NULL)
+	    if (strncmp(list->data, var, (name_len + 1)) == 0)
+	      {
+		remove_from_list(list);
+		free(var);
+		return ;
+	      }
+	  list = list->next;
+	}
+      printf("%s : is not an environment variable\n", command[1]);
+      free(var);
+    }
 }
 
 void		my_setenv(t_list *list, char *cmd)
@@ -42,10 +67,7 @@ void		my_setenv(t_list *list, char *cmd)
 
   command = my_strd_to_wordtab(cmd, " ");
   if (tab_size(command) != 3)
-    {
-      my_putstr("Setenv : wrong number of arguments\n");
-      /* free(command); */
-    }
+    printf("Setenv : wrong number of arguments\n");
   else
     {
       name_len = strlen(command[1]);
@@ -58,7 +80,6 @@ void		my_setenv(t_list *list, char *cmd)
       if (already_here(list, var, (name_len + 1)) != 1)
 	add_to_end(list, var);
     }
-  /* free(command); */
 }
 
 void		my_cd(t_list *list, char *cmd)
