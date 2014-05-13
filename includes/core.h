@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Thu May  8 18:31:46 2014 Jeremy Mediavilla
+** Last update Tue May 13 15:44:39 2014 Nicolas Ades
 */
 
 #ifndef		CORE_H_

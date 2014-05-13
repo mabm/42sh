@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Thu May  8 17:24:24 2014 Jeremy Mediavilla
+** Last update Tue May 13 15:46:50 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -44,7 +44,11 @@ int		prompt(t_list *env)
   char		*cmd;
 
   my_putstr("\033[1;31mMABM[42sh] : \033[1;00m");
-  cmd = get_next_line(0);
+  if ((cmd = get_next_line(0)) == NULL)
+    {
+      my_putstr("Ctr+D detected, end of shell\n");
+      return (-1);
+    }
   if (strncmp(cmd, "exit", 4) == 0)
     return (0);
   /* fonction parsing et edition de ligne */
