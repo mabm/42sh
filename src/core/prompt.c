@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Tue May 13 15:46:50 2014 Nicolas Ades
+** Last update Tue May 13 15:49:08 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -46,7 +46,7 @@ int		prompt(t_list *env)
   my_putstr("\033[1;31mMABM[42sh] : \033[1;00m");
   if ((cmd = get_next_line(0)) == NULL)
     {
-      my_putstr("Ctr+D detected, end of shell\n");
+      my_putstr("Ctrl+D detected, end of shell\n");
       return (-1);
     }
   if (strncmp(cmd, "exit", 4) == 0)
