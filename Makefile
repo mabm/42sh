@@ -5,7 +5,7 @@
 ## Login   <nicolas@epitech.net>
 ## 
 ## Started on  Mon Apr 28 13:47:00 2014 Nicolas Ades
-## Last update Thu May  8 18:32:06 2014 Jeremy Mediavilla
+## Last update Wed May 14 18:16:01 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
@@ -16,27 +16,32 @@ NAME		=	mysh
 
 IFLAGS		=	./includes/
 
-CFLAGS		+=	-W -Wall -Wextra -Werror -pedantic -ansi -g3 -I$(IFLAGS)
+CFLAGS		+=	-W -Wall -Wextra -pedantic -ansi -g3 -I$(IFLAGS)
 
 D_CORE		=	src/core/
-
 D_ENV		=	src/env/
-
 D_BUILTIN	=	src/builtin/
+D_LINE_EDITOR	=	src/line_editor/
 
-SRC		=	$(D_CORE)main.c			\
-			$(D_CORE)prompt.c		\
-			$(D_CORE)gnl.c			\
-			$(D_CORE)tab_functions.c	\
-			$(D_BUILTIN)env.c		\
-			$(D_BUILTIN)builtin.c		\
-			$(D_CORE)list.c			\
-			$(D_CORE)init.c			\
+SRC		=	$(D_CORE)main.c				\
+			$(D_CORE)prompt.c			\
+			$(D_CORE)gnl.c				\
+			$(D_CORE)tab_functions.c		\
+			$(D_BUILTIN)env.c			\
+			$(D_BUILTIN)builtin.c			\
+			$(D_CORE)list.c				\
+			$(D_CORE)init.c				\
+			$(D_LINE_EDITOR)line_editor.c		\
+			$(D_LINE_EDITOR)xfunction.c		\
+			$(D_LINE_EDITOR)term_fct.c		\
+			$(D_LINE_EDITOR)char.c			\
+			$(D_LINE_EDITOR)parser_line_editor.c	\
+
 
 OBJ		=	$(SRC:.c=.o)
 
 LIB		=	./libmy/
-L_NAME		=	-lmy
+L_NAME		=	-lncurses -lmy
 
 all		:	libs $(NAME)
 

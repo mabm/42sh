@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Tue May 13 15:49:08 2014 Nicolas Ades
+** Last update Wed May 14 16:39:58 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -13,14 +13,14 @@
 
 void            check_builtin(t_list *list, char *cmd)
 {
-  char          *tab[4];
+  char          *mtab[4];
   void          (*which_builtin[4])(t_list *, char *);
   int           i;
 
-  tab[0] = "env";
-  tab[1] = "unsetenv";
-  tab[2] = "setenv";
-  tab[3] = "cd";
+  mtab[0] = "env";
+  mtab[1] = "unsetenv";
+  mtab[2] = "setenv";
+  mtab[3] = "cd";
   which_builtin[0] = &aff_env;
   which_builtin[1] = &my_unsetenv;
   which_builtin[2] = &my_setenv;
@@ -28,7 +28,7 @@ void            check_builtin(t_list *list, char *cmd)
   i = 0;
   while (i < 4)
     {
-      if (strncmp(cmd, tab[i], strlen(tab[i])) == 0)
+      if (strncmp(cmd, mtab[i], strlen(mtab[i])) == 0)
         {
           (*which_builtin[i])(list, cmd);
           i = 5;
@@ -36,24 +36,21 @@ void            check_builtin(t_list *list, char *cmd)
       i++;
     }
   if (i == 4)
-    printf("%s : n'est pas une commande\n", cmd);
+    fprintf(stderr, "%s : n'est pas une commande\n", cmd);
 }
 
 int		prompt(t_list *env)
 {
   char		*cmd;
 
-  my_putstr("\033[1;31mMABM[42sh] : \033[1;00m");
-  if ((cmd = get_next_line(0)) == NULL)
+  cmd = line_editor();
+  if (cmd != NULL)
     {
-      my_putstr("Ctrl+D detected, end of shell\n");
-      return (-1);
+      if (strncmp(cmd, "exit", 4) == 0)
+	return (0);
+      check_builtin(env, cmd);
+      free(cmd);
     }
-  if (strncmp(cmd, "exit", 4) == 0)
-    return (0);
-  /* fonction parsing et edition de ligne */
-  check_builtin(env, cmd);
-  free(cmd);
   prompt(env);
   return (0);
 }

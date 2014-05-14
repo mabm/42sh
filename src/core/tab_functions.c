@@ -5,29 +5,29 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Thu May  8 17:19:33 2014 Jeremy Mediavilla
-** Last update Thu May  8 18:27:29 2014 Jeremy Mediavilla
+** Last update Wed May 14 15:45:56 2014 Geoffrey Merran
 */
 
 #include "core.h"
 
-void		print_tab(char **tab)
+void		print_tab(char **mtab)
 {
   int		i;
 
   i = 0;
-  while (tab[i] != NULL)
+  while (mtab[i] != NULL)
     {
-      printf("%s\n", tab[i]);
+      printf("%s\n", mtab[i]);
       i++;
     }
 }
 
-int		tab_size(char **tab)
+int		tab_size(char **mtab)
 {
   int		i;
 
   i = 0;
-  while (tab[i] != NULL)
+  while (mtab[i] != NULL)
     i++;
   return (i);
 }
