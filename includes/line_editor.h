@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:12:40 2014 Geoffrey Merran
-** Last update Wed May 14 18:14:45 2014 Geoffrey Merran
+** Last update Thu May 15 17:10:20 2014 Nicolas Ades
 */
 
 #ifndef LINE_EDITOR_
@@ -14,7 +14,7 @@
 # define BUFFER_SIZE 20
 # include <string.h>
 # include <termios.h>
-# include <ncurses/curses.h>
+# include <curses.h>
 # include <term.h>
 # include <unistd.h>
 # include "gnl.h"
