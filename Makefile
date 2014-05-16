@@ -5,7 +5,7 @@
 ## Login   <nicolas@epitech.net>
 ## 
 ## Started on  Mon Apr 28 13:47:00 2014 Nicolas Ades
-## Last update Wed May 14 18:16:01 2014 Geoffrey Merran
+## Last update Thu May 15 21:04:12 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
@@ -22,6 +22,7 @@ D_CORE		=	src/core/
 D_ENV		=	src/env/
 D_BUILTIN	=	src/builtin/
 D_LINE_EDITOR	=	src/line_editor/
+D_CONF		=	src/conf/
 
 SRC		=	$(D_CORE)main.c				\
 			$(D_CORE)prompt.c			\
@@ -35,7 +36,10 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_LINE_EDITOR)xfunction.c		\
 			$(D_LINE_EDITOR)term_fct.c		\
 			$(D_LINE_EDITOR)char.c			\
+			$(D_LINE_EDITOR)char2.c			\
 			$(D_LINE_EDITOR)parser_line_editor.c	\
+			$(D_LINE_EDITOR)build_line.c		\
+			$(D_CONF)conf.c				\
 
 
 OBJ		=	$(SRC:.c=.o)

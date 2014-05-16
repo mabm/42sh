@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:13:23 2014 Geoffrey Merran
-** Last update Wed May 14 18:13:47 2014 Geoffrey Merran
+** Last update Thu May 15 19:48:01 2014 Geoffrey Merran
 */
 
 #define _BSD_SOURCE
@@ -47,6 +47,7 @@ int	init_line_editor(struct termios *t, struct termios *t_save, t_line **line)
   (*line)->current = NULL;
   (*line)->tail = NULL;
   (*line)->size = 0;
+  (*line)->size_max = 0;
   if (add_char('\0', line) == -1)
     return (-1);
   return (0);
@@ -55,21 +56,26 @@ int	init_line_editor(struct termios *t, struct termios *t_save, t_line **line)
 int		show_edit_line(t_line *line)
 {
   t_char	*tmp;
+  int		i;
 
   my_printf("\r%s", PROMPT);
   tmp = line->head;
+  i = 0;
   while (tmp)
     {
       if (write_prompt_char(tmp) == -1)
 	return (-1);
       tmp = tmp->next;
+      i++;
     }
+  i--;
+  while (++i < line->size_max)
+    my_putchar(' ');
   return (0);
 }
 
 char			*line_editor()
 {
-  char			*cmd;
   char			buffer[BUFFER_SIZE];
   t_line		*line;
   struct termios	t;
@@ -87,6 +93,5 @@ char			*line_editor()
       if (parser_line_editor(buffer, &line))
 	return (NULL);
     }
-  my_putchar('\n');
-  return (reset_term(strdup("ls"), &t_save));
+  return (reset_term(build_line(line), &t_save));
 }

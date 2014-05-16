@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:12:40 2014 Geoffrey Merran
-** Last update Wed May 14 18:14:45 2014 Geoffrey Merran
+** Last update Thu May 15 19:59:41 2014 Geoffrey Merran
 */
 
 #ifndef LINE_EDITOR_
@@ -17,9 +17,23 @@
 # include <ncurses/curses.h>
 # include <term.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include "gnl.h"
 # include "my.h"
 # include "my_printf.h"
+
+/*
+** Cheat
+**
+** UP		27 [A
+** DOWN		27 [B
+** RIGHT        27 [C
+** LEFT		27 [D
+**
+** DEL		^?
+** SUPPR	^[[3~
+** CTRL+D	^D
+*/
 
 /*
 ** Line Editor Structs
@@ -39,13 +53,20 @@ typedef	struct	s_line
   t_char	*current;
   t_char	*tail;
   int		size;
+  int		size_max;
 }		t_line;
+
+enum e_dir
+  {
+    RIGHT, LEFT
+  };
 
 /*
 ** Line Editor main functions
 */
 
 char	*line_editor();
+char   	*build_line(t_line *line);
 int	init_line_editor(struct termios *t, struct termios *t_save, t_line **line);
 int	init_term(struct termios *t, struct termios *t_save);
 char	*reset_term(char *cmd, struct termios *t_save);
@@ -56,6 +77,14 @@ int    	show_edit_line(t_line *line);
 */
 
 int	parser_line_editor(char *buffer, t_line **line);
+void	parse_delete(char *buffer, t_line **line, int size);
+int	parse_arrow(char *buffer, t_line **line, int size);
+
+/*
+** Parsing Interpretation
+*/
+
+void	move_cursor(int direction, t_line **line);
 
 
 /*
@@ -63,6 +92,7 @@ int	parser_line_editor(char *buffer, t_line **line);
 */
 
 int    	add_char(char c, t_line **line);
+int	delete_char(t_char *c, t_line **line);
 int	write_prompt_char(t_char *c);
 int	rev_mode(char *str);
 

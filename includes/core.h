@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Wed May 14 15:37:53 2014 Geoffrey Merran
+** Last update Thu May 15 21:09:05 2014 Geoffrey Merran
 */
 
 #ifndef		CORE_H_
@@ -15,6 +15,7 @@
 # include "my_list.h"
 # include "my.h"
 # include "line_editor.h"
+# include "conf.h"
 
 /* fonctions dans init.c */
 char		*init_unsetenv_var(int, char **);

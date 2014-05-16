@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 17:11:28 2014 Geoffrey Merran
-** Last update Wed May 14 19:31:40 2014 Geoffrey Merran
+** Last update Thu May 15 19:03:13 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -74,5 +74,7 @@ int		add_char(char c, t_line **line)
 	(*line)->head = new;
     }
   (*line)->size++;
+  if ((*line)->size >= (*line)->size_max)
+    (*line)->size_max = (*line)->size;
   return (0);
 }
