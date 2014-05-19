@@ -5,12 +5,12 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 17:11:28 2014 Geoffrey Merran
-** Last update Thu May 15 19:03:13 2014 Geoffrey Merran
+** Last update Tue May 20 00:09:30 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
 
-int	rev_mode(char *str)
+int	rev_mode(char c)
 {
   char	*rev;
   char	*rev_end;
@@ -19,7 +19,7 @@ int	rev_mode(char *str)
   rev_end = xtgetstr("se", NULL);
   if (rev == NULL || rev_end == NULL)
     return (-1);
-  my_printf("%s%s%s", rev, str, rev_end);
+  my_printf("%s%c%s", rev, c, rev_end);
   return (0);
 }
 
@@ -28,9 +28,9 @@ int	write_prompt_char(t_char *c)
   if (c->cursor == 1)
     {
       if (c->c == '\0')
-	return (rev_mode(" "));
+	return (rev_mode(' '));
       else
-	return (rev_mode(&c->c));
+	return (rev_mode(c->c));
     }
   else
     {

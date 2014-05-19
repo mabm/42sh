@@ -5,12 +5,12 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:12:40 2014 Geoffrey Merran
-** Last update Fri May 16 18:36:38 2014 Geoffrey Merran
+** Last update Tue May 20 00:09:08 2014 Geoffrey Merran
 */
 
 #ifndef LINE_EDITOR_
 # define LINE_EDITOR_
-# define PROMPT "\033[1;31mMABM[42sh] : \033[1;00m"
+# define PROMPT "\033[1;31mMABMM[42sh] : \033[1;00m"
 # define BUFFER_SIZE 20
 # include <string.h>
 # include <termios.h>
@@ -94,7 +94,7 @@ void	move_cursor(int direction, t_line **line);
 int    	add_char(char c, t_line **line);
 int	delete_char(t_char *c, t_line **line);
 int	write_prompt_char(t_char *c);
-int	rev_mode(char *str);
+int	rev_mode(char c);
 
 /*
 ** Termcaps
