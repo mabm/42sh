@@ -1,11 +1,11 @@
 /*
 ** get_next_line.c for get_next_line in /home/martel_c/rendu/get_next_line-2013-martel_c
-** 
+**
 ** Made by martelliere
 ** Login   <martel_c@epitech.net>
-** 
+**
 ** Started on  Mon Nov 18 13:44:17 2013 martelliere
-** Last update Wed Feb 19 14:18:35 2014 martelliere
+** Last update Mon May 19 18:43:15 2014 martelliere
 */
 
 #include "get_next_line.h"
@@ -23,7 +23,6 @@ int		my_strlen_line(char *str)
 char		*my_strcat(char *dest, char *src)
 {
   int		dest_length;
-  int		src_length;
   int		i;
 
   dest_length = my_strlen_line(dest);
@@ -51,10 +50,10 @@ void            *my_xmalloc_line(char *str, int size, int flag)
     {
       if (size == 0)
 	return (str);
-      new_str = my_xmalloc_line(str, (my_strlen_line(str) + size + 1) * 
+      new_str = my_xmalloc_line(str, (my_strlen_line(str) + size + 1) *
 				sizeof(char), 1);
       if (new_str == 0)
-	exit(1);
+	return (NULL);
       *new_str = '\0';
       my_strcat(new_str, str);
       *str = '\0';
@@ -89,12 +88,14 @@ char            *get_next_line(const int fd)
   char          *line;
   static char   tmp[NB_CHAR_READ];
 
-  line = my_xmalloc_line(line, NB_CHAR_READ * sizeof(char), 1);
+  line = my_alloc_init(NB_CHAR_READ * sizeof(char), 0);
   if (fd < 0 || line == 0)
     return (NULL);
   *line = '\0';
   my_strcat(line, tmp);
-  *tmp = '\0';
+  i = 0;
+  /* while (i < my_strlen_line(tmp)) */
+  /*   tmp[i++] = '\0'; */
   i = NB_CHAR_READ;
   while (check_line(line, tmp) != -1 && i == NB_CHAR_READ)
     {
@@ -106,6 +107,6 @@ char            *get_next_line(const int fd)
       my_strcat(line, tmp);
     }
   if (*line == '\0' && my_strlen_line(tmp) == 0 && i != NB_CHAR_READ)
-    return (0);
+    return (NULL);
   return (line);
 }

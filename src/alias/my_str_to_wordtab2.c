@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Thu Oct 10 18:46:29 2013 martelliere
-** Last update Mon May 12 17:01:52 2014 martelliere
+** Last update Thu May 22 07:00:58 2014 martelliere
 */
 
 #include "aliasing.h"
@@ -13,7 +13,7 @@
 int	char_is_alphanum2(char c)
 {
   if ((c >= ' ' && c <= '&') || (c >= '(' && c <= '<') ||
-      (c >= '>' && c <= '~'))
+      (c >= '>' && c <= '~') || c == ' ')
     {
       return (0);
     }

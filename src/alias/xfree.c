@@ -5,17 +5,18 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri Apr  4 14:11:56 2014 martelliere
-** Last update Mon May 12 16:31:23 2014 martelliere
+** Last update Thu May 22 06:15:52 2014 martelliere
 */
 
 #include "aliasing.h"
 
-void	xfree(char *s)
+int	xfree(void *s)
 {
   if (s == NULL)
     {
-      printf("42sh: %s doesn't exist. Can't free it.\n", s);
-      return ;
+      printf("42sh: Error on free.\n");
+      return (-1);
     }
   free(s);
+  return (0);
 }

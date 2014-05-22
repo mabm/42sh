@@ -1,70 +1,78 @@
 /*
-** manage_history.c for history 42sh in /home/martel_c/rendu/42sh
+** manage_histor.c for history 42sh in /home/martel_c/rendu/42sh
 **
 ** Made by martelliere
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:54:07 2014 martelliere
-** Last update Mon May 12 16:40:05 2014 martelliere
+** Last update Thu May 22 06:52:43 2014 martelliere
 */
 
 #include "aliasing.h"
 
-t_aliasl	*init_aliasing(t_aliasl *alias)
+void		display_alias(t_list *list)
 {
-  alias = my_xmalloc(sizeof(t_aliasl));
-  alias->first = NULL;
-  return (alias);
-}
-
-void		add_alias(t_aliasl *alias, char *name, char *content)
-{
-  t_alias	*new;
-  t_alias	*tmp;
-
-  if (alias == NULL || name == NULL || content == NULL)
-    return ;
-  new = my_xmalloc(sizeof(t_alias));
-  new->name = my_alloc_init((strlen(name) + 1) * sizeof(char), 0);
-  new->content = my_alloc_init((strlen(content) + 1) * sizeof(char), 0);
-  new->name = strcat(new->name, name);
-  new->content = strcat(new->content, content);
-  if (alias->first == NULL)
+  while (list != NULL)
     {
-      new->next = NULL;
-      alias->first = new;
-    }
-  else
-    {
-      tmp = alias->first;
-      new->next = tmp;
-      alias->first = new;
+      printf("alias %s='%s'\n",
+	     list->name,
+	     list->content);
+      list = list->next;
     }
 }
 
-char		*find_alias(t_aliasl *alias, char *name)
+char		*find_alias(t_list *list, char *name)
 {
-  char		*content;
-  t_alias	*tmp;
-
-  tmp = alias->first;
-  while (tmp != NULL)
+  if (name == NULL)
     {
-      if (strcmp(tmp->name, name) == 0)
-	return (tmp->content);
-      tmp = tmp->next;
+      printf("Error on alias name. Try again.\n");
+      return (NULL);
+    }
+  while (list != NULL)
+    {
+      if (list->name == NULL)
+	return (NULL);
+      if (strcmp(list->name, name) == 0)
+	return (list->content);
+      list = list->next;
     }
   return (NULL);
 }
 
-void		display_alias(t_aliasl *alias)
+int		delete_alias(t_list *list, char *name)
 {
-  t_alias	*tmp;
-
-  tmp = alias->first;
-  while (tmp != NULL)
+  if (name == NULL)
     {
-      printf("Name: %s\nContent:%s\n", tmp->name, tmp->content);
-      tmp = tmp->next;
+      printf("Error on alias name. Try again.\n");
+      return (-1);
     }
+  while (list != NULL)
+    {
+      if (list->name == NULL)
+	return (-1);
+      if (strcmp(list->name, name) == 0)
+	{
+	  remove_from_list(list);
+	  return (0);
+	}
+      list = list->next;
+    }
+  return (-1);
+}
+
+int		write_alias(t_list *list, char *path)
+{
+  int		fd;
+
+  fd = xopen(path, O_WRONLY | O_TRUNC | O_CREAT, 00644);
+  while (list != NULL)
+    {
+      xwrite(fd, "alias ", 6);
+      xwrite(fd, list->name, strlen(list->name));
+      xwrite(fd, "='", 2);
+      xwrite(fd, list->content, strlen(list->content));
+      xwrite(fd, "'\n", 2);
+      list = list->next;
+    }
+  return (0);
 }

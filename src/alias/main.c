@@ -5,18 +5,16 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Mon May 12 14:46:50 2014 martelliere
-** Last update Mon May 12 16:38:55 2014 martelliere
+** Last update Thu May 22 07:29:16 2014 martelliere
 */
 
 #include "aliasing.h"
 
 int		main()
 {
-  int		fd;
-  t_aliasl	*alias;
+  t_list	*list;
 
-  alias = init_aliasing(alias);
-  aliasing(alias);
-  display_alias(alias);
+  aliasing(list);
+  /*display_alias(alias);*/
   return (0);
 }
