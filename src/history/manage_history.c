@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:54:07 2014 martelliere
-** Last update Thu May 22 08:23:59 2014 martelliere
+** Last update Thu May 22 11:26:39 2014 Geoffrey Merran
 */
 
 #include "history.h"
@@ -43,7 +43,7 @@ int	save_history(t_list *list, char *path)
 
   if (list == NULL)
     {
-      printf("42sh: cannot find history to save.\n");
+      fprintf(stderr, "42sh: cannot find history to save.\n");
       return (-1);
     }
   fd = xopen(path, O_WRONLY | O_CREAT | O_APPEND, 00600);
@@ -64,13 +64,11 @@ int	get_history(t_list *list, char *path)
   char	*s;
 
   if (access(path, F_OK) == -1)
-    {
-      printf("42sh: no history file saved. Restarting an empty history.\n");
-      return (-1);
-    }
+    return (-1);
   if (access(path, R_OK) == -1)
     {
-      printf("42sh: can't read history file. Check your rights/session.\n");
+      fprintf(stderr,
+	      "42sh: can't read history file. Check your rights/session.\n");
       return (-1);
     }
   fd = xopen(path, O_RDONLY);

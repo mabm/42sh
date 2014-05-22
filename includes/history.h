@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:50:11 2014 martelliere
-** Last update Sat May 10 16:32:05 2014 martelliere
+** Last update Thu May 22 11:14:58 2014 Geoffrey Merran
 */
 
 #ifndef		HISTORY_H_
@@ -17,24 +17,14 @@
 # include	<sys/types.h>
 # include	<sys/stat.h>
 # include	<fcntl.h>
-# include	"get_next_line.h"
+# include	"gnl.h"
+# include	"my.h"
 
-typedef	struct	s_cmd
-{
-  char		*name;
-  struct s_cmd	*next;
-  struct s_cmd	*prev;
-}		t_cmd;
-
-typedef struct	s_cmdl
-{
-  t_cmd		*first;
-}		t_cmdl;
-
-void	add_cmd(t_cmdl *history, char *cmd);
-void	save_history(t_cmdl *history);
-void	*my_xmalloc(int size);
+void	history();
+int	delete_cmd(t_list *list, char *name);
+int	save_history(t_list *list, char *path);
+int	get_history(t_list *list, char *path);
 void	*my_alloc_init(int size, char c);
-t_cmdl	*init_history(t_cmdl *history);
+char	*get_user_path();
 
 #endif		/* HISTORY_H_ */

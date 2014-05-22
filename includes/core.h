@@ -5,14 +5,14 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Thu May 15 21:09:05 2014 Geoffrey Merran
+** Last update Thu May 22 13:03:46 2014 Geoffrey Merran
 */
 
 #ifndef		CORE_H_
 # define	CORE_H_
 
+# include "mysh.h"
 # include "main.h"
-# include "my_list.h"
 # include "my.h"
 # include "line_editor.h"
 # include "conf.h"

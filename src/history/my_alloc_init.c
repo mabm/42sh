@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Thu Nov 14 12:52:56 2013 martelliere
-** Last update Fri May  9 16:22:06 2014 martelliere
+** Last update Thu May 22 11:35:08 2014 Geoffrey Merran
 */
 
 #include "history.h"
@@ -17,6 +17,8 @@ void    *my_alloc_init(int size, char c)
 
   i = 0;
   tab = my_xmalloc(size);
+  if (tab == NULL)
+    return (NULL);
   while (i < size)
     {
       tab[i] = c;

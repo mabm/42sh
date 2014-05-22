@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:49:56 2014 martelliere
-** Last update Thu May 22 08:22:48 2014 martelliere
+** Last update Thu May 22 11:35:17 2014 Geoffrey Merran
 */
 
 #include "history.h"
@@ -17,7 +17,7 @@ char    *get_user_path()
 
   if ((user = getenv("USER")) == NULL)
     {
-      printf("42sh: can't get username to access history.\n");
+      fprintf(stderr, "42sh: can't get username to access history.\n");
       return (NULL);
     }
   path = my_alloc_init((22 + strlen(user)) * sizeof(char), 0);
