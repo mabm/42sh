@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Thu May 22 14:33:32 2014 Geoffrey Merran
+** Last update Thu May 22 23:48:24 2014 Geoffrey Merran
 */
 
 #ifndef		CORE_H_
@@ -17,6 +17,7 @@
 # include "my.h"
 # include "line_editor.h"
 # include "conf.h"
+# include "free_shell.h"
 
 /*
 ** Print tabs

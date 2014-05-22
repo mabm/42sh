@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Thu May 22 14:16:45 2014 Geoffrey Merran
+** Last update Thu May 22 23:50:47 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -31,5 +31,7 @@ int		main(int ac, char **av, char **env)
     return (EXIT_FAILURE);
   if (prompt(shell) == -1)
     return (EXIT_FAILURE);
+  save_history(shell->history);
+  free_shell(shell);
   return (EXIT_SUCCESS);
 }

@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Fri Oct 25 13:42:59 2013 Jeremy Mediavilla
-** Last update Fri Dec 13 10:25:10 2013 Jeremy Mediavilla
+** Last update Thu May 22 23:56:06 2014 Geoffrey Merran
 */
 
 #ifndef MY_LIST_H
@@ -14,7 +14,6 @@
 typedef		struct s_list
 {
   char			*data;
-
   struct s_list		*next;
   struct s_list		*prev;
 }			t_list;

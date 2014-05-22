@@ -5,7 +5,7 @@
 ## Login   <nicolas@epitech.net>
 ## 
 ## Started on  Mon Apr 28 13:47:00 2014 Nicolas Ades
-## Last update Thu May 22 14:32:43 2014 Geoffrey Merran
+## Last update Thu May 22 23:49:15 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
@@ -24,6 +24,7 @@ D_BUILTIN	=	src/builtin/
 D_HISTORY	=	src/history/
 D_LINE_EDITOR	=	src/line_editor/
 D_CONF		=	src/conf/
+D_FREE		=	src/free/
 
 SRC		=	$(D_CORE)main.c				\
 			$(D_CORE)prompt.c			\
@@ -46,6 +47,7 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_HISTORY)my_alloc_init.c		\
 			$(D_HISTORY)xfunction.c			\
 			$(D_CONF)conf.c				\
+			$(D_FREE)free_shell.c			\
 
 
 OBJ		=	$(SRC:.c=.o)

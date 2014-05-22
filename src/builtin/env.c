@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:45:44 2014 Jeremy Mediavilla
-** Last update Thu May  8 16:57:40 2014 Jeremy Mediavilla
+** Last update Fri May 23 00:00:16 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -52,24 +52,30 @@ char            *get_env_var(char *var, int len)
 
 char            *check_env_var(t_list *list, char *name, int len)
 {
-  while (list != NULL)
+  t_list	*tmp;
+
+  tmp = list;
+  while (tmp != NULL)
     {
-      if (list->data != NULL)
-        if (strncmp(list->data, name, len) == 0)
-	  return (get_env_var(list->data, len));
-      list = list->next;
+      if (tmp->data != NULL)
+        if (strncmp(tmp->data, name, len) == 0)
+	  return (get_env_var(tmp->data, len));
+      tmp = tmp->next;
     }
   return ("\0");
 }
 
 void		aff_env(t_list *list, char *cmd)
 {
-  (void)cmd;
-  while (list != NULL)
+  t_list	*tmp;
+
+  (void) cmd;
+  tmp = list;
+  while (tmp != NULL)
     {
-      if (list->data != NULL)
-	printf("%s\n", list->data);
-      list = list->next;
+      if (tmp->data != NULL)
+	printf("%s\n", tmp->data);
+      tmp = tmp->next;
     }
 }
 

@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:49:56 2014 martelliere
-** Last update Thu May 22 15:22:05 2014 Geoffrey Merran
+** Last update Fri May 23 00:11:45 2014 Geoffrey Merran
 */
 
 #include "history.h"
@@ -26,18 +26,36 @@ char    *get_user_path()
   strcat(path, "/home/");
   strcat(path, user);
   strcat(path, "/");
-  strcat(path, ".mabmm_history");
+  strcat(path, ".bash_history");
   return (path);
 }
 
-t_history      *init_history()
+void		show_history(t_history *history)
+{
+  t_hlist	*tmp;
+  int		i;
+
+  tmp = history->head;
+  i = 1;
+  while (tmp)
+    {
+      printf("%d %s\n", i, tmp->name);
+      i++;
+      tmp = tmp->next;
+    }
+}
+
+t_history	*init_history()
 {
   t_history	*history;
 
   history = my_xmalloc(sizeof(*history));
   if ((history->path = get_user_path()) == NULL)
     return (NULL);
-  get_history(history->list, history->path);
+  history->head = NULL;
   history->current = NULL;
+  history->tail = NULL;
+  history->size = 0;
+  get_history(history);
   return (history);
 }

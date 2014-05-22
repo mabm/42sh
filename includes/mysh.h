@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 22 11:35:41 2014 Geoffrey Merran
-** Last update Thu May 22 15:37:37 2014 Geoffrey Merran
+** Last update Fri May 23 00:08:39 2014 Geoffrey Merran
 */
 
 #ifndef MYSH_
@@ -25,6 +25,7 @@ typedef struct	s_history
   t_hlist	*head;
   t_hlist	*current;
   t_hlist	*tail;
+  int		size;
   char		*path;
 }		t_history;
 

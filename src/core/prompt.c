@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Thu May 22 15:24:33 2014 Geoffrey Merran
+** Last update Fri May 23 00:13:52 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -47,8 +47,12 @@ int		prompt(t_shell *shell)
   if (cmd != NULL)
     {
       if (strncmp(cmd, "exit", 4) == 0)
-	return (0);
+	{
+	  free(cmd);
+	  return (0);
+	}
       check_builtin(shell->env, cmd);
+      add_cmd(shell->history, cmd);
       free(cmd);
     }
   prompt(shell);
