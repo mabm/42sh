@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed Nov  6 00:17:51 2013 Geoffrey Merran
-** Last update Tue Apr  8 12:47:46 2014 Geoffrey Merran
+** Last update Thu May 22 13:39:06 2014 Geoffrey Merran
 */
 
 #ifndef MY_PRINTF_
@@ -37,6 +37,11 @@ int		flag_b(va_list ap);
 int		flag_u(va_list ap);
 int		flag_p(va_list ap);
 int		flag_S(va_list ap);
+
+/*
+** %t imprime un char ** (utile pour debug)
+*/
+
 int		flag_t(va_list ap);
 int		flag_n(va_list ap, int nb_char);
 int		flag_percent();

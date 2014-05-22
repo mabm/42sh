@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Thu May 15 20:29:28 2014 Geoffrey Merran
+** Last update Thu May 22 15:24:33 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -39,7 +39,7 @@ void            check_builtin(t_list *list, char *cmd)
     fprintf(stderr, "%s : n'est pas une commande\n", cmd);
 }
 
-int		prompt(t_list *env)
+int		prompt(t_shell *shell)
 {
   char		*cmd;
 
@@ -48,9 +48,9 @@ int		prompt(t_list *env)
     {
       if (strncmp(cmd, "exit", 4) == 0)
 	return (0);
-      check_builtin(env, cmd);
+      check_builtin(shell->env, cmd);
       free(cmd);
     }
-  prompt(env);
+  prompt(shell);
   return (0);
 }

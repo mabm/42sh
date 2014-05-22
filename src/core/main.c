@@ -5,14 +5,18 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Thu May 22 13:07:55 2014 Geoffrey Merran
+** Last update Thu May 22 14:16:45 2014 Geoffrey Merran
 */
 
 #include "core.h"
 
-int		loading_shell(t_shell **shell)
+int		loading_shell(t_shell **shell, char **env)
 {
   *shell = my_xmalloc(sizeof(**shell));
+  (*shell)->env = create_list(NULL);
+  get_all_env((*shell)->env, env);
+  /* (*shell)->online = init_online(); */
+  (*shell)->history = init_history();
   (*shell)->prompt = 1;
   return (xtgetent(NULL, "xterm"));
 }
@@ -23,10 +27,9 @@ int		main(int ac, char **av, char **env)
 
   (void) ac;
   (void) av;
-  if (loading_shell(&shell) == -1)
+  if (loading_shell(&shell, env) == -1)
     return (EXIT_FAILURE);
-  get_all_env(list, env);
-  if (prompt(list) == -1)
+  if (prompt(shell) == -1)
     return (EXIT_FAILURE);
   return (EXIT_SUCCESS);
 }

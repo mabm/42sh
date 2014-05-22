@@ -5,14 +5,14 @@
 ** Login   <mediav_j@epitech.net>
 **
 ** Started on  Fri Oct 25 13:42:22 2013 Jeremy Mediavilla
-** Last update Thu May 22 13:10:30 2014 Geoffrey Merran
+** Last update Thu May 22 14:44:07 2014 Geoffrey Merran
 */
 
-#include "history-.h"
+#include "history.h"
 
-t_list		*create_list(char *name, char *date)
+t_hlist		*create_hlist(char *name, char *date)
 {
-  t_list	*list;
+  t_hlist	*list;
 
   list = my_xmalloc(sizeof(*list));
   list->next = NULL;
@@ -24,11 +24,11 @@ t_list		*create_list(char *name, char *date)
   return (list);
 }
 
-void		add_after(t_list *list, char *name, char *date)
+void		add_afterh(t_hlist *list, char *name, char *date)
 {
-  t_list	*ptr;
+  t_hlist	*ptr;
 
-  ptr = create_list(name, content);
+  ptr = create_hlist(name, date);
   if (list->next != NULL)
     {
       ptr->next = list->next;
@@ -38,11 +38,11 @@ void		add_after(t_list *list, char *name, char *date)
   ptr->prev = list;
 }
 
-void		add_before(t_list *list, char *name, char *date)
+void		add_beforeh(t_hlist *list, char *name, char *date)
 {
-  t_list	*ptr;
+  t_hlist	*ptr;
 
-  ptr = create_list(name, content);
+  ptr = create_hlist(name, date);
   if (list->prev != NULL)
     {
       ptr->prev = list->prev;
@@ -52,7 +52,7 @@ void		add_before(t_list *list, char *name, char *date)
   ptr->next = list;
 }
 
-void		remove_from_list(t_list *list)
+void		remove_from_hlist(t_hlist *list)
 {
   if (!(list->prev == NULL && list->next == NULL))
     {
@@ -69,9 +69,9 @@ void		remove_from_list(t_list *list)
     free(list);
 }
 
-void		add_to_end(t_list *list, char *name, char *date)
+void		add_to_endh(t_hlist *list, char *name, char *date)
 {
   while (list->next != NULL)
     list = list->next;
-  add_after(list, name, content);
+  add_afterh(list, name, date);
 }

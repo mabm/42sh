@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:49:56 2014 martelliere
-** Last update Thu May 22 11:35:17 2014 Geoffrey Merran
+** Last update Thu May 22 15:22:05 2014 Geoffrey Merran
 */
 
 #include "history.h"
@@ -21,6 +21,8 @@ char    *get_user_path()
       return (NULL);
     }
   path = my_alloc_init((22 + strlen(user)) * sizeof(char), 0);
+  if (path == NULL)
+    return (NULL);
   strcat(path, "/home/");
   strcat(path, user);
   strcat(path, "/");
@@ -28,12 +30,14 @@ char    *get_user_path()
   return (path);
 }
 
-void		history()
+t_history      *init_history()
 {
-  t_list	*list;
-  char		*path;
+  t_history	*history;
 
-  path = get_user_path();
-  get_history(list, path);
-  save_history(list, path);
+  history = my_xmalloc(sizeof(*history));
+  if ((history->path = get_user_path()) == NULL)
+    return (NULL);
+  get_history(history->list, history->path);
+  history->current = NULL;
+  return (history);
 }

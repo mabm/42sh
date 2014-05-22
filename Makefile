@@ -5,7 +5,7 @@
 ## Login   <nicolas@epitech.net>
 ## 
 ## Started on  Mon Apr 28 13:47:00 2014 Nicolas Ades
-## Last update Thu May 15 21:04:12 2014 Geoffrey Merran
+## Last update Thu May 22 14:32:43 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
@@ -21,6 +21,7 @@ CFLAGS		+=	-W -Wall -Wextra -pedantic -ansi -g3 -I$(IFLAGS)
 D_CORE		=	src/core/
 D_ENV		=	src/env/
 D_BUILTIN	=	src/builtin/
+D_HISTORY	=	src/history/
 D_LINE_EDITOR	=	src/line_editor/
 D_CONF		=	src/conf/
 
@@ -39,6 +40,11 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_LINE_EDITOR)char2.c			\
 			$(D_LINE_EDITOR)parser_line_editor.c	\
 			$(D_LINE_EDITOR)build_line.c		\
+			$(D_HISTORY)histo_list.c		\
+			$(D_HISTORY)history.c			\
+			$(D_HISTORY)manage_history.c		\
+			$(D_HISTORY)my_alloc_init.c		\
+			$(D_HISTORY)xfunction.c			\
 			$(D_CONF)conf.c				\
 
 
