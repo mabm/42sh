@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:49:56 2014 martelliere
-** Last update Fri May 23 02:17:14 2014 Geoffrey Merran
+** Last update Fri May 23 14:15:52 2014 Joris Bertomeu
 */
 
 #include "history.h"
@@ -45,7 +45,7 @@ void		show_history(t_history *history)
     }
 }
 
-t_history	*init_history()
+t_history	*init_history(t_shell *shell)
 {
   t_history	*history;
 
@@ -56,6 +56,6 @@ t_history	*init_history()
   history->current = NULL;
   history->tail = NULL;
   history->size = 0;
-  get_history(history);
+  get_history(history, shell);
   return (history);
 }

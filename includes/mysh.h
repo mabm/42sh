@@ -5,11 +5,12 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 22 11:35:41 2014 Geoffrey Merran
-** Last update Fri May 23 00:08:39 2014 Geoffrey Merran
+** Last update Fri May 23 15:49:58 2014 Joris Bertomeu
 */
 
 #ifndef MYSH_
 # define MYSH_
+# include <string.h>
 # include "my_list.h"
 
 typedef struct		s_hlist
@@ -35,7 +36,9 @@ typedef	struct	s_online
   char		*pseudo;
   int		is_history;
   int		is_alias;
+  int		num_hist;
   int		is_prompt;
+  char		**history;
 }		t_online;
 
 typedef struct	s_shell

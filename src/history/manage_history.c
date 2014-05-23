@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:54:07 2014 martelliere
-** Last update Fri May 23 00:09:13 2014 Geoffrey Merran
+** Last update Fri May 23 14:57:02 2014 Joris Bertomeu
 */
 
 #include "history.h"
@@ -26,7 +26,7 @@ int     add_cmd(t_history *history, char *name)
   return (0);
 }
 
-int		save_history(t_history *history)
+int		save_history(t_history *history, t_shell *shell)
 {
   int		fd;
   int		i;
@@ -43,6 +43,8 @@ int		save_history(t_history *history)
     {
       if (tmp->name != NULL)
 	{
+	  if (shell->online->active == 1)
+	    add_cmd_history_mysql(shell, tmp->name);
 	  write(fd, tmp->name, strlen(tmp->name));
 	  write(fd, "\n", 1);
 	}
@@ -52,10 +54,33 @@ int		save_history(t_history *history)
   return (0);
 }
 
-int	get_history(t_history *history)
+void	choice_load_mode(int fd, t_history *history, t_shell *shell)
+{
+  char	*s;
+  int	i;
+
+  i = 0;
+  if (shell->online->active == 0)
+    while ((s = get_next_line(fd)) != NULL)
+      {
+	add_cmd(history, s);
+	free(s);
+      }
+  else
+    {
+      while (shell->online->history[i])
+	{
+	  add_cmd(history, shell->online->history[i]);
+	  free(shell->online->history[i]);
+	  i++;
+	}
+      free(shell->online->history);
+    }
+}
+
+int	get_history(t_history *history, t_shell *shell)
 {
   int	fd;
-  char	*s;
 
   if (history->path == NULL)
     return (-1);
@@ -71,11 +96,7 @@ int	get_history(t_history *history)
     }
   if ((fd = open(history->path, O_RDONLY)) == -1)
     return (-1);
-  while ((s = get_next_line(fd)) != NULL)
-    {
-      add_cmd(history, s);
-      free(s);
-    }
+  choice_load_mode(fd, history, shell);
   xclose(fd);
   return (0);
 }
