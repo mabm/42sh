@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Sat May 24 00:52:08 2014 Geoffrey Merran
-## Last update Sat May 24 00:52:09 2014 Geoffrey Merran
+## Last update Fri May 23 10:42:11 2014 Nicolas Ades
 ##
 
 CC		=	gcc
@@ -16,7 +16,7 @@ NAME		=	42sh
 
 IFLAGS		=	./includes/
 
-CFLAGS		+=	-W -Wextra -Wall -g3 -I$(IFLAGS) -I./usr/local/mysql/include
+CFLAGS		+=	-W -Wextra -Wall -g3 -I$(IFLAGS) -I./mysql/include
 
 D_CORE		=	src/core/
 D_ENV		=	src/env/

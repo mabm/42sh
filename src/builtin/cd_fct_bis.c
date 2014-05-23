@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed May 21 08:37:45 2014 Nicolas Ades
-** Last update Fri May 23 09:56:17 2014 Nicolas Ades
+** Last update Fri May 23 10:19:21 2014 Nicolas Ades
 */
 
 int		create_oldpwd(t_list *list, char *new)
@@ -54,7 +54,8 @@ int		epur_pwd(t_list *list, char *path)
   char		*tmp;
   char		*tmp2;
 
-  tmp = get_env_var("PWD=", 4);
+  if (tmp2 = get_env_var("PWD=", 4) == NULL)
+    return (-1);
   if (tmp = my_xmalloc((strlen(path) + 5)) == NULL)
     return (-1);
   memset(tmp, 0, (strlen(path) + 5));
