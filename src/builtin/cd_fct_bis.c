@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed May 21 08:37:45 2014 Nicolas Ades
-** Last update Fri May 23 12:38:27 2014 Nicolas Ades
+** Last update Fri May 23 14:37:06 2014 Nicolas Ades
 */
 
 int		create_oldpwd(t_list *list, char *new)
@@ -60,7 +60,7 @@ char		*concat_pwd(char *pwd)
   memset(strlen(pwd) *sizeof(*new));
   while (pwd[i] != '\0')
     {
-      
+      /*Petit algo pour rendre le pwd propre apres des ../ bonne nuit mon chou  */
       i++;
     }
   return (new);
