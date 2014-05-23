@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:13:23 2014 Geoffrey Merran
-** Last update Fri May 23 02:41:45 2014 Geoffrey Merran
+** Last update Fri May 23 03:22:47 2014 Geoffrey Merran
 */
 
 #define _BSD_SOURCE
@@ -30,7 +30,8 @@ int	init_term(struct termios *t, struct termios *t_save)
 
 char	*reset_term(char *cmd, struct termios *t_save)
 {
-  my_printf("\r%s%s \n", PROMPT, cmd);
+  if (cmd != NULL)
+    my_printf("\r%s%s \n", PROMPT, cmd);
   if (xtcsetattr(0, 0, t_save) == -1)
     return (NULL);
   if (change_cursor(1) == -1)
