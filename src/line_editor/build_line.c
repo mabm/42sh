@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 15 19:46:48 2014 Geoffrey Merran
-** Last update Fri May 23 02:00:40 2014 Geoffrey Merran
+** Last update Fri May 23 03:06:55 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -35,10 +35,15 @@ void		delete_line_edit(t_line *line)
       line->head = tmp;
       i++;
     }
-  line->size_max = i + 1;
-  line->size = 0;
-  line->current = line->head;
-  line->current->cursor = 1;
+  line->size_max = i + 2;
+  line->size = 1;
+  if (line->head != NULL)
+    {
+      line->current = line->head;
+      line->current->prev = NULL;
+      line->tail = line->current;
+      line->current->cursor = 1;
+    }
 }
 
 char		*build_line(t_line *line)

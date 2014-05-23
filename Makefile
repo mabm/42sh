@@ -5,14 +5,14 @@
 ## Login   <nicolas@epitech.net>
 ## 
 ## Started on  Mon Apr 28 13:47:00 2014 Nicolas Ades
-## Last update Fri May 23 00:54:44 2014 Geoffrey Merran
+## Last update Fri May 23 03:16:02 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
 
 RM		=	rm -f
 
-NAME		=	mysh
+NAME		=	42sh
 
 IFLAGS		=	./includes/
 

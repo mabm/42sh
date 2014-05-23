@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Fri May 23 00:44:06 2014 Geoffrey Merran
-** Last update Fri May 23 02:24:57 2014 Geoffrey Merran
+** Last update Fri May 23 02:50:06 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -53,6 +53,8 @@ int	move_history_down(t_line **line, t_shell *shell)
 	  shell->history->current = shell->history->current->next;
 	  return (load_history_line(shell->history->current, line));
 	}
+      else
+	shell->history->current = NULL;
     }
   return (0);
 }
