@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Sat May 24 00:52:08 2014 Geoffrey Merran
-## Last update Sat May 24 00:52:09 2014 Geoffrey Merran
+## Last update Sat May 24 01:14:04 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
@@ -16,7 +16,7 @@ NAME		=	42sh
 
 IFLAGS		=	./includes/
 
-CFLAGS		+=	-W -Wextra -Wall -g3 -I$(IFLAGS) -I./usr/local/mysql/include
+CFLAGS		+=	-W -Wextra -Wall -g3 -I$(IFLAGS) -I./mysql/include
 
 D_CORE		=	src/core/
 D_ENV		=	src/env/
@@ -56,7 +56,7 @@ SRC		=	$(D_CORE)main.c				\
 OBJ		=	$(SRC:.c=.o)
 
 LIB		=	./libmy/
-L_NAME		=	-lmy -lncurses -lmysql
+L_NAME		=	-lmy -lncurses -lmysqlclient
 
 all		:	libs $(NAME)
 
