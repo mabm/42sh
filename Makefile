@@ -1,13 +1,3 @@
-##
-## Makefile for  in /home/nicolas/Workspace/42sh
-## 
-## Made by Nicolas Ades
-## Login   <nicolas@epitech.net>
-## 
-## Started on  Mon Apr 28 13:47:00 2014 Nicolas Ades
-## Last update Fri May 23 03:16:02 2014 Geoffrey Merran
-##
-
 CC		=	gcc
 
 RM		=	rm -f
@@ -16,7 +6,7 @@ NAME		=	42sh
 
 IFLAGS		=	./includes/
 
-CFLAGS		+=	-W -Wall -Wextra -pedantic -ansi -g3 -I$(IFLAGS)
+CFLAGS		+=	-g3 -I$(IFLAGS) -I./mysql/include
 
 D_CORE		=	src/core/
 D_ENV		=	src/env/
@@ -25,6 +15,7 @@ D_HISTORY	=	src/history/
 D_LINE_EDITOR	=	src/line_editor/
 D_CONF		=	src/conf/
 D_FREE		=	src/free/
+D_ONLINE	=	src/online/
 
 SRC		=	$(D_CORE)main.c				\
 			$(D_CORE)prompt.c			\
@@ -49,6 +40,7 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_HISTORY)xfunction.c			\
 			$(D_CONF)conf.c				\
 			$(D_FREE)free_shell.c			\
+			$(D_ONLINE)curse.c			\
 
 
 OBJ		=	$(SRC:.c=.o)
@@ -59,7 +51,7 @@ L_NAME		=	-lncurses -lmy
 all		:	libs $(NAME)
 
 $(NAME)		:	$(OBJ)
-			$(CC) -o $(NAME) $(OBJ) $(L_NAME) -L$(LIB)
+			$(CC) -o $(NAME) `mysql_config --libs` $(OBJ) $(L_NAME) -L$(LIB)
 
 libs		:
 			make -C $(LIB)
