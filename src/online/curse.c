@@ -97,11 +97,12 @@ int		fetch_history(char *user, int i, int flag, t_online *sys)
 	if (strcmp(row[2], user) == 0)
 	  {
 	    printf("\033[33mFetching history command %d\t\t\t[OK]\033[00m\n", i);
-	    sys->history[i] = malloc(strlen(row[3]) * sizeof(char));
+	    sys->history[i] = malloc((strlen(row[3]) + 1) * sizeof(char));
 	    strcpy(sys->history[i], row[3]);
 	    flag = 1;
 	    i++;
 	  }
+      sys->num_hist = i;
       sys->history[i] = NULL;
       mysql_close(&mysql);
     }
@@ -155,16 +156,47 @@ void	modify_active(char *user, char *active)
       mysql_query(&mysql, requete);
       mysql_close(&mysql);
       free(requete);
-      printf("\033[36mSet %s active .. \t\t\t[OK]\033[00m\n", user);
+      if (active[0] == '1')
+	printf("\033[36mSet %s active .. \t\t\t[OK]\033[00m\n", user);
+      else
+	printf("\033[36mSet %s inactive .. \t\t\t[OK]\033[00m\n", user);
     }
   else
     printf("\033[31mError connection server\t\t[ERROR]\033[00m\n");
 }
 
-void	add_cmd_history_mysql(t_shell *shell, char *cmd)
+void		add_cmd_history_mysql(t_shell *shell, char *cmd)
 {
-  MYSQL	mysql;
-  char	*requete;
+  MYSQL		mysql;
+  char		*requete;
+  static int	i = 0;
+
+  if (i >= shell->online->num_hist)
+    {
+      mysql_init(&mysql);
+      mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
+      if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
+			    "epitech42", "labelec_epibot", 0, NULL, 0))
+	{
+	  requete = malloc(150 * sizeof(char));
+	  sprintf(requete, "INSERT INTO history(id, id_private,\
+ user, command, date) VALUES('', '0', '%s', '%s', '00')",
+		  shell->online->pseudo, cmd);
+	  mysql_query(&mysql, requete);
+	  mysql_close(&mysql);
+	  free(requete);
+	  printf("\033[36mHistory saved online .. \t\t\t[OK]\033[00m\n");
+	}
+      else
+	printf("\033[31mError connection server\t\t[ERROR]\033[00m\n");
+    }
+  i++;
+}
+
+void		add_cmd_history_mysql_manuel(char *cmd, char *pseudo)
+{
+  MYSQL		mysql;
+  char		*requete;
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
@@ -173,8 +205,8 @@ void	add_cmd_history_mysql(t_shell *shell, char *cmd)
     {
       requete = malloc(150 * sizeof(char));
       sprintf(requete, "INSERT INTO history(id, id_private,\
- user, command, date) VALUES('', '0', '%s', '%s', '00')",
-	      shell->online->pseudo, cmd);
+ user, command, date) VALUES('', '0', '%s', '%s', '%s')",
+	      pseudo, cmd, return_date());
       mysql_query(&mysql, requete);
       mysql_close(&mysql);
       free(requete);
@@ -235,6 +267,7 @@ void	add_user(char *user, char *pass)
       mysql_query(&mysql, requete);
       mysql_close(&mysql);
       free(requete);
+      add_cmd_history_mysql_manuel("", user);
       printf("\033[H\033[2J");
       printf("\033[33mYour account have been created as\
  %s\t\t[OK]\033[00m\n", user);
