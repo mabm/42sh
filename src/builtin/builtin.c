@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:12 2014 Jeremy Mediavilla
-** Last update Tue May 13 15:44:27 2014 Nicolas Ades
+** Last update Fri May 23 09:38:05 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -89,4 +89,10 @@ void		my_cd(t_list *list, char *cmd)
   /*     home = get_env_var("HOME=", 5); */
   /*   } */    
   printf("cd OK\n");
+}
+
+void		my_echo(t_list *list, char *cmd)
+{
+  (void)list;
+  printf("%s\n", cmd);
 }

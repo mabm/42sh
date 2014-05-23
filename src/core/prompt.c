@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Fri May 23 00:47:16 2014 Geoffrey Merran
+** Last update Fri May 23 09:39:58 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -13,20 +13,22 @@
 
 void            check_builtin(t_list *list, char *cmd)
 {
-  char          *mtab[4];
-  void          (*which_builtin[4])(t_list *, char *);
+  char          *mtab[5];
+  void          (*which_builtin[5])(t_list *, char *);
   int           i;
 
   mtab[0] = "env";
   mtab[1] = "unsetenv";
   mtab[2] = "setenv";
   mtab[3] = "cd";
+  mtab[4] = "echo";
   which_builtin[0] = &aff_env;
   which_builtin[1] = &my_unsetenv;
   which_builtin[2] = &my_setenv;
   which_builtin[3] = &my_cd;
+  which_builtin[4] = &my_echo;
   i = 0;
-  while (i < 4)
+  while (i < 5)
     {
       if (strncmp(cmd, mtab[i], strlen(mtab[i])) == 0)
         {
@@ -35,7 +37,7 @@ void            check_builtin(t_list *list, char *cmd)
         }
       i++;
     }
-  if (i == 4)
+  if (i == 5)
     fprintf(stderr, "%s : n'est pas une commande\n", cmd);
 }
 

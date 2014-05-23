@@ -374,7 +374,7 @@ void	aff_pres()
   printf("|   42SH MODE ?  |\n");
   printf("| 'y' -> Online  |\n");
   printf("| 'n' -> Offline |\n");
-  printf("o----------------o\n\n");
+  printf("o----By_mabm-----o\n\n");
 }
 
 void	init_struct(t_online *sys)
