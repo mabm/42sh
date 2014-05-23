@@ -51,7 +51,7 @@ L_NAME		=	-lncurses -lmy
 all		:	libs $(NAME)
 
 $(NAME)		:	$(OBJ)
-			$(CC) -o $(NAME) `mysql_config --libs` $(OBJ) $(L_NAME) -L$(LIB)
+			$(CC) -o $(NAME) -L./mysql/lib -lmysqlclient $(OBJ) $(L_NAME) -L$(LIB)
 
 libs		:
 			make -C $(LIB)
