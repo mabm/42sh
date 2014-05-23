@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:54:07 2014 martelliere
-** Last update Fri May 23 14:26:39 2014 Joris Bertomeu
+** Last update Fri May 23 14:57:02 2014 Joris Bertomeu
 */
 
 #include "history.h"
@@ -26,7 +26,7 @@ int     add_cmd(t_history *history, char *name)
   return (0);
 }
 
-int		save_history(t_history *history)
+int		save_history(t_history *history, t_shell *shell)
 {
   int		fd;
   int		i;
@@ -43,6 +43,8 @@ int		save_history(t_history *history)
     {
       if (tmp->name != NULL)
 	{
+	  if (shell->online->active == 1)
+	    add_cmd_history_mysql(shell, tmp->name);
 	  write(fd, tmp->name, strlen(tmp->name));
 	  write(fd, "\n", 1);
 	}

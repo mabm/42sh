@@ -161,6 +161,29 @@ void	modify_active(char *user, char *active)
     printf("\033[31mError connection server\t\t[ERROR]\033[00m\n");
 }
 
+void	add_cmd_history_mysql(t_shell *shell, char *cmd)
+{
+  MYSQL	mysql;
+  char	*requete;
+
+  mysql_init(&mysql);
+  mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
+  if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
+			"epitech42", "labelec_epibot", 0, NULL, 0))
+    {
+      requete = malloc(150 * sizeof(char));
+      sprintf(requete, "INSERT INTO history(id, id_private,\
+ user, command, date) VALUES('', '0', '%s', '%s', '00')",
+	      shell->online->pseudo, cmd);
+      mysql_query(&mysql, requete);
+      mysql_close(&mysql);
+      free(requete);
+      printf("\033[36mHistory saved online .. \t\t\t[OK]\033[00m\n");
+    }
+  else
+    printf("\033[31mError connection server\t\t[ERROR]\033[00m\n");
+}
+
 void	modify_sys(t_online *sys, char *user)
 {
   sys->active = 1;
@@ -238,7 +261,7 @@ int	check_user_exist(char *user, int flag)
       result = mysql_store_result(&mysql);
       num_champs = mysql_num_fields(result);
       while ((row = mysql_fetch_row(result)))
-	if (strcmp(row[1], user) == 0 && strcmp(user) == 0)
+	if (strcmp(row[1], user) == 0)
 	  {
 	    printf("\033[H\033[2J");
 	    printf("\033[31mAn account\

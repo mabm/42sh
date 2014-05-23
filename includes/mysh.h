@@ -5,11 +5,12 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 22 11:35:41 2014 Geoffrey Merran
-** Last update Fri May 23 14:27:10 2014 Joris Bertomeu
+** Last update Fri May 23 14:45:39 2014 Joris Bertomeu
 */
 
 #ifndef MYSH_
 # define MYSH_
+# include <string.h>
 # include "my_list.h"
 
 typedef struct		s_hlist
