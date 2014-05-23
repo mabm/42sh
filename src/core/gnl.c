@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Mon Apr 21 19:12:30 2014 Joris Bertomeu
-** Last update Thu Apr 24 16:59:11 2014 Geoffrey Merran
+** Last update Fri May 23 23:19:33 2014 Geoffrey Merran
 */
 
 #include <unistd.h>
@@ -20,7 +20,7 @@ static void	*xmalloc(int sz)
   void		*p;
 
   if (!(p = malloc(sz)))
-    exit(0);
+    return (NULL);
   return (p);
 }
 

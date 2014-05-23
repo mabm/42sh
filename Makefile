@@ -1,3 +1,13 @@
+##
+## Makefile for Makefile in /home/merran_g/work/c_elem/42sh
+## 
+## Made by Geoffrey Merran
+## Login   <merran_g@epitech.net>
+## 
+## Started on  Fri May 23 22:38:39 2014 Geoffrey Merran
+## Last update Fri May 23 23:15:17 2014 Geoffrey Merran
+##
+
 CC		=	gcc
 
 RM		=	rm -f
@@ -6,7 +16,7 @@ NAME		=	42sh
 
 IFLAGS		=	./includes/
 
-CFLAGS		+=	-W -Wextra -Wall -g3 -I$(IFLAGS) -I./mysql/include
+CFLAGS		+=	-W -Wextra -Wall -g3 -I$(IFLAGS) -I./usr/local/mysql/include
 
 D_CORE		=	src/core/
 D_ENV		=	src/env/
@@ -46,12 +56,12 @@ SRC		=	$(D_CORE)main.c				\
 OBJ		=	$(SRC:.c=.o)
 
 LIB		=	./libmy/
-L_NAME		=	-lncurses -lmy
+L_NAME		=	-lmy -lncurses -lmysql
 
 all		:	libs $(NAME)
 
 $(NAME)		:	$(OBJ)
-			$(CC) -o $(NAME) `mysql_config --libs` $(OBJ) $(L_NAME) -L$(LIB)
+			$(CC) -o $(NAME) $(OBJ) `mysql_config --libs`  $(L_NAME) -L$(LIB)
 
 libs		:
 			make -C $(LIB)
