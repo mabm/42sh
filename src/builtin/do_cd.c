@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue May 13 13:52:59 2014 Nicolas Ades
-** Last update Fri May 23 04:46:40 2014 Nicolas Ades
+** Last update Fri May 23 08:44:55 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -15,26 +15,6 @@ int		xchdir(const char *path)
   if ((chdir(path)) == -1)
     {
       fprintf(stderr, "Error on chdir with this path : [%s]\n", path);
-      return (-1);
-    }
-  return (0);
-}
-
-int		is_env_ok(t_list *list)
-{
-  if (is_in_env(list, "PWD=") == 0)
-    {
-      fprintf(stderr, "CD: Missing PWD in env\n");
-      return (-1);
-    }
-  if (is_in_env(list, "OLDPWD=") == 0)
-    {
-      fprintf(stderr, "CD: Missing OLDPWD in env\n");
-      return (-1);
-    }
-  if (is_in_env(list, "HOME=") == 0)
-    {
-      fprintf(stderr, "CD: Missing HOME in env\n");
       return (-1);
     }
   return (0);
