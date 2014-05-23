@@ -1,3 +1,13 @@
+##
+## Makefile for  in /home/nicolas/Workspace/Unix/42sh
+## 
+## Made by Nicolas Ades
+## Login   <nicolas@epitech.net>
+## 
+## Started on  Fri May 23 08:09:40 2014 Nicolas Ades
+## Last update Fri May 23 08:09:48 2014 Nicolas Ades
+##
+
 CC		=	gcc
 
 RM		=	rm -f
