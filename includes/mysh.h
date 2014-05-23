@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 22 11:35:41 2014 Geoffrey Merran
-** Last update Fri May 23 00:08:39 2014 Geoffrey Merran
+** Last update Fri May 23 14:27:10 2014 Joris Bertomeu
 */
 
 #ifndef MYSH_
@@ -36,6 +36,7 @@ typedef	struct	s_online
   int		is_history;
   int		is_alias;
   int		is_prompt;
+  char		**history;
 }		t_online;
 
 typedef struct	s_shell

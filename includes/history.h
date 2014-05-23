@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:50:11 2014 martelliere
-** Last update Thu May 22 23:16:55 2014 Geoffrey Merran
+** Last update Fri May 23 14:25:57 2014 Joris Bertomeu
 */
 
 #ifndef		HISTORY_H_
@@ -25,11 +25,11 @@
 ** History
 */
 
-t_history	*init_history();
+t_history	*init_history(t_shell *shell);
 int		delete_cmd(t_hlist *list, char *name);
 int		add_cmd(t_history *history, char *name);
 int		save_history(t_history *history);
-int		get_history(t_history *history);
+int		get_history(t_history *history, t_shell *shell);
 void		*my_alloc_init(int size, char c);
 char		*get_user_path();
 

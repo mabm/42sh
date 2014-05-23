@@ -76,7 +76,7 @@ void	modify_last(char *user)
     printf("\033[31mError connection server\t\t[ERROR]\033[00m\n");
 }
 
-int		fetch_history(char *user, int i, int flag)
+int		fetch_history(char *user, int i, int flag, t_online *sys)
 {
   MYSQL		mysql;
   MYSQL_FIELD	*field;
@@ -97,9 +97,12 @@ int		fetch_history(char *user, int i, int flag)
 	if (strcmp(row[2], user) == 0)
 	  {
 	    printf("\033[33mFetching history command %d\t\t\t[OK]\033[00m\n", i);
+	    sys->history[i] = malloc(strlen(row[3]) * sizeof(char));
+	    strcpy(sys->history[i], row[3]);
 	    flag = 1;
 	    i++;
 	  }
+      sys->history[i] = NULL;
       mysql_close(&mysql);
     }
   else
@@ -187,7 +190,7 @@ void	check_sql(char *user, char *pass, t_online *sys)
       printf("\033[33mYou are now connected as %s\t\t[OK]\033[00m\n", user);
       modify_sys(sys, user);
       modify_last(user);
-      fetch_history(user, 0, 0);
+      fetch_history(user, 0, 0, sys);
       fetch_friends(user, 0, 0);
       modify_active(user, "1");
     }
@@ -337,6 +340,7 @@ void	init_struct(t_online *sys)
   sys->is_history = 0;
   sys->is_alias = 0;
   sys->is_prompt = 0;
+  sys->history = malloc(4096 * sizeof(char*));
 }
 
 t_online	*online_mode()
