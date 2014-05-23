@@ -10,15 +10,13 @@
 #define modeCANON    0
 #define modeNonCANON 1
 
-void	connection();
+void	connection(t_online *sys);
 
-int		check_account(char *user, char *pass, int i, int flag)
+int		check_account(char *user, char *pass, int flag)
 {
   MYSQL		mysql;
-  MYSQL_FIELD	*field;
-  MYSQL_RES	*result = NULL;
+  MYSQL_RES	*result;
   MYSQL_ROW	row;
-  unsigned int	num_champs = 0;
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
@@ -27,7 +25,6 @@ int		check_account(char *user, char *pass, int i, int flag)
     {
       mysql_query(&mysql, "SELECT * FROM 42_user");
       result = mysql_store_result(&mysql);
-      num_champs = mysql_num_fields(result);
       while ((row = mysql_fetch_row(result)))
 	if (strcmp(row[1], user) == 0 && strcmp(row[2], pass) == 0)
 	  {
@@ -79,10 +76,8 @@ void	modify_last(char *user)
 int		fetch_history(char *user, int i, int flag, t_online *sys)
 {
   MYSQL		mysql;
-  MYSQL_FIELD	*field;
-  MYSQL_RES	*result = NULL;
+  MYSQL_RES	*result;
   MYSQL_ROW	row;
-  unsigned int	num_champs = 0;
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
@@ -91,7 +86,6 @@ int		fetch_history(char *user, int i, int flag, t_online *sys)
     {
       mysql_query(&mysql, "SELECT * FROM history");
       result = mysql_store_result(&mysql);
-      num_champs = mysql_num_fields(result);
       printf("\033[37mFetching history Initialisation\t\t\t[OK]\033[00m\n");
       while ((row = mysql_fetch_row(result)))
 	if (strcmp(row[2], user) == 0)
@@ -112,13 +106,11 @@ int		fetch_history(char *user, int i, int flag, t_online *sys)
   return (flag);
 }
 
-int		fetch_friends(char *user, int i, int flag)
+int		fetch_friends(char *user, int flag)
 {
   MYSQL		mysql;
-  MYSQL_FIELD	*field;
-  MYSQL_RES	*result = NULL;
+  MYSQL_RES	*result;
   MYSQL_ROW	row;
-  unsigned int	num_champs = 0;
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
@@ -127,7 +119,6 @@ int		fetch_friends(char *user, int i, int flag)
     {
       mysql_query(&mysql, "SELECT * FROM friends");
       result = mysql_store_result(&mysql);
-      num_champs = mysql_num_fields(result);
       printf("\033[37mFetching friends Initialisation\t\t\t[OK]\033[00m\n");
       while ((row = mysql_fetch_row(result)))
 	if (strcmp(row[1], user) == 0)
@@ -231,14 +222,14 @@ void	check_sql(char *user, char *pass, t_online *sys)
 {
   int	res;
 
-  res = check_account(user, pass, 0, 0);
+  res = check_account(user, pass, 0);
   if (res == -1)
     printf("\033[31mError connection server\t\t[ERROR]\033[00m\n");
   else if (res == 0)
     {
       printf("\033[H\033[2J");
       printf("\033[31mUser and/or password wrong\t\t[ERROR]\033[00m\n");
-      connection();
+      connection(sys);
     }
   else
     {
@@ -246,12 +237,12 @@ void	check_sql(char *user, char *pass, t_online *sys)
       modify_sys(sys, user);
       modify_last(user);
       fetch_history(user, 0, 0, sys);
-      fetch_friends(user, 0, 0);
+      fetch_friends(user, 0);
       modify_active(user, "1");
     }
 }
 
-void	add_user(char *user, char *pass)
+void	add_user(char *user, char *pass, t_online *sys)
 {
   MYSQL	mysql;
   char	*requete;
@@ -267,11 +258,11 @@ void	add_user(char *user, char *pass)
       mysql_query(&mysql, requete);
       mysql_close(&mysql);
       free(requete);
-      add_cmd_history_mysql_manuel("", user);
+      add_cmd_history_mysql_manuel("Init OK", user);
       printf("\033[H\033[2J");
       printf("\033[33mYour account have been created as\
  %s\t\t[OK]\033[00m\n", user);
-      connection();
+      connection(sys);
     }
   else
     printf("\033[31mError connection server\t\t[ERROR]\033[00m\n");
@@ -280,10 +271,8 @@ void	add_user(char *user, char *pass)
 int	check_user_exist(char *user, int flag)
 {
   MYSQL		mysql;
-  MYSQL_FIELD	*field;
-  MYSQL_RES	*result = NULL;
+  MYSQL_RES	*result;
   MYSQL_ROW	row;
-  unsigned int	num_champs = 0;
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
@@ -292,7 +281,6 @@ int	check_user_exist(char *user, int flag)
     {
       mysql_query(&mysql, "SELECT * FROM 42_user");
       result = mysql_store_result(&mysql);
-      num_champs = mysql_num_fields(result);
       while ((row = mysql_fetch_row(result)))
 	if (strcmp(row[1], user) == 0)
 	  {
@@ -305,7 +293,6 @@ int	check_user_exist(char *user, int flag)
     }
   else
     flag = -1;
-  free(field);
   free(result);
   return (flag);
 }
@@ -343,7 +330,7 @@ char	*clean(char *str)
   return (str);
 }
 
-void	create_user()
+void	create_user(t_online *sys)
 {
   char	user[4096];
   char	*pass;
@@ -354,9 +341,9 @@ void	create_user()
   write(1, "Password : ", 12);
   pass = getpassword();
   if (check_user_exist(clean(user), 0) != 1)
-    add_user(clean(user), pass);
+    add_user(clean(user), pass, sys);
   else
-    create_user();
+    create_user(sys);
 }
 
 void	connection(t_online *sys)
@@ -370,15 +357,15 @@ in \"Username\" input\n\n");
   write(1, "Username : ", 12);
   read(0, user, 4096);
   if (strncmp(user, "create", 6) == 0)
-    create_user();
+    create_user(sys);
   else
     {
       write(1, "Password : ", 12);
       pass = getpassword();
       printf("\nConnecting %s ...\t\t\t[OK]\n", clean(user));
       check_sql(clean(user), clean(pass), sys);
+      free(pass);
     }
-  free(pass);
 }
 
 void	aff_pres()
@@ -401,15 +388,12 @@ void	init_struct(t_online *sys)
 
 t_online	*online_mode()
 {
-  int		ch;
-  int		flag;
   char		buff[4096];
   t_online	*sys;
 
   sys = malloc(sizeof(*sys));
   init_struct(sys);
   aff_pres();
-  flag = 1;
   memset(buff, 0, 4096);
   write(1, "Your choice : ", 15);
   if (read(0, buff, 4096) <= 0)

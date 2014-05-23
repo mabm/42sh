@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Fri May 23 16:00:09 2014 Joris Bertomeu
+** Last update Fri May 23 19:08:33 2014 Joris Bertomeu
 */
 
 #include "core.h"
@@ -32,7 +32,8 @@ int		main(int ac, char **av, char **env)
   if (prompt(shell) == -1)
     return (EXIT_FAILURE);
   save_history(shell->history, shell);
-  modify_active(shell->online->pseudo, "0");
+  if (shell->online->active == 1)
+    modify_active(shell->online->pseudo, "0");
   free_shell(shell);
   return (EXIT_SUCCESS);
 }

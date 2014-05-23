@@ -6,7 +6,7 @@ NAME		=	42sh
 
 IFLAGS		=	./includes/
 
-CFLAGS		+=	-W -Wextra -Wall -g3 -I$(IFLAGS) -I./mysql/include
+CFLAGS		+=	-g3 -I$(IFLAGS) -I./mysql/include
 
 D_CORE		=	src/core/
 D_ENV		=	src/env/
@@ -51,7 +51,7 @@ L_NAME		=	-lncurses -lmy
 all		:	libs $(NAME)
 
 $(NAME)		:	$(OBJ)
-			$(CC) -o $(NAME) `mysql_config --libs` $(OBJ) $(L_NAME) -L$(LIB)
+			$(CC) -o $(NAME) -L./mysql/lib -lmysqlclient $(OBJ) $(L_NAME) -L$(LIB)
 
 libs		:
 			make -C $(LIB)
