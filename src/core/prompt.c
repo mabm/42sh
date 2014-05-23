@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Fri May 23 00:13:52 2014 Geoffrey Merran
+** Last update Fri May 23 00:47:16 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -43,7 +43,7 @@ int		prompt(t_shell *shell)
 {
   char		*cmd;
 
-  cmd = line_editor();
+  cmd = line_editor(shell);
   if (cmd != NULL)
     {
       if (strncmp(cmd, "exit", 4) == 0)

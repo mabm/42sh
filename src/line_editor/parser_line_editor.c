@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 18:05:01 2014 Geoffrey Merran
-** Last update Thu May 15 19:39:55 2014 Geoffrey Merran
+** Last update Fri May 23 01:26:47 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -32,10 +32,14 @@ void	move_cursor(int direction, t_line **line)
     }
 }
 
-int	parse_arrow(char *buffer, t_line **line, int size)
+int	parse_arrow(char *buffer, t_line **line, int size, t_shell *shell)
 {
   if (size == 3)
     {
+      if (buffer[0] == 27 && buffer[1] == '[' && buffer[2] == 'A')
+	return (move_history(UP, line, shell));
+      else if (buffer[0] == 27 && buffer[1] == '[' && buffer[2] == 'B')
+	return (move_history(DOWN, line, shell));
       if (buffer[0] == 27 && buffer[1] == '[' && buffer[2] == 'C')
 	move_cursor(RIGHT, line);
       else if (buffer[0] == 27 && buffer[1] == '[' && buffer[2] == 'D')
@@ -59,14 +63,14 @@ void	parse_delete(char *buffer, t_line **line, int size)
     }
 }
 
-int	parser_line_editor(char *buffer, t_line **line)
+int	parser_line_editor(char *buffer, t_line **line, t_shell *shell)
 {
   int	size;
 
   size = strlen(buffer);
   if (my_isprintable(buffer[0]) && size == 1)
     return (add_char(buffer[0], line));
-  if (parse_arrow(buffer, line, size) == -1)
+  if (parse_arrow(buffer, line, size, shell) == -1)
     return (-1);
   parse_delete(buffer, line, size);
   return (0);

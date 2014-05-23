@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:12:40 2014 Geoffrey Merran
-** Last update Tue May 20 00:09:08 2014 Geoffrey Merran
+** Last update Fri May 23 01:49:05 2014 Geoffrey Merran
 */
 
 #ifndef LINE_EDITOR_
@@ -18,6 +18,7 @@
 # include <term.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "mysh.h"
 # include "gnl.h"
 # include "my.h"
 # include "my_printf.h"
@@ -58,14 +59,16 @@ typedef	struct	s_line
 
 enum e_dir
   {
-    RIGHT, LEFT
+    RIGHT, LEFT, UP, DOWN
   };
 
 /*
 ** Line Editor main functions
 */
 
-char	*line_editor();
+char	*line_editor(t_shell *shell);
+int    	new_line_edit(t_line **line);
+void   	delete_line_edit(t_line *line);
 char   	*build_line(t_line *line);
 int	init_line_editor(struct termios *t, struct termios *t_save, t_line **line);
 int	init_term(struct termios *t, struct termios *t_save);
@@ -76,14 +79,18 @@ int    	show_edit_line(t_line *line);
 ** Parser
 */
 
-int	parser_line_editor(char *buffer, t_line **line);
+int	parser_line_editor(char *buffer, t_line **line, t_shell *shell);
 void	parse_delete(char *buffer, t_line **line, int size);
-int	parse_arrow(char *buffer, t_line **line, int size);
+int	parse_arrow(char *buffer, t_line **line, int size, t_shell *shell);
 
 /*
 ** Parsing Interpretation
 */
 
+int	move_history(int way, t_line **line, t_shell *shell);
+int	move_history_up(t_line **line, t_shell *shell);
+int	move_history_down(t_line **line, t_shell *shell);
+int	load_history_line(t_hlist *hline, t_line **line);
 void	move_cursor(int direction, t_line **line);
 
 
@@ -107,6 +114,5 @@ int	xtgetent(char *bp, char *name);
 char	*xtgetstr(char *id, char **area);
 int	raw_mode(struct termios *t);
 int	hide_char(struct termios *t);
-
 
 #endif /* LINE_EDITOR_ */

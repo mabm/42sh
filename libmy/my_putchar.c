@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Mon Oct 21 11:10:28 2013 Geoffrey Merran
-** Last update Sun Apr 13 18:50:30 2014 Nicolas Ades
+** Last update Fri May 23 02:08:06 2014 Geoffrey Merran
 */
 
 #include <unistd.h>
@@ -13,6 +13,5 @@
 
 void	my_putchar(char c)
 {
-  if (write(1, &c, 1) == -1)
-    exit(-1);
+  write(1, &c, 1);
 }

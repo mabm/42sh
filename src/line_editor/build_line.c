@@ -5,10 +5,41 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 15 19:46:48 2014 Geoffrey Merran
-** Last update Thu May 15 20:14:04 2014 Geoffrey Merran
+** Last update Fri May 23 02:00:40 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
+
+int		new_line_edit(t_line **line)
+{
+  if ((*line = my_xmalloc(sizeof(**line))) == NULL)
+    return (-1);
+  (*line)->head = NULL;
+  (*line)->current = NULL;
+  (*line)->tail = NULL;
+  (*line)->size = 0;
+  (*line)->size_max = 0;
+  return (0);
+}
+
+void		delete_line_edit(t_line *line)
+{
+  t_char	*tmp;
+  int		i;
+
+  i = 0;
+  while (line->head && line->head->c != '\0')
+    {
+      tmp = line->head->next;
+      free(line->head);
+      line->head = tmp;
+      i++;
+    }
+  line->size_max = i + 1;
+  line->size = 0;
+  line->current = line->head;
+  line->current->cursor = 1;
+}
 
 char		*build_line(t_line *line)
 {
@@ -29,7 +60,6 @@ char		*build_line(t_line *line)
       free(tmp);
       tmp = tmp2;
     }
-  my_printf("\r%s%s \n", PROMPT, cmd);
   free(line);
   return (cmd);
 }

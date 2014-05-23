@@ -5,7 +5,7 @@
 ## Login   <nicolas@epitech.net>
 ## 
 ## Started on  Mon Apr 28 13:47:00 2014 Nicolas Ades
-## Last update Thu May 22 23:49:15 2014 Geoffrey Merran
+## Last update Fri May 23 00:54:44 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
@@ -41,6 +41,7 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_LINE_EDITOR)char2.c			\
 			$(D_LINE_EDITOR)parser_line_editor.c	\
 			$(D_LINE_EDITOR)build_line.c		\
+			$(D_LINE_EDITOR)history_interaction.c	\
 			$(D_HISTORY)histo_list.c		\
 			$(D_HISTORY)history.c			\
 			$(D_HISTORY)manage_history.c		\
