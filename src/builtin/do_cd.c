@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue May 13 13:52:59 2014 Nicolas Ades
-** Last update Fri May 23 08:44:55 2014 Nicolas Ades
+** Last update Fri May 23 10:02:07 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -58,8 +58,10 @@ int		do_cd(t_list *list, char *path)
       return (-1);
   if (my_strcmp(path, "~/") == 0 || path == NULL)
     {
-      old = get_env_var("PWD=", 4);
-      new = get_env_var("HOME=", 5);
+      if (old = get_env_var("PWD=", 4) == NULL)
+	return (-1);
+      if (new = get_env_var("HOME=", 5) == NULL)
+	return (-1);
       if ((xchidr(new)) == -1)
 	return (-1);
       change_old_pwd(old);

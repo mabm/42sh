@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:45:44 2014 Jeremy Mediavilla
-** Last update Fri May 23 09:58:32 2014 Nicolas Ades
+** Last update Fri May 23 10:03:43 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -36,7 +36,10 @@ char            *get_env_var(char *var, int len)
   int           i;
 
   if (is_in_env(list, var) == 0)
-    return (NULL);
+    {
+      fprintf(stderr, "Error: get_env_var can't find var in env\n");
+      return (NULL);
+    }
   i = 0;
   size = strlen(var);
   if (value = my_xmalloc((size - len + 1) * sizeof(char)) == NULL)
