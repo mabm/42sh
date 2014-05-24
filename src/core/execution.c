@@ -5,14 +5,30 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 08:06:43 2014 Nicolas Ades
-** Last update Sat May 24 08:48:08 2014 Nicolas Ades
+** Last update Sat May 24 09:12:32 2014 Nicolas Ades
 */
 
 #include "core.h"
 
 /* cmd[0] correspond au nom de la commande que je concat avec le path */
 
-int		do_fork()
+int		do_fork_bis(t_shell *shell, char **cmd)
+{
+  pid_t		ptr;
+  
+  if ((pid = fork()) == -1)
+    {
+      fprintf(stderr, "Error with fork\n");
+      return (-1);
+    }
+  if (pid == 0)
+    execve(cmd[0], cmd, shell->env);
+  else
+    wait(NULL);
+  return (0);
+}
+
+int		do_fork(t_shell *shell, char **cmd, char **path)
 {
   pid_t		ptr;
   
@@ -53,11 +69,17 @@ int		my_exec(t_shell *shell, char **cmd)
   int		pos;
   char		**path;
 
+  if (strstr(cmd[0], "/") != NULL)
+    {
+      if (do_fork_bis(shell, cmd) == -1)
+	return (-1);
+      return (0);
+    }
   if ((path = check_env_var(shell->env, "PATH=", 5)) == NULL)
     return (-1);
   if ((pos = is_cmd_exist(shell, cmd, path)) == -1)
     return (-1);
-  if (do_fork() == -1)
+  if (do_fork(shell, cmd, path) == -1)
     return (-1);
   return (0);
 }
