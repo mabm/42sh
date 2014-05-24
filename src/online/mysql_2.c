@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:44:52 2014 Joris Bertomeu
-** Last update Sun May 25 19:46:43 2014 Joris Bertomeu
+** Last update Sun May 25 20:20:54 2014 Joris Bertomeu
 */
 
 #include "my.h"
@@ -29,7 +29,7 @@ int		add_alias_from_bdd(t_alias *alias, t_shell *shell)
 	if (strcmp(row[3], shell->online->pseudo) == 0)
 	  {
 	    printf("\033[33mFetching alias command\t\t\t[OK]\033[00m\n");
-	    add_alias(alias, row[1], row[2]);
+	    add_alias(alias, strdup(row[1]), strdup(row[2]));
 	  }
       mysql_close(&mysql);
     }

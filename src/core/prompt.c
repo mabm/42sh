@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Sat May 24 16:02:40 2014 Nicolas Ades
+** Last update Sun May 25 20:05:23 2014 Joris Bertomeu
 */
 
 #include "core.h"
@@ -26,7 +26,7 @@ void            check_builtin(t_list *list, char *cmd)
   which_builtin[1] = &my_unsetenv;
   which_builtin[2] = &my_setenv;
   /* which_builtin[3] = &my_cd; */
-  which_builtin[4] = &my_echo;
+  /* which_builtin[4] = &my_echo; */
   i = 0;
   while (i < 5)
     {
