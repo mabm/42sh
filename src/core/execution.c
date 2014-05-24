@@ -5,14 +5,13 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 08:06:43 2014 Nicolas Ades
-** Last update Sat May 24 09:28:17 2014 Nicolas Ades
+** Last update Sat May 24 14:07:47 2014 Nicolas Ades
 */
 
 #include "core.h"
 
-/* cmd[0] correspond au nom de la commande que je concat avec le path */
 
-int		do_fork_bis(t_shell *shell, char **cmd)
+int		do_fork_bis(char **envp, char **cmd)
 {
   pid_t		ptr;
   
@@ -22,13 +21,13 @@ int		do_fork_bis(t_shell *shell, char **cmd)
       return (-1);
     }
   if (pid == 0)
-    execve(cmd[0], cmd, shell->env);
+    execve(cmd[0], cmd, envp);
   else
     wait(NULL);
   return (0);
 }
 
-int		do_fork(t_shell *shell, char **cmd, char **path, int pos)
+int		do_fork(char **envp, char **cmd, char **path, int pos)
 {
   pid_t		ptr;
   
@@ -38,13 +37,13 @@ int		do_fork(t_shell *shell, char **cmd, char **path, int pos)
       return (-1);
     }
   if (pid == 0)
-    execve(path[pos], cmd, shell->env);
+    execve(path[pos], cmd, envp);
   else
     wait(NULL);
   return (0);
 }
 
-int		is_cmd_exist(t_shell *shell, char **cmd, char **path)
+int		is_cmd_exist(char **cmd, char **path)
 {
   int		i;
   char		*tmp;
@@ -75,19 +74,21 @@ int		is_cmd_exist(t_shell *shell, char **cmd, char **path)
 int		my_exec(t_shell *shell, char **cmd)
 {
   int		pos;
+  char		**envp;
   char		**path;
 
+  envp = env_in_tab(shell->env);
   if (strstr(cmd[0], "/") != NULL)
     {
-      if (do_fork_bis(shell, cmd) == -1)
+      if (do_fork_bis(envp, cmd) == -1)
 	return (-1);
       return (0);
     }
   if ((path = check_env_var(shell->env, "PATH=", 5)) == NULL)
     return (-1);
-  if ((pos = is_cmd_exist(shell, cmd, path)) == -1)
+  if ((pos = is_cmd_exist(cmd, path)) == -1)
     return (-1);
-  if (do_fork(shell, cmd, path, pos) == -1)
+  if (do_fork(envp, cmd, path, pos) == -1)
     return (-1);
   return (0);
 }
