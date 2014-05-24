@@ -5,32 +5,42 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 08:06:43 2014 Nicolas Ades
-** Last update Sat May 24 14:51:55 2014 Nicolas Ades
+** Last update Sat May 24 15:59:53 2014 Nicolas Ades
 */
 
 #include "core.h"
 
+int		wait_father(pid_t pid)
+{
+  int		status;
+
+  while (pid_fils != wait4(pid_fils, &status, WNOHANG, 0))
+    {
+    }
+  return (status);
+}
 
 int		do_fork_bis(char **envp, char **cmd)
 {
-  pid_t		ptr;
-  
-  if ((pid= fork()) == -1)
+  pid_t		pid;
+
+  if ((pid = fork()) == -1)
     {
-      fprintf(stderr, "Error with fork\n");
+      fprintf(stderr, "42sh: execution: Error with fork\n");
       return (-1);
     }
   if (pid == 0)
     execve(cmd[0], cmd, envp);
   else
-    wait(NULL);
+    status = wait_father(pid);
   return (0);
 }
 
 int		do_fork(char **envp, char **cmd, char **path, int pos)
 {
-  pid_t		ptr;
-  
+  pid_t		pid;
+  int		status;
+
   if ((pid = fork()) == -1)
     {
       fprintf(stderr, "Error with fork\n");
@@ -39,7 +49,7 @@ int		do_fork(char **envp, char **cmd, char **path, int pos)
   if (pid == 0)
     execve(path[pos], cmd, envp);
   else
-    wait(NULL);
+    status = wait_father(pid);
   return (0);
 }
 
