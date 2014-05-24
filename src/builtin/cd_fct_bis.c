@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed May 21 08:37:45 2014 Nicolas Ades
-** Last update Fri May 23 10:19:21 2014 Nicolas Ades
+** Last update Fri May 23 14:37:06 2014 Nicolas Ades
 */
 
 int		create_oldpwd(t_list *list, char *new)
@@ -49,16 +49,37 @@ int		create_pwd(t_list *list, char *new)
   return (0);
 }
 
-int		epur_pwd(t_list *list, char *path)
+char		*concat_pwd(char *pwd)
+{
+  int		i;
+  char		*new;
+
+  i = 0;
+  if (new = my_xmalloc(strlen(pwd) *sizeof(*new)) == NULL)
+    return (NULL);
+  memset(strlen(pwd) *sizeof(*new));
+  while (pwd[i] != '\0')
+    {
+      /*Petit algo pour rendre le pwd propre apres des ../ bonne nuit mon chou  */
+      i++;
+    }
+  return (new);
+}
+
+char		*epur_pwd(t_list *list, char *path)
 {
   char		*tmp;
   char		*tmp2;
+  char		*tmp3;
 
   if (tmp2 = get_env_var("PWD=", 4) == NULL)
-    return (-1);
+    return (NULL);
   if (tmp = my_xmalloc((strlen(path) + 5)) == NULL)
-    return (-1);
+    return (NULL);
   memset(tmp, 0, (strlen(path) + 5));
   tmp = strcat(tmp, "PWD=");
-  
+  if (tmp3 = concat_pwd(tmp2) == NULL)
+    return (NULL);
+  tmp = strcat(tmp, tmp3);
+  return (tmp);
 }
