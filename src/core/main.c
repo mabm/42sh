@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Sat May 24 05:39:56 2014 Geoffrey Merran
+** Last update Sat May 24 16:51:49 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -19,6 +19,7 @@ int		loading_shell(t_shell **shell, char **env)
   (*shell)->history = init_history(*shell);
   (*shell)->alias = init_aliasing(*shell);
   (*shell)->prompt = 1;
+  (*shell)->error = 0;
   return (xtgetent(NULL, "xterm"));
 }
 

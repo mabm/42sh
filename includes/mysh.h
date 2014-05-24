@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 22 11:35:41 2014 Geoffrey Merran
-** Last update Sat May 24 06:44:03 2014 Geoffrey Merran
+** Last update Sat May 24 15:58:16 2014 Geoffrey Merran
 */
 
 #ifndef MYSH_
@@ -61,6 +61,7 @@ typedef struct	s_shell
   t_list	*env;
   t_online	*online;
   int		prompt;
+  int		error;
 }		t_shell;
 
 #endif /* MYSH_ */

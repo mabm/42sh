@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Fri May 23 09:39:58 2014 Nicolas Ades
+** Last update Sat May 24 16:05:01 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -56,7 +56,13 @@ int		prompt(t_shell *shell)
       check_builtin(shell->env, cmd);
       add_cmd(shell->history, cmd);
       free(cmd);
+      shell->error = 0;
     }
+  else
+    shell->error++;
+  if (shell->error == 10)
+    return (my_error("42sh: critical errors: too much error, \
+can't continue. Exiting\n"));
   prompt(shell);
   return (0);
 }

@@ -1,0 +1,14 @@
+##
+## Conf file for 42sh
+##
+## Syntax : var=value
+##
+## prompt={1, 2, 3}
+## alias=path
+## history=path
+## wordseparator=char
+##
+
+prompt='1'
+alias='.mabm_alias'
+history='.mabm_history'

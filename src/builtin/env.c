@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:45:44 2014 Jeremy Mediavilla
-** Last update Sat May 24 01:00:48 2014 Geoffrey Merran
+** Last update Sat May 24 16:26:28 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -87,7 +87,7 @@ void		get_all_env(t_list *list, char **env)
   i = 0;
   while (env[i])
     {
-      add_to_end(list, env[i]);
+      add_to_end(list, strdup(env[i]));
       i++;
     }
 }
