@@ -1,11 +1,11 @@
 /*
-** free_history.c for free_history in /home/merran_g/work/c_elem/42sh/src/free
+** free_shell.c for free_shell in /home/merran_g/work/c_elem/42sh
 ** 
 ** Made by Geoffrey Merran
 ** Login   <merran_g@epitech.net>
 ** 
-** Started on  Thu May 22 23:41:57 2014 Geoffrey Merran
-** Last update Sat May 24 16:56:08 2014 Geoffrey Merran
+** Started on  Sat May 24 17:20:03 2014 Geoffrey Merran
+** Last update Sat May 24 17:20:04 2014 Geoffrey Merran
 */
 
 #include "free_shell.h"
