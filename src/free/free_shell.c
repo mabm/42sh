@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 22 23:41:57 2014 Geoffrey Merran
-** Last update Fri May 23 00:16:40 2014 Geoffrey Merran
+** Last update Sat May 24 15:44:57 2014 Joris Bertomeu
 */
 
 #include "free_shell.h"
@@ -34,6 +34,7 @@ void		free_env(t_list	*env)
   tmp = env;
   while (tmp)
     {
+      /* printf(">> %s\n", tmp->data); */
       save = tmp->next;
       free(tmp);
       tmp = save;

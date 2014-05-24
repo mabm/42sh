@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Mon May 12 15:16:12 2014 martelliere
-** Last update Sat May 24 06:46:31 2014 Geoffrey Merran
+** Last update Sat May 24 17:01:14 2014 Joris Bertomeu
 */
 
 #include "aliasing.h"
@@ -31,26 +31,30 @@ char    *get_user_path_alias()
   return (path);
 }
 
-int		get_alias(t_alias *alias)
+int		get_alias(t_alias *alias, t_shell *shell)
 {
   int		fd;
 
-  if (alias->path == NULL)
-    return (-1);
-  if (access(alias->path, F_OK) == -1)
+  if (shell->online->active == 0)
     {
-      fprintf(stderr, "42sh: alias: can't access %s\n", alias->path);
-      return (-1);
-    }
-  if (access(alias->path, R_OK) == -1)
-    {
-      fprintf(stderr,"42sh: alias: can't read alias file. \
+      if (alias->path == NULL)
+	return (-1);
+      if (access(alias->path, F_OK) == -1)
+	{
+	  fprintf(stderr, "42sh: alias: can't access %s\n", alias->path);
+	  return (-1);
+	}
+      if (access(alias->path, R_OK) == -1)
+	{
+	  fprintf(stderr,"42sh: alias: can't read alias file. \
 Check your rights.\n");
-      return (-1);
+	  return (-1);
+	}
+      if ((fd = open(alias->path, O_RDONLY)) == -1)
+	return (-1);
+      return (load_alias(alias, fd, shell, 0));
     }
-  if ((fd = open(alias->path, O_RDONLY)) == -1)
-    return (-1);
-  return (load_alias(alias, fd));
+  return (load_alias(alias, fd, shell, 1));
 }
 
 t_alias		*init_aliasing(t_shell *shell)
@@ -63,6 +67,6 @@ t_alias		*init_aliasing(t_shell *shell)
     return (NULL);
   alias->path = get_user_path_alias();
   alias->list = NULL;
-  get_alias(alias);
+  get_alias(alias, shell);
   return (alias);
 }

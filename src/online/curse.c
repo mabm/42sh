@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Sat May 24 05:47:33 2014 Geoffrey Merran
-** Last update Sat May 24 05:48:11 2014 Geoffrey Merran
+** Last update Sat May 24 17:15:38 2014 Joris Bertomeu
 */
 
 #include "online.h"
@@ -102,6 +102,34 @@ int		fetch_history(char *user, int i, int flag, t_online *sys)
     flag = -1;
   free(result);
   return (flag);
+}
+
+int		add_alias_from_bdd(t_alias *alias, t_shell *shell)
+{
+  MYSQL		mysql;
+  MYSQL_RES	*result;
+  MYSQL_ROW	row;
+
+  mysql_init(&mysql);
+  mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
+  if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
+			"epitech42", "labelec_epibot", 0, NULL, 0))
+    {
+      mysql_query(&mysql, "SELECT * FROM alias");
+      result = mysql_store_result(&mysql);
+      printf("\033[37mFetching Alias Initialisation\t\t\t[OK]\033[00m\n");
+      while ((row = mysql_fetch_row(result)))
+	if (strcmp(row[3], shell->online->pseudo) == 0)
+	  {
+	    printf("\033[33mFetching alias command\t\t\t[OK]\033[00m\n");
+	    add_alias(alias, row[1], row[2]);
+	  }
+      mysql_close(&mysql);
+    }
+  else
+    return (-1);
+  free(result);
+  return (1);
 }
 
 int		fetch_friends(char *user, int flag)

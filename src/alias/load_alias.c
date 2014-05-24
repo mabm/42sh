@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Sat May 24 05:06:34 2014 Geoffrey Merran
-** Last update Sat May 24 06:22:49 2014 Geoffrey Merran
+** Last update Sat May 24 17:10:20 2014 Joris Bertomeu
 */
 
 #include "aliasing.h"
@@ -51,21 +51,24 @@ int		get_alias_things(char *alias, char **name, char **content)
   return (0);
 }
 
-int		load_alias(t_alias *alias, int fd)
+int		load_alias(t_alias *alias, int fd, t_shell *shell, int active)
 {
   char		*s;
   char		*name;
   char		*content;
 
-  while ((s = get_next_line(fd)) != NULL)
-    {
-      if (strncmp("alias ", s, 6) == 0)
-      	{
-      	  if (get_alias_things(&s[6], &name, &content) != -1)
-	    add_alias(alias, name, content);
-      	}
-      free(s);
-    }
+  if (active == 0)
+    while ((s = get_next_line(fd)) != NULL)
+      {
+	if (strncmp("alias ", s, 6) == 0)
+	  {
+	    if (get_alias_things(&s[6], &name, &content) != -1)
+	      add_alias(alias, name, content);
+	  }
+	free(s);
+      }
+  else
+    add_alias_from_bdd(alias, shell);
   return (0);
 }
 
