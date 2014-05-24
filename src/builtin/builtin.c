@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:12 2014 Jeremy Mediavilla
-** Last update Sat May 24 16:53:23 2014 Nicolas Ades
+** Last update Sat May 24 17:28:03 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -76,4 +76,18 @@ void		my_setenv(t_list *list, char *cmd)
       if (already_here(list, var, (name_len + 1)) != 1)
 	add_to_end(list, var);
     }
+}
+
+
+int		my_pwd(t_shell *shell, char **cmd)
+{
+  char		*pwd;
+
+  if ((pwd = check_env_var(shell->env, "PWD=", 4)) == NULL)
+    {
+      fprintf(stderr, "Can't find PWD in env\n");
+      return (-1);
+    }
+  printf("%s\n", tmp);
+  return (0);
 }
