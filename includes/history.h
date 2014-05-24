@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:50:11 2014 martelliere
-** Last update Fri May 23 14:57:08 2014 Joris Bertomeu
+** Last update Sat May 24 05:51:51 2014 Geoffrey Merran
 */
 
 #ifndef		HISTORY_H_
@@ -19,6 +19,7 @@
 # include	<fcntl.h>
 # include	"mysh.h"
 # include	"gnl.h"
+# include	"online.h"
 # include	"my.h"
 
 /*

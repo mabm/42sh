@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Sat May 24 01:20:58 2014 Geoffrey Merran
-## Last update Sat May 24 01:21:01 2014 Geoffrey Merran
+## Last update Sat May 24 06:39:26 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
@@ -26,6 +26,7 @@ D_LINE_EDITOR	=	src/line_editor/
 D_CONF		=	src/conf/
 D_FREE		=	src/free/
 D_ONLINE	=	src/online/
+D_ALIAS		=	src/alias/
 
 SRC		=	$(D_CORE)main.c				\
 			$(D_CORE)prompt.c			\
@@ -48,10 +49,12 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_HISTORY)manage_history.c		\
 			$(D_HISTORY)my_alloc_init.c		\
 			$(D_HISTORY)xfunction.c			\
+			$(D_ALIAS)aliasing.c			\
+			$(D_ALIAS)load_alias.c			\
+			$(D_ALIAS)manage_alias.c		\
 			$(D_CONF)conf.c				\
 			$(D_FREE)free_shell.c			\
 			$(D_ONLINE)curse.c			\
-
 
 OBJ		=	$(SRC:.c=.o)
 

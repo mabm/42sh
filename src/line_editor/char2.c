@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 15 18:29:02 2014 Geoffrey Merran
-** Last update Thu May 15 19:23:45 2014 Geoffrey Merran
+** Last update Sat May 24 06:50:00 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"

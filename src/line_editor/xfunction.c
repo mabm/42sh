@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:20:21 2014 Geoffrey Merran
-** Last update Wed May 14 15:50:11 2014 Geoffrey Merran
+** Last update Sat May 24 06:49:51 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -55,7 +55,7 @@ char	*xtgetstr(char *id, char **area)
 
   if ((result = tgetstr(id, area)) == NULL)
     {
-      my_error("tgetstr error\n");
+      my_puterr("tgetstr error\n");
       return (NULL);
     }
   return (result);

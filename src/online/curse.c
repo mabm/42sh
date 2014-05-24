@@ -1,16 +1,14 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <curses.h>
-#include <mysql.h>
-#include <my_global.h>
-#include <time.h>
-#include <termios.h>
-#include "mysh.h"
+/*
+** curse.c for curse in /home/merran_g/work/c_elem/42sh
+** 
+** Made by Geoffrey Merran
+** Login   <merran_g@epitech.net>
+** 
+** Started on  Sat May 24 05:47:33 2014 Geoffrey Merran
+** Last update Sat May 24 05:48:11 2014 Geoffrey Merran
+*/
 
-#define modeCANON    0
-#define modeNonCANON 1
-
-void	connection(t_online *sys);
+#include "online.h"
 
 int		check_account(char *user, char *pass, int flag)
 {

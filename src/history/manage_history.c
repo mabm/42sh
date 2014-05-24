@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:54:07 2014 martelliere
-** Last update Fri May 23 14:57:02 2014 Joris Bertomeu
+** Last update Sat May 24 06:48:13 2014 Geoffrey Merran
 */
 
 #include "history.h"
@@ -86,12 +86,13 @@ int	get_history(t_history *history, t_shell *shell)
     return (-1);
   if (access(history->path, F_OK) == -1)
     {
-      fprintf(stderr, "42sh: can't access %s\n", history->path);
+      fprintf(stderr, "42sh: history: can't access %s\n", history->path);
       return (-1);
     }
   if (access(history->path, R_OK) == -1)
     {
-      fprintf(stderr,"42sh: can't read history file. Check your rights.\n");
+      fprintf(stderr,"42sh: history: can't read history file. \
+Check your rights.\n");
       return (-1);
     }
   if ((fd = open(history->path, O_RDONLY)) == -1)

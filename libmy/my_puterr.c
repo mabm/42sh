@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue Feb 18 12:16:38 2014 Geoffrey Merran
-** Last update Thu May 15 17:01:29 2014 Nicolas Ades
+** Last update Sat May 24 06:50:21 2014 Geoffrey Merran
 */
 
 #include <stdlib.h>
@@ -17,7 +17,7 @@ void	my_puterr(char *err)
   int	ret;
 
   ret = write(2, err, my_strlen(err));
-  (void)ret;
+  (void) ret;
 }
 
 int	my_error(char *err)

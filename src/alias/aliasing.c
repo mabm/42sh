@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Mon May 12 15:16:12 2014 martelliere
-** Last update Thu May 22 07:29:18 2014 martelliere
+** Last update Sat May 24 06:46:31 2014 Geoffrey Merran
 */
 
 #include "aliasing.h"
@@ -20,43 +20,49 @@ char    *get_user_path_alias()
       printf("42sh: can't get username env variable to access history.\n");
       return (NULL);
     }
-  path = my_alloc_init((16 + strlen(user)) * sizeof(char), 0);
+  path = my_xmalloc((16 + strlen(user)) * sizeof(char));
+  bzero(path, (16 + strlen(user)));
+  if (path == NULL)
+    return (NULL);
   strcat(path, "/home/");
   strcat(path, user);
   strcat(path, "/");
-  strcat(path, ".mabmmrc");
+  strcat(path, ".bashrc");
   return (path);
 }
 
-void	aliasing(t_list *list)
+int		get_alias(t_alias *alias)
 {
-  int	fd;
-  char	*path;
-  char	*s;
-  char	**tab;
-  char	**tab2;
+  int		fd;
 
-  path = get_user_path_alias();
-  fd = xopen(path, O_RDONLY, 00644);
-  while ((s = get_next_line(fd)) != NULL)
+  if (alias->path == NULL)
+    return (-1);
+  if (access(alias->path, F_OK) == -1)
     {
-      if (s[0] != '\0')
-      	{
-	  tab = my_str_to_wordtab(s);
-	  if (tab[0] != NULL)
-	    {
-	      if (strcmp(tab[0], "alias") == 0)
-		{
-		  tab2 = my_str_to_wordtab2(s);
-		  if (list == NULL)
-		    list = create_list(tab[1], tab[2]);
-		  else
-		    add_after(list, tab[1], tab2[1]);
-		}
-	    }
-	}
+      fprintf(stderr, "42sh: alias: can't access %s\n", alias->path);
+      return (-1);
     }
-  xclose(fd);
-  delete_alias(list, "toto");
-  write_alias(list, path);
+  if (access(alias->path, R_OK) == -1)
+    {
+      fprintf(stderr,"42sh: alias: can't read alias file. \
+Check your rights.\n");
+      return (-1);
+    }
+  if ((fd = open(alias->path, O_RDONLY)) == -1)
+    return (-1);
+  return (load_alias(alias, fd));
+}
+
+t_alias		*init_aliasing(t_shell *shell)
+{
+  t_alias	*alias;
+
+  (void) shell;
+  alias = my_xmalloc(sizeof(*alias));
+  if (alias == NULL)
+    return (NULL);
+  alias->path = get_user_path_alias();
+  alias->list = NULL;
+  get_alias(alias);
+  return (alias);
 }

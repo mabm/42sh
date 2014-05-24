@@ -5,74 +5,57 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:54:07 2014 martelliere
-** Last update Thu May 22 06:52:43 2014 martelliere
+** Last update Sat May 24 06:42:15 2014 Geoffrey Merran
 */
 
 #include "aliasing.h"
 
-void		display_alias(t_list *list)
+int		display_alias(t_alias *alias, char *name)
 {
-  while (list != NULL)
-    {
-      printf("alias %s='%s'\n",
-	     list->name,
-	     list->content);
-      list = list->next;
-    }
-}
+  t_alist	*tmp;
 
-char		*find_alias(t_list *list, char *name)
-{
-  if (name == NULL)
+  tmp = alias->list;
+  while (tmp)
     {
-      printf("Error on alias name. Try again.\n");
-      return (NULL);
-    }
-  while (list != NULL)
-    {
-      if (list->name == NULL)
-	return (NULL);
-      if (strcmp(list->name, name) == 0)
-	return (list->content);
-      list = list->next;
-    }
-  return (NULL);
-}
-
-int		delete_alias(t_list *list, char *name)
-{
-  if (name == NULL)
-    {
-      printf("Error on alias name. Try again.\n");
-      return (-1);
-    }
-  while (list != NULL)
-    {
-      if (list->name == NULL)
-	return (-1);
-      if (strcmp(list->name, name) == 0)
+      if (strcmp(name, tmp->name) == 0)
 	{
-	  remove_from_list(list);
-	  return (0);
+	  printf("alias %s='%s'\n", tmp->name, tmp->content);
+	  return (1);
 	}
-      list = list->next;
+      tmp = tmp->next;
     }
+  fprintf(stderr, "42sh: alias: %s: not found.\n", name);
   return (-1);
 }
 
-int		write_alias(t_list *list, char *path)
+int		display_all_alias(t_alias *alias)
 {
-  int		fd;
+  t_alist	*tmp;
 
-  fd = xopen(path, O_WRONLY | O_TRUNC | O_CREAT, 00644);
-  while (list != NULL)
+  tmp = alias->list;
+  if (tmp == NULL)
     {
-      xwrite(fd, "alias ", 6);
-      xwrite(fd, list->name, strlen(list->name));
-      xwrite(fd, "='", 2);
-      xwrite(fd, list->content, strlen(list->content));
-      xwrite(fd, "'\n", 2);
-      list = list->next;
+      printf("42sh: alias: no alias found.\n");
+      return (0);
     }
+  while (tmp)
+    {
+      printf("alias %s='%s'\n", tmp->name, tmp->content);
+      tmp = tmp->next;
+    }
+  return (0);
+}
+
+int		add_alias(t_alias *alias, char *name, char *content)
+{
+  t_alist	*new;
+
+  new = my_xmalloc(sizeof(*new));
+  if (new == NULL)
+    return (-1);
+  new->name = name;
+  new->content = content;
+  new->next = alias->list;
+  alias->list = new;
   return (0);
 }

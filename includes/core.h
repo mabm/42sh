@@ -5,12 +5,11 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Fri May 23 09:40:40 2014 Nicolas Ades
+** Last update Sat May 24 05:50:04 2014 Geoffrey Merran
 */
 
-#ifndef		CORE_H_
-# define	CORE_H_
-
+#ifndef	CORE_H_
+# define CORE_H_
 # include "mysh.h"
 # include "history.h"
 # include "main.h"
@@ -18,6 +17,8 @@
 # include "line_editor.h"
 # include "conf.h"
 # include "free_shell.h"
+# include "aliasing.h"
+# include "online.h"
 
 /*
 ** Print tabs

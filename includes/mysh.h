@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 22 11:35:41 2014 Geoffrey Merran
-** Last update Fri May 23 15:49:58 2014 Joris Bertomeu
+** Last update Sat May 24 06:44:03 2014 Geoffrey Merran
 */
 
 #ifndef MYSH_
@@ -20,6 +20,13 @@ typedef struct		s_hlist
   struct s_hlist	*next;
   struct s_hlist	*prev;
 }			t_hlist;
+
+typedef	struct		s_alist
+{
+  char			*name;
+  char			*content;
+  struct s_alist	*next;
+}			t_alist;
 
 typedef struct	s_history
 {
@@ -41,9 +48,16 @@ typedef	struct	s_online
   char		**history;
 }		t_online;
 
+typedef struct	s_alias
+{
+  t_alist	*list;
+  char		*path;
+}		t_alias;
+
 typedef struct	s_shell
 {
   t_history	*history;
+  t_alias	*alias;
   t_list	*env;
   t_online	*online;
   int		prompt;

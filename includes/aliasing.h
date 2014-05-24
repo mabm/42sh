@@ -5,41 +5,38 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Mon May 12 16:06:42 2014 martelliere
-** Last update Mon May 12 16:35:28 2014 martelliere
+** Last update Sat May 24 06:41:47 2014 Geoffrey Merran
 */
 
-#ifndef		ALIASING_H_
-# define	ALIASING_H_
+#ifndef ALIASING_H_
+# define ALIASING_H_
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "mysh.h"
+# include "gnl.h"
+# include "my.h"
 
-# include		<stdio.h>
-# include		<stdlib.h>
-# include		<string.h>
-# include		<sys/types.h>
-# include		<sys/stat.h>
-# include		<fcntl.h>
-# include		"get_next_line.h"
+/*
+** Built in Alias
+*/
 
-typedef struct		s_alias
-{
-  char			*name;
-  char			*content;
-  struct s_alias	*next;
-}			t_alias;
+int 	add_alias(t_alias *alias, char *name, char *content);
+int	display_alias(t_alias *alias, char *name);
+int    	display_all_alias(t_alias *alias);
 
-typedef struct		s_aliasl
-{
-  t_alias		*first;
-}			t_aliasl;
+/*
+** Parsing & Initialisation alias
+*/
 
-void			add_alias(t_aliasl *alias, char *name, char *content);
-void			display_alias(t_aliasl *alias);
-void			aliasing(t_aliasl *alias);
-void			*my_xmalloc(int size);
-void			*my_alloc_init(int size, char c);
-t_aliasl		*init_aliasing(t_aliasl *alias);
-char			*get_user_path();
-char			*find_alias(t_aliasl *alias, char *name);
-char			**my_str_to_wordtab(char *str);
-char			**my_str_to_wordtab2(char *str);
+int    	get_alias(t_alias *alias);
+int    	get_alias_content(char *alias, char **content);
+int    	get_alias_things(char *alias, char **name, char **content);
+int    	load_alias(t_alias *alias, int fd);
+t_alias	*init_aliasing(t_shell *shell);
 
-#endif			/* _ALIASING_H_ */
+#endif /* _ALIASING_H_ */
