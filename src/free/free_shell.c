@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Sat May 24 17:20:03 2014 Geoffrey Merran
-** Last update Sat May 24 22:52:19 2014 Geoffrey Merran
+** Last update Sun May 25 18:25:30 2014 Geoffrey Merran
 */
 
 #include "free_shell.h"
@@ -67,6 +67,8 @@ void		free_online(t_online *online)
       free(online->pseudo);
       free_tab(online->history);
     }
+  else
+    free(online->history);
   free(online);
 }
 

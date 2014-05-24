@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Sat May 24 15:44:42 2014 Nicolas Ades
+** Last update Sat May 24 16:02:40 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -48,12 +48,13 @@ int		prompt(t_shell *shell)
   cmd = line_editor(shell);
   if (cmd != NULL)
     {
-      if (strncmp(cmd, "exit", 4) == 0 || shell->end == 1)
+      if (shell->end == 1)
 	{
 	  free(cmd);
 	  return (0);
 	}
-      check_builtin(shell->env, cmd);
+      my_lexer(cmd);
+      /* check_builtin(shell->env, cmd); */
       add_cmd(shell->history, cmd);
       free(cmd);
       shell->error = 0;

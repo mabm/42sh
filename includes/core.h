@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Sat May 24 23:32:00 2014 Geoffrey Merran
+** Last update Sun May 25 18:21:19 2014 Geoffrey Merran
 */
 
 #ifndef	CORE_H_
@@ -20,6 +20,7 @@
 # include "aliasing.h"
 # include "signal.h"
 # include "online.h"
+# include "parser.h"
 
 /*
 ** Print tabs
