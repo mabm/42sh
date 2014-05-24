@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:12 2014 Jeremy Mediavilla
-** Last update Sat May 24 16:05:54 2014 Nicolas Ades
+** Last update Sat May 24 16:53:23 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -76,23 +76,4 @@ void		my_setenv(t_list *list, char *cmd)
       if (already_here(list, var, (name_len + 1)) != 1)
 	add_to_end(list, var);
     }
-}
-
-void		my_cd(t_list *list, char *cmd)
-{
-  (void)list;
-  (void)cmd;
-  /* char		*home; */
-
-  /* if (is_in_env(list, "HOME=") == 1) */
-  /*   { */
-  /*     home = get_env_var("HOME=", 5); */
-  /*   } */    
-  printf("cd OK\n");
-}
-
-void		my_echo(t_shell *shell, char **cmd)
-{
-  (void)shell;
-  printf("%s\n", cmd[1]);
 }
