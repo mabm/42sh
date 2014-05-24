@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:12 2014 Jeremy Mediavilla
-** Last update Fri May 23 09:38:05 2014 Nicolas Ades
+** Last update Sat May 24 15:43:54 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -91,8 +91,8 @@ void		my_cd(t_list *list, char *cmd)
   printf("cd OK\n");
 }
 
-void		my_echo(t_list *list, char *cmd)
+void		my_echo(t_shell *shell, char **cmd)
 {
-  (void)list;
-  printf("%s\n", cmd);
+  (void)shell;
+  printf("%s\n",, cmd[1]);
 }

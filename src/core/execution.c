@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 08:06:43 2014 Nicolas Ades
-** Last update Sat May 24 14:07:47 2014 Nicolas Ades
+** Last update Sat May 24 14:51:55 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -15,7 +15,7 @@ int		do_fork_bis(char **envp, char **cmd)
 {
   pid_t		ptr;
   
-  if ((pid = fork()) == -1)
+  if ((pid= fork()) == -1)
     {
       fprintf(stderr, "Error with fork\n");
       return (-1);
