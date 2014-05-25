@@ -63,6 +63,7 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_PARSER)parser.c			\
 			$(D_PARSER)list2.c			\
 			$(D_PARSER)access.c			\
+			$(D_PARSER)free.c			\
 
 OBJ		=	$(SRC:.c=.o)
 

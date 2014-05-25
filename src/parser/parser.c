@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Sun May 25 18:28:05 2014 Geoffrey Merran
+** Last update Sun May 25 18:57:42 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
@@ -42,6 +42,7 @@ int		my_parser_check(t_link *list, char *cmd)
       if (tmp != NULL)
 	tmp = tmp->next;
     }
+  free_tree(tree);
   tmp = list;
   remove_old_links(&tmp, &list);
   aff_my_list(list);

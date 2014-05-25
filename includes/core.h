@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Sun May 25 18:21:19 2014 Geoffrey Merran
+** Last update Sat May 24 16:06:20 2014 Nicolas Ades
 */
 
 #ifndef	CORE_H_
@@ -40,7 +40,7 @@ void		my_cd(t_list *, char *);
 */
 
 char		*init_unsetenv_var(int, char **);
-void		my_echo(t_list *, char *);
+void		my_echo(t_shell *, char **);
 void		my_setenv(t_list *, char *);
 void		my_unsetenv(t_list *, char *);
 void		get_all_env(t_list *, char **);
