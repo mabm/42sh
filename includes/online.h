@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Sat May 24 05:46:56 2014 Geoffrey Merran
-** Last update Sun May 25 07:57:53 2014 Joris Bertomeu
+** Last update Sun May 25 17:17:45 2014 Geoffrey Merran
 */
 
 #ifndef ONLINE_
@@ -17,6 +17,7 @@
 # include <my_global.h>
 # include <time.h>
 # include <termios.h>
+# include "aliasing.h"
 # include "mysh.h"
 
 # define modeCANON    0
