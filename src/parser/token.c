@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Sun May 25 11:42:26 2014 Jeremy Mediavilla
-** Last update Sun May 25 15:08:11 2014 Jeremy Mediavilla
+** Last update Sun May 25 19:00:14 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
@@ -86,11 +86,8 @@ void		check_token2(t_link *list, int *j, char *cmd, int *i)
 int		check_token(char *cmd, int *i, t_link *list)
 {
   int		j;
-  t_special	*info;
 
   j = 0;
-  if ((info = my_xmalloc(sizeof(*info))) == NULL)
-    return (-1);
   if (cmd[*i] == '\"')
     {
       if (check_double_quotes(cmd, i, list, '\"') == -2)
