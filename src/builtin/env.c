@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:45:44 2014 Jeremy Mediavilla
-** Last update Sat May 24 16:26:28 2014 Geoffrey Merran
+** Last update Sun May 25 21:41:02 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -66,18 +66,19 @@ char            *check_env_var(t_list *list, char *name, int len)
   return (NULL);
 }
 
-void		aff_env(t_list *list, char *cmd)
+int		aff_env(t_shell *shell, char **cmd)
 {
   t_list	*tmp;
 
   (void) cmd;
-  tmp = list;
+  tmp = shell->env;
   while (tmp != NULL)
     {
       if (tmp->data != NULL)
 	printf("%s\n", tmp->data);
       tmp = tmp->next;
     }
+  return (0);
 }
 
 void		get_all_env(t_list *list, char **env)

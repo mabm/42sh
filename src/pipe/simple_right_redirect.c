@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 05:58:25 2014 Joris Bertomeu
-** Last update Sun May 25 06:12:08 2014 Joris Bertomeu
+** Last update Sun May 25 21:04:35 2014 Geoffrey Merran
 */
 
 #include <stdlib.h>

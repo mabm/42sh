@@ -5,40 +5,36 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Sun May 25 20:05:23 2014 Joris Bertomeu
+** Last update Sun May 25 21:47:30 2014 Geoffrey Merran
 */
 
 #include "core.h"
 #include "gnl.h"
 
-void            check_builtin(t_list *list, char *cmd)
+t_builtin	builtin[] =
+  {
+    {"env", aff_env},
+    {"unsetenv", my_unsetenv},
+    {"setenv", my_setenv},
+    {"alias", builtin_alias}
+  };
+
+void            check_builtin(t_shell *shell, char **cmd)
 {
-  char          *mtab[5];
-  void          (*which_builtin[5])(t_list *, char *);
   int           i;
 
-  mtab[0] = "env";
-  mtab[1] = "unsetenv";
-  mtab[2] = "setenv";
-  mtab[3] = "cd";
-  mtab[4] = "echo";
-  which_builtin[0] = &aff_env;
-  which_builtin[1] = &my_unsetenv;
-  which_builtin[2] = &my_setenv;
-  /* which_builtin[3] = &my_cd; */
-  /* which_builtin[4] = &my_echo; */
   i = 0;
-  while (i < 5)
+  while (i < 4)
     {
-      if (strncmp(cmd, mtab[i], strlen(mtab[i])) == 0)
+      if (strncmp(cmd[0], builtin[i].name, strlen(builtin[i].name)) == 0)
         {
-          (*which_builtin[i])(list, cmd);
+          builtin[i].fptr(shell, cmd);
           i = 5;
         }
       i++;
     }
   if (i == 5)
-    fprintf(stderr, "%s : n'est pas une commande\n", cmd);
+    fprintf(stderr, "%s : n'est pas une commande\n", cmd[0]);
 }
 
 int		prompt(t_shell *shell)

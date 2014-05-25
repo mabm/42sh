@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Sat May 24 16:06:20 2014 Nicolas Ades
+** Last update Sun May 25 21:47:07 2014 Geoffrey Merran
 */
 
 #ifndef	CORE_H_
@@ -40,11 +40,11 @@ void		my_cd(t_list *, char *);
 */
 
 char		*init_unsetenv_var(int, char **);
-void		my_echo(t_shell *, char **);
-void		my_setenv(t_list *, char *);
-void		my_unsetenv(t_list *, char *);
+int		my_echo(t_shell *, char **);
+int		my_setenv(t_shell *, char **);
+int		my_unsetenv(t_shell *, char **);
 void		get_all_env(t_list *, char **);
-void		aff_env(t_list *, char *);
+int		aff_env(t_shell *, char **);
 int		is_in_env(t_list *, char *);
 char		*get_env_var(char *, int);
 char		*check_env_var(t_list *, char *, int);
