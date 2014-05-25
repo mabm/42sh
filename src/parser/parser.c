@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Sun May 25 18:04:30 2014 Jeremy Mediavilla
+** Last update Sun May 25 18:34:56 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
@@ -42,6 +42,7 @@ int		my_parser_check(t_link *list, char *cmd)
       if (tmp != NULL)
 	tmp = tmp->next;
     }
+  free(tree);
   tmp = list;
   remove_old_links(&tmp, &list);
   aff_my_list(list);
@@ -76,14 +77,3 @@ int		my_lexer(char *cmd)
     return (-1);
   return (0);
 }
-
-/* int		main(int ac, char **av) */
-/* { */
-/*   (void)ac; */
-/*   (void)av; */
-/*   if (av[1]) */
-/*     my_lexer(av[1]); */
-/*   else */
-/*     my_lexer("ceci est un test\" d\"e lol        | xD     ;a  \"sdf |;\"*ze\tci*\" est un >> &&&autre | ;w(((  test)));check|;loulz"); */
-/*   return (0); */
-/* } */
