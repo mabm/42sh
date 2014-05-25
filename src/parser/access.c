@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May 21 15:56:54 2014 Jeremy Mediavilla
-** Last update Sun May 25 15:15:18 2014 Jeremy Mediavilla
+** Last update Sun May 25 18:47:13 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
@@ -52,7 +52,11 @@ int		*get_access(char *cmd)
   while (tmp[size])
     size++;
   if ((final = fill_access(tmp, (size + 1))) == NULL)
+    {
+      free_tab(tmp);
       return (NULL);
+    }
+  free_tab(tmp);
   return (final);
 }
 
