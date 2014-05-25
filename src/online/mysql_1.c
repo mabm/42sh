@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:53:45 2014 Joris Bertomeu
-** Last update Sun May 25 19:46:26 2014 Joris Bertomeu
+** Last update Sun May 25 20:24:20 2014 Joris Bertomeu
 */
 
 #include "my.h"
@@ -99,9 +99,9 @@ int		fetch_history(char *user, int i, int flag, t_online *sys)
       sys->num_hist = i;
       sys->history[i] = NULL;
       mysql_close(&mysql);
+      free(result);
     }
   else
     flag = -1;
-  free(result);
   return (flag);
 }

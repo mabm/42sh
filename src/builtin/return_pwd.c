@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 19:23:05 2014 Joris Bertomeu
-** Last update Sun May 25 19:31:12 2014 Joris Bertomeu
+** Last update Sun May 25 20:04:03 2014 Joris Bertomeu
 */
 
 #include <stdlib.h>
@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include "../../include/mysh.h"
 
 char	*return_pwd()
 {
@@ -22,13 +23,14 @@ char	*return_pwd()
   char	*pwd_return;
   char	*tmp;
   int	i;
+  t_shell	*shell;
 
   i = 0;
   pipe(pipefd);
   if (fork() == 0)
     {
       dup2(pipefd[1], 1);
-      execvp("/bin/pwd", tab);
+      execution_without_fork(shell, tab);
     }
   tmp = malloc(256 * sizeof(char));
   memset(tmp, 0, 256);
