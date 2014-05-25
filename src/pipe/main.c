@@ -1,42 +1,159 @@
 #include <unistd.h>
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+#include <stdlib.h>
+#include "pipe.h"
 
-int	*do_pipe(char *cmd1, char *cmd2, int *pipefd)
+int	sub_exec_pipe_first(t_pipe *pipes)
 {
-  pid_t	pid;
-  int	pipefd2[2];
-  char	buff[4096];
+  pipes->tmp = read(pipes->pipefd[0], pipes->t, 4096);
+  close(pipes->pipefd[1]);
+  close(pipes->pipefd[0]);
+  if (pipe(pipes->pipefd) == -1)
+    return (-1);
+  if (pipe(pipes->pipefd2) == -1)
+    return (-1);
+  write(pipes->pipefd[1], pipes->t, pipes->tmp);
+  close(pipes->pipefd[1]);
+  return (1);
+}
 
-  pipe(pipefd2);
-  if ((pid = fork()) == 0) // FILS
+int	sub_exec_pipe_second(t_pipe *pipes)
+{
+  pipes->tmp = read(pipes->pipefd2[0], pipes->t, 4096);
+  close(pipes->pipefd2[1]);
+  close(pipes->pipefd2[0]);
+  if (pipe(pipes->pipefd) == -1)
+    return (-1);
+  write(pipes->pipefd[1], pipes->t, pipes->tmp);
+  close(pipes->pipefd[1]);
+  return (1);
+}
+
+int	do_pipe_middle(t_pipe *pipes)
+{
+  if (sub_exec_pipe_first(pipes) == -1)
+    return (-1);
+  if ((pipes->pid = fork()) == 0)
     {
-      close(pipefd[0]);
-      if (dup2(pipefd[1], 1) == -1)
-	return;
-      execlp("/bin/sh", "sh", "-c", cmd1);
+      if (dup2(pipes->pipefd[0], 0) == -1)
+	printf("\nFAILED DUP2\n");
+      if (dup2(pipes->pipefd2[1], 1) == -1)
+	printf("\nFAILED DUP2\n");
+      execvp(pipes->cmds[pipes->i][0], &(pipes->cmds[pipes->i][1]));
+      perror("erreur from middle");
     }
-  else //PERE
+  if (waitpid(pipes->pid, &(pipes->status), 0) == -1)
+    printf("\nErreur Waitpid\n");
+  if (sub_exec_pipe_second(pipes) == -1)
+    return (-1);
+  return (1);
+}
+
+int	do_pipe_first(t_pipe *pipes)
+{
+  if ((pipes->pid = fork()) == 0)
     {
-      close(pipefd[1]);
-      if (dup2(pipefd[0], 0) == -1)
-	return;
+      close(pipes->pipefd[0]);
+      if (dup2(pipes->pipefd[1], 1) == -1)
+	return (-1);
+      execvp(pipes->cmds[pipes->i][0], &(pipes->cmds[pipes->i][1]));
+    }
+  if (waitpid(pipes->pid, &(pipes->status), 0) == -1)
+    return (-1);
+}
 
-      close(pipefd2[0]);
-      if (dup2(pipefd2[1], 1) == -1)
-	return;
+int	do_pipe_end(t_pipe *pipes)
+{
+  if (pipes->total == 2)
+    {
+      pipes->tmp = read(pipes->pipefd[0], pipes->t, 4096);
+      close(pipes->pipefd[1]);
+      close(pipes->pipefd[0]);
+      if (pipe(pipes->pipefd2) == -1)
+	return (-1);
+      write(pipes->pipefd2[1], pipes->t, pipes->tmp);
+      close(pipes->pipefd2[1]);
+    }
+  if ((pipes->pid = fork()) == 0)
+    {
+      if (dup2(pipes->pipefd[0], 0) == -1)
+	return (-1);
+      execvp(pipes->cmds[pipes->i][0], &(pipes->cmds[pipes->i][1]));
+    }
+  if (waitpid(pipes->pid, &(pipes->status), 0) == -1)
+    return (-1);
+  return (1);
+}
 
-      execlp("/bin/sh", "sh", "-c", cmd2);
-
-   }
-  read(pipefd2[0], buff, 4096);
-  printf(">> %s\n", buff);
-  return (pipefd);
+int		do_pipe(t_pipe *pipes)
+{
+  pipes->i = 0;
+  if (pipe(pipes->pipefd) == -1)
+    return (-1);
+  while (pipes->i < pipes->total)
+    {
+      if (pipes->i == 0)
+	do_pipe_first(pipes);
+      else if (pipes->i == pipes->total -1)
+	if (do_pipe_end(pipes) == -1)
+	  return (-1);
+      else
+	if (do_pipe_middle(pipes) == -1)
+	  return (-1);
+      pipes->i++;
+    }
+  return (1);
 }
 
 int	main(int ac, char *argv[])
 {
-  int	*pipefd;
+  t_pipe	*pipe;
 
-  pipefd = malloc(2 * sizeof(*pipefd));
-  pipe(pipefd);
-  pipefd = do_pipe("env", "grep -e \"HOME\"", pipefd);
+  pipe = malloc(sizeof(*pipe));
+  pipe->cmds = malloc(5 * sizeof(char **));
+
+  pipe->cmds[0] = malloc(10 * sizeof(char*));
+  pipe->cmds[0][0] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[0][0], "/usr/bin/env");
+  pipe->cmds[0][1] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[0][1], "env");
+  pipe->cmds[0][2] = malloc(128 * sizeof(char));
+  pipe->cmds[0][2] = NULL;
+
+  pipe->cmds[1] = malloc(10 * sizeof(char*));
+  pipe->cmds[1][0] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[1][0], "/bin/grep");
+  pipe->cmds[1][1] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[1][1], "grep");
+  pipe->cmds[1][2] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[1][2], "-e");
+  pipe->cmds[1][3] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[1][3], "HOME");
+  pipe->cmds[1][4] = malloc(128 * sizeof(char));
+  pipe->cmds[1][4] = NULL;
+
+  pipe->cmds[2] = malloc(10 * sizeof(char*));
+  pipe->cmds[2][0] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[2][0], "/bin/less");
+  pipe->cmds[2][1] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[2][1], "less");
+  pipe->cmds[2][2] = malloc(128 * sizeof(char));
+  pipe->cmds[2][2] = NULL;
+
+  pipe->cmds[3] = malloc(10 * sizeof(char*));
+  pipe->cmds[3][0] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[3][0], "/bin/cat");
+  pipe->cmds[3][1] = malloc(128 * sizeof(char));
+  strcpy(pipe->cmds[3][1], "cat");
+  pipe->cmds[3][2] = malloc(128 * sizeof(char));
+  pipe->cmds[3][2] = NULL;
+
+  pipe->total = 2;
+
+  if (do_pipe(pipe) != -1)
+    printf("\t\t\t\t\t\t=> Infinite Pipe successed\n");
+  else
+    printf("\t\t\t\t\t\t=> Infinite Pipe failed\n");
 }

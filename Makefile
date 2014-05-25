@@ -1,13 +1,3 @@
-##
-## Makefile for Makefile in /home/merran_g/work/c_elem/42sh
-## 
-## Made by Geoffrey Merran
-## Login   <merran_g@epitech.net>
-## 
-## Started on  Sat May 24 01:20:58 2014 Geoffrey Merran
-## Last update Sun May 25 06:14:17 2014 Geoffrey Merran
-##
-
 CC		=	gcc
 
 RM		=	rm -f
@@ -57,7 +47,11 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_CONF)conf.c				\
 			$(D_CONF)default.c			\
 			$(D_FREE)free_shell.c			\
-			$(D_ONLINE)curse.c			\
+			$(D_ONLINE)online.c			\
+			$(D_ONLINE)mysql_1.c			\
+			$(D_ONLINE)mysql_2.c			\
+			$(D_ONLINE)mysql_3.c			\
+			$(D_ONLINE)mysql_4.c			\
 
 OBJ		=	$(SRC:.c=.o)
 
