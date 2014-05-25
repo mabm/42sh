@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:13:23 2014 Geoffrey Merran
-** Last update Sat May 24 15:53:12 2014 Geoffrey Merran
+** Last update Sun May 25 04:56:37 2014 Geoffrey Merran
 */
 
 #define _BSD_SOURCE
@@ -30,8 +30,6 @@ int	init_term(struct termios *t, struct termios *t_save)
 
 char	*reset_term(char *cmd, struct termios *t_save)
 {
-  if (cmd != NULL)
-    my_printf("\r%s%s \n", PROMPT, cmd);
   if (xtcsetattr(0, 0, t_save) == -1)
     return (NULL);
   if (change_cursor(1) == -1)
@@ -41,9 +39,16 @@ char	*reset_term(char *cmd, struct termios *t_save)
 
 int	init_line_editor(struct termios *t, struct termios *t_save, t_line **line)
 {
+  char	*pos;
+
   if (init_term(t, t_save) == -1)
     return (-1);
+  if ((pos = xtgetstr("sc", NULL)) == NULL)
+    return (-1);
+  my_putstr(pos);
   if (new_line_edit(line) == -1)
+    return (-1);
+  if (((*line)->save = xtgetstr("rc", NULL)) == NULL)
     return (-1);
   if (add_char('\0', line) == -1)
     return (-1);
@@ -55,7 +60,7 @@ int		show_edit_line(t_line *line)
   t_char	*tmp;
   int		i;
 
-  my_printf("\r%s", PROMPT);
+  my_printf("%s%s", line->save, PROMPT);
   tmp = line->head;
   i = 0;
   while (tmp)
@@ -81,14 +86,14 @@ char			*line_editor(t_shell *shell)
   if (init_line_editor(&t, &t_save, &line) == -1)
     return (NULL);
   bzero(buffer, BUFFER_SIZE);
-  while (buffer[0] != '\n')
+  while (buffer[0] != '\n' && buffer[0] != 4)
     {
       bzero(buffer, BUFFER_SIZE);
       if (show_edit_line(line) == -1)
 	return (NULL);
       if (read(0, buffer, BUFFER_SIZE - 1) <= 0)
 	return (NULL);
-      if (parser_line_editor(buffer, &line, shell))
+      if (parser_line_editor(buffer, &line, shell) == -1)
 	return (NULL);
     }
   return (reset_term(build_line(line), &t_save));

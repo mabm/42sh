@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Sat May 24 05:47:33 2014 Geoffrey Merran
-** Last update Sat May 24 17:15:38 2014 Joris Bertomeu
+** Last update Sat May 24 22:47:27 2014 Geoffrey Merran
 */
 
 #include "online.h"
@@ -409,7 +409,6 @@ void	init_struct(t_online *sys)
   sys->is_history = 0;
   sys->is_alias = 0;
   sys->is_prompt = 0;
-  sys->history = malloc(4096 * sizeof(char*));
 }
 
 t_online	*online_mode()
@@ -426,6 +425,7 @@ t_online	*online_mode()
     printf("Read error\n");
   if (buff[0] == 'y')
     {
+      sys->history = malloc(4096 * sizeof(char*));
       connection(sys);
       return (sys);
     }

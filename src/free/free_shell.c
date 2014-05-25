@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Sat May 24 17:20:03 2014 Geoffrey Merran
-** Last update Sat May 24 17:20:04 2014 Geoffrey Merran
+** Last update Sat May 24 22:52:19 2014 Geoffrey Merran
 */
 
 #include "free_shell.h"
@@ -42,9 +42,39 @@ void		free_env(t_list	*env)
     }
 }
 
+void		free_alias(t_alias *alias)
+{
+  t_alist	*tmp;
+  t_alist	*save;
+
+  tmp = alias->list;
+  while (tmp)
+    {
+      save = tmp->next;
+      free(tmp->name);
+      free(tmp->content);
+      free(tmp);
+      tmp = save;
+    }
+  free(alias->path);
+  free(alias);
+}
+
+void		free_online(t_online *online)
+{
+  if (online->active == 1)
+    {
+      free(online->pseudo);
+      free_tab(online->history);
+    }
+  free(online);
+}
+
 void		free_shell(t_shell *shell)
 {
   free_history(shell->history);
   free_env(shell->env);
+  free_online(shell->online);
+  free_alias(shell->alias);
   free(shell);
 }

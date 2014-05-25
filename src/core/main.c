@@ -5,21 +5,43 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Sat May 24 16:51:49 2014 Geoffrey Merran
+** Last update Sat May 24 23:32:44 2014 Geoffrey Merran
 */
 
 #include "core.h"
 
-int		loading_shell(t_shell **shell, char **env)
+int		init_shell(t_shell **shell)
 {
+  (*shell)->history = my_xmalloc(sizeof(*(*shell)->history));
+  if ((*shell)->history == NULL)
+    return (-1);
+  (*shell)->alias = my_xmalloc(sizeof(*(*shell)->alias));
+  if ((*shell)->alias == NULL)
+    return (-1);
+  return (0);
+}
+
+int		loading_shell(t_shell **shell, char **env, int ac, char **av)
+{
+  if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+    return (-1);
+  if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+    return (-1);
   *shell = my_xmalloc(sizeof(**shell));
+  if (shell == NULL)
+    return (-1);
   (*shell)->env = create_list(NULL);
   get_all_env((*shell)->env, env);
   (*shell)->online = online_mode();
-  (*shell)->history = init_history(*shell);
-  (*shell)->alias = init_aliasing(*shell);
-  (*shell)->prompt = 1;
+  if (init_shell(shell) == -1)
+    return (-1);
+  default_conf(shell);
+  if (ac == 2)
+    load_conf(shell, av[1]);
+  init_history(shell);
+  init_aliasing(shell);
   (*shell)->error = 0;
+  (*shell)->end = 0;
   return (xtgetent(NULL, "xterm"));
 }
 
@@ -27,9 +49,9 @@ int		main(int ac, char **av, char **env)
 {
   t_shell	*shell;
 
-  (void) ac;
-  (void) av;
-  if (loading_shell(&shell, env) == -1)
+  if (ac > 2)
+    return (my_error("USAGE: ./42sh <conf_file>"));
+  if (loading_shell(&shell, env, ac, av) == -1)
     return (EXIT_FAILURE);
   if (prompt(shell) == -1)
     return (EXIT_FAILURE);

@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 15 19:46:48 2014 Geoffrey Merran
-** Last update Fri May 23 03:06:55 2014 Geoffrey Merran
+** Last update Sun May 25 05:12:18 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -28,6 +28,7 @@ void		delete_line_edit(t_line *line)
   int		i;
 
   i = 0;
+  line->size_max = line->size;
   while (line->head && line->head->c != '\0')
     {
       tmp = line->head->next;
@@ -35,7 +36,6 @@ void		delete_line_edit(t_line *line)
       line->head = tmp;
       i++;
     }
-  line->size_max = i + 2;
   line->size = 1;
   if (line->head != NULL)
     {
@@ -65,6 +65,8 @@ char		*build_line(t_line *line)
       free(tmp);
       tmp = tmp2;
     }
+  if (cmd != NULL)
+    my_printf("%s%s%s \n", line->save, PROMPT, cmd);
   free(line);
   return (cmd);
 }

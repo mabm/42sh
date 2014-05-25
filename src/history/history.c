@@ -5,31 +5,10 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:49:56 2014 martelliere
-** Last update Sat May 24 15:45:15 2014 Geoffrey Merran
+** Last update Sat May 24 19:33:32 2014 Geoffrey Merran
 */
 
 #include "history.h"
-
-char    *get_user_path()
-{
-  char  *user;
-  char  *path;
-
-  if ((user = getenv("USER")) == NULL)
-    {
-      fprintf(stderr, "42sh: history: can't get username to \
-access history.\n");
-      return (NULL);
-    }
-  path = my_alloc_init((22 + strlen(user)) * sizeof(char), 0);
-  if (path == NULL)
-    return (NULL);
-  strcat(path, "/home/");
-  strcat(path, user);
-  strcat(path, "/");
-  strcat(path, ".bash_history");
-  return (path);
-}
 
 void		show_history(t_history *history)
 {
@@ -46,17 +25,11 @@ void		show_history(t_history *history)
     }
 }
 
-t_history	*init_history(t_shell *shell)
+int		init_history(t_shell **shell)
 {
-  t_history	*history;
-
-  history = my_xmalloc(sizeof(*history));
-  if ((history->path = get_user_path()) == NULL)
-    return (NULL);
-  history->head = NULL;
-  history->current = NULL;
-  history->tail = NULL;
-  history->size = 0;
-  get_history(history, shell);
-  return (history);
+  (*shell)->history->head = NULL;
+  (*shell)->history->current = NULL;
+  (*shell)->history->tail = NULL;
+  (*shell)->history->size = 0;
+  return (get_history((*shell)->history, *shell));
 }

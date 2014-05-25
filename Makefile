@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Sat May 24 01:20:58 2014 Geoffrey Merran
-## Last update Sat May 24 06:39:26 2014 Geoffrey Merran
+## Last update Sat May 24 21:51:42 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
@@ -53,6 +53,7 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_ALIAS)load_alias.c			\
 			$(D_ALIAS)manage_alias.c		\
 			$(D_CONF)conf.c				\
+			$(D_CONF)default.c				\
 			$(D_FREE)free_shell.c			\
 			$(D_ONLINE)curse.c			\
 

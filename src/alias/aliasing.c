@@ -5,31 +5,10 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Mon May 12 15:16:12 2014 martelliere
-** Last update Sat May 24 17:01:14 2014 Joris Bertomeu
+** Last update Sat May 24 19:05:35 2014 Geoffrey Merran
 */
 
 #include "aliasing.h"
-
-char    *get_user_path_alias()
-{
-  char  *user;
-  char  *path;
-
-  if ((user = getenv("USER")) == NULL)
-    {
-      printf("42sh: can't get username env variable to access history.\n");
-      return (NULL);
-    }
-  path = my_xmalloc((16 + strlen(user)) * sizeof(char));
-  bzero(path, (16 + strlen(user)));
-  if (path == NULL)
-    return (NULL);
-  strcat(path, "/home/");
-  strcat(path, user);
-  strcat(path, "/");
-  strcat(path, ".bashrc");
-  return (path);
-}
 
 int		get_alias(t_alias *alias, t_shell *shell)
 {
@@ -54,19 +33,47 @@ Check your rights.\n");
 	return (-1);
       return (load_alias(alias, fd, shell, 0));
     }
-  return (load_alias(alias, fd, shell, 1));
+  return (load_alias(alias, 0, shell, 1));
 }
 
-t_alias		*init_aliasing(t_shell *shell)
+int	add_shell_alias(t_shell *shell, char *new)
 {
-  t_alias	*alias;
+  char	*name;
+  char	*content;
 
-  (void) shell;
-  alias = my_xmalloc(sizeof(*alias));
-  if (alias == NULL)
-    return (NULL);
-  alias->path = get_user_path_alias();
-  alias->list = NULL;
-  get_alias(alias, shell);
-  return (alias);
+  if (get_alias_things(new, &name, &content) != -1)
+    add_alias(shell->alias, name, content);
+  else
+    fprintf(stderr, "42sh: alias: couldn't alias this '%s'\n", new);
+  return (0);
+}
+
+int	builtin_alias(t_shell *shell, char **cmd)
+{
+  int	size;
+  int	i;
+
+  i = 0;
+  size = my_strlen_tabs(cmd);
+  if (size == 1)
+    display_all_alias(shell->alias);
+  else
+    {
+      while (cmd[i])
+	{
+	  if (strstr(cmd[i], "=") != NULL)
+	    add_shell_alias(shell, cmd[i]);
+	  else
+	    display_alias(shell->alias, cmd[i]);
+	  i++;
+	}
+    }
+  return (0);
+}
+
+int		init_aliasing(t_shell **shell)
+{
+  (*shell)->alias->list = NULL;
+  get_alias((*shell)->alias, *shell);
+  return (0);
 }

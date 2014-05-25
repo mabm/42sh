@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 18:05:01 2014 Geoffrey Merran
-** Last update Fri May 23 02:55:54 2014 Geoffrey Merran
+** Last update Sun May 25 05:07:51 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -63,6 +63,11 @@ void	parse_delete(char *buffer, t_line **line, int size)
     }
 }
 
+void	parse_bind(char *buffer, t_line **line, int size)
+{
+  
+}
+
 int	parser_line_editor(char *buffer, t_line **line, t_shell *shell)
 {
   int	size;
@@ -73,5 +78,9 @@ int	parser_line_editor(char *buffer, t_line **line, t_shell *shell)
   if (parse_arrow(buffer, line, size, shell) == -1)
     return (-1);
   parse_delete(buffer, line, size);
+  parse_bind(buffer, line, size);
+  my_printf("%S", buffer);
+  if (size == 1 && buffer[0] == 4)
+    shell->end = 1;
   return (0);
 }

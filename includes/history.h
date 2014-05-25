@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:50:11 2014 martelliere
-** Last update Sat May 24 05:51:51 2014 Geoffrey Merran
+** Last update Sat May 24 17:30:31 2014 Geoffrey Merran
 */
 
 #ifndef		HISTORY_H_
@@ -26,7 +26,7 @@
 ** History
 */
 
-t_history	*init_history(t_shell *shell);
+int		init_history(t_shell **shell);
 int		delete_cmd(t_hlist *list, char *name);
 int		add_cmd(t_history *history, char *name);
 int		save_history(t_history *history, t_shell *shell);

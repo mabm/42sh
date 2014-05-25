@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:12:40 2014 Geoffrey Merran
-** Last update Fri May 23 01:49:05 2014 Geoffrey Merran
+** Last update Sun May 25 04:45:26 2014 Geoffrey Merran
 */
 
 #ifndef LINE_EDITOR_
@@ -53,6 +53,7 @@ typedef	struct	s_line
   t_char	*head;
   t_char	*current;
   t_char	*tail;
+  char		*save;
   int		size;
   int		size_max;
 }		t_line;

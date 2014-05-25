@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Fri May 23 00:44:06 2014 Geoffrey Merran
-** Last update Fri May 23 02:50:06 2014 Geoffrey Merran
+** Last update Sat May 24 20:06:20 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -33,7 +33,8 @@ int	move_history_up(t_line **line, t_shell *shell)
     }
   else
     {
-      if (shell->history->current->prev != NULL)
+      if (shell->history->current != NULL &&
+	  shell->history->current->prev != NULL)
 	{
 	  delete_line_edit(*line);
 	  shell->history->current = shell->history->current->prev;

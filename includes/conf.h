@@ -5,12 +5,34 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 15 21:06:01 2014 Geoffrey Merran
-** Last update Thu May 15 21:15:25 2014 Geoffrey Merran
+** Last update Sat May 24 21:39:36 2014 Geoffrey Merran
 */
 
 #ifndef CONF_
 # define CONF_
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include "gnl.h"
+# include "mysh.h"
+# include "my.h"
 
+/*
+** Load conf
+*/
 
+int	load_conf(t_shell **shell, char *path);
+int	parse_conf(t_shell **shell, char **line);
+int	get_conf(t_shell **shell, int fd);
+void	free_tab(char **t);
+
+/*
+** Get Default conf
+*/
+
+int	default_conf(t_shell **shell);
 
 #endif /* CONF_ */
