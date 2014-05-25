@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:44:52 2014 Joris Bertomeu
-** Last update Sun May 25 19:40:53 2014 Joris Bertomeu
+** Last update Sun May 25 19:46:43 2014 Joris Bertomeu
 */
 
 #include "my.h"
@@ -74,7 +74,7 @@ void	modify_active(char *user, char *active)
   if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
 			"epitech42", "labelec_epibot", 0, NULL, 0))
     {
-      if ((requete = xmalloc((strlen(user) + 100) * sizeof(char))) == NULL)
+      if ((requete = my_xmalloc((strlen(user) + 100) * sizeof(char))) == NULL)
 	return;
       sprintf(requete, "UPDATE 42_user SET active = '%s' WHERE user = '%s'",
 	      active, user);
@@ -103,7 +103,7 @@ void		add_cmd_history_mysql(t_shell *shell, char *cmd)
       if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
 			    "epitech42", "labelec_epibot", 0, NULL, 0))
 	{
-	  if ((requete = xmalloc((strlen(cmd) + 100) * sizeof(char))) == NULL)
+	  if ((requete = my_xmalloc((strlen(cmd) + 100) * sizeof(char))) == NULL)
 	    return;
 	  sprintf(requete, "INSERT INTO history(id, id_private,\
  user, command, date) VALUES('', '0', '%s', '%s', '00')",
@@ -129,7 +129,7 @@ void		add_cmd_history_mysql_manuel(char *cmd, char *pseudo)
   if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
 			"epitech42", "labelec_epibot", 0, NULL, 0))
     {
-      if ((requete = xmalloc(150 * sizeof(char))) == NULL)
+      if ((requete = my_xmalloc(150 * sizeof(char))) == NULL)
 	return;
       sprintf(requete, "INSERT INTO history(id, id_private,\
  user, command, date) VALUES('', '0', '%s', '%s', '%s')",

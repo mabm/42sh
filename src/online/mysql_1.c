@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:53:45 2014 Joris Bertomeu
-** Last update Sun May 25 19:43:37 2014 Joris Bertomeu
+** Last update Sun May 25 19:46:26 2014 Joris Bertomeu
 */
 
 #include "my.h"
@@ -60,7 +60,7 @@ void	modify_last(char *user)
   if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
 			"epitech42", "labelec_epibot", 0, NULL, 0))
     {
-      if ((requete = xmalloc(150 * sizeof(char))) == NULL)
+      if ((requete = my_xmalloc(150 * sizeof(char))) == NULL)
 	return;
       sprintf(requete, "UPDATE 42_user SET last = '%s' WHERE user = '%s'",
 	      return_date(), user);
