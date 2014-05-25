@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:45:45 2014 Joris Bertomeu
-** Last update Sun May 25 07:46:49 2014 Joris Bertomeu
+** Last update Sun May 25 19:42:27 2014 Joris Bertomeu
 */
 
 #include "my.h"
@@ -60,7 +60,8 @@ int	add_user(char *user, char *pass, t_online *sys)
   if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
 			"epitech42", "labelec_epibot", 0, NULL, 0))
     {
-      requete = malloc(150 * sizeof(char));
+      if ((requete = xmalloc(150 * sizeof(char))) == NULL)
+	return (-1);
       sprintf(requete, "INSERT INTO 42_user(id, user, pass, last)\
  VALUES('NULL', '%s', '%s', '' )", user, pass);
       mysql_query(&mysql, requete);
