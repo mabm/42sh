@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 05:58:25 2014 Joris Bertomeu
-** Last update Sun May 25 21:04:35 2014 Geoffrey Merran
+** Last update Sun May 25 20:44:12 2014 Joris Bertomeu
 */
 
 #include <stdlib.h>
@@ -49,7 +49,7 @@ int	main()
   cmd = malloc(2 * sizeof(char*));
   cmd[0] = malloc(128 * sizeof(char));
   cmd[1] = malloc(128 * sizeof(char));
-  strcpy(cmd[0], "ls -l");
-  strcpy(cmd[1], "result");
+  strcpy(cmd[0], "ls -l | grep toto");
+  strcpy(cmd[1], "lol");
   start_right_redirect(cmd);
 }
