@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Sat May 24 17:20:03 2014 Geoffrey Merran
-** Last update Sun May 25 18:25:30 2014 Geoffrey Merran
+** Last update Sun May 25 19:42:39 2014 Geoffrey Merran
 */
 
 #include "free_shell.h"
@@ -63,10 +63,7 @@ void		free_alias(t_alias *alias)
 void		free_online(t_online *online)
 {
   if (online->active == 1)
-    {
-      free(online->pseudo);
-      free_tab(online->history);
-    }
+    free(online->pseudo);
   else
     free(online->history);
   free(online);
