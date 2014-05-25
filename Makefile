@@ -5,7 +5,7 @@
 ## Login   <merran_g@epitech.net>
 ## 
 ## Started on  Sat May 24 01:20:58 2014 Geoffrey Merran
-## Last update Sat May 24 21:51:42 2014 Geoffrey Merran
+## Last update Sun May 25 06:14:17 2014 Geoffrey Merran
 ##
 
 CC		=	gcc
@@ -44,6 +44,8 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_LINE_EDITOR)parser_line_editor.c	\
 			$(D_LINE_EDITOR)build_line.c		\
 			$(D_LINE_EDITOR)history_interaction.c	\
+			$(D_LINE_EDITOR)bind_keys.c		\
+			$(D_LINE_EDITOR)bind_keys2.c		\
 			$(D_HISTORY)histo_list.c		\
 			$(D_HISTORY)history.c			\
 			$(D_HISTORY)manage_history.c		\
@@ -53,7 +55,7 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_ALIAS)load_alias.c			\
 			$(D_ALIAS)manage_alias.c		\
 			$(D_CONF)conf.c				\
-			$(D_CONF)default.c				\
+			$(D_CONF)default.c			\
 			$(D_FREE)free_shell.c			\
 			$(D_ONLINE)curse.c			\
 

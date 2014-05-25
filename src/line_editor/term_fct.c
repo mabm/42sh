@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:17:16 2014 Geoffrey Merran
-** Last update Fri May 23 00:19:41 2014 Geoffrey Merran
+** Last update Sun May 25 05:39:39 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -35,5 +35,16 @@ int    	change_cursor(int visibility)
   if (cursor == NULL)
     return (my_error("Change cursor visibility error\n"));
   my_putstr(cursor);
+  return (0);
+}
+
+int	clear_term()
+{
+  char	*clear;
+
+  clear = xtgetstr("cl", NULL);
+  if (clear == NULL)
+    return (-1);
+  my_putstr(clear);
   return (0);
 }

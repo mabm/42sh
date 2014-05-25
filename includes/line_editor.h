@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:12:40 2014 Geoffrey Merran
-** Last update Sun May 25 04:45:26 2014 Geoffrey Merran
+** Last update Sun May 25 06:15:15 2014 Geoffrey Merran
 */
 
 #ifndef LINE_EDITOR_
@@ -77,12 +77,32 @@ char	*reset_term(char *cmd, struct termios *t_save);
 int    	show_edit_line(t_line *line);
 
 /*
+** Bind Keys
+**
+** Ctrl+a Move to begin of line
+** Ctrl+a Move to end of line
+** Ctrl+l Clear the terminal
+** Ctrl+-> Move to next word
+** Ctrl+<- Move to previous word
+** Ctrl+k Delete character until the end 
+**
+*/
+
+void	bind_begin_line(t_line **line);
+void	bind_end_line(t_line **line);
+void	bind_clear_term();
+void   	bind_suppr_to_end(t_line **line);
+void   	bind_move_next_word(t_line **line);
+void	bind_move_prev_word(t_line **line);
+
+/*
 ** Parser
 */
 
 int	parser_line_editor(char *buffer, t_line **line, t_shell *shell);
 void	parse_delete(char *buffer, t_line **line, int size);
 int	parse_arrow(char *buffer, t_line **line, int size, t_shell *shell);
+void	parse_bind(char *buffer, t_line **line, int size);
 
 /*
 ** Parsing Interpretation
@@ -113,6 +133,7 @@ int	xtcsetattr(int fd, int option, struct termios *t);
 int	xtcgetattr(int fd, struct termios *termios_p);
 int	xtgetent(char *bp, char *name);
 char	*xtgetstr(char *id, char **area);
+int	clear_term();
 int	raw_mode(struct termios *t);
 int	hide_char(struct termios *t);
 

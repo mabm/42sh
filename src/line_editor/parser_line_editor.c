@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 18:05:01 2014 Geoffrey Merran
-** Last update Sun May 25 05:07:51 2014 Geoffrey Merran
+** Last update Sun May 25 06:18:00 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -65,7 +65,24 @@ void	parse_delete(char *buffer, t_line **line, int size)
 
 void	parse_bind(char *buffer, t_line **line, int size)
 {
-  
+  if (size == 1)
+    {
+      if (buffer[0] == 1)
+	bind_begin_line(line);
+      if (buffer[0] == 5)
+	bind_end_line(line);
+      if (buffer[0] == 12)
+	bind_clear_term();
+      if (buffer[0] == 11)
+	bind_suppr_to_end(line);
+    }
+  if (size == 6)
+    {
+      if (buffer[0] == 27 && strcmp(&buffer[1], "[1;5D"))
+	bind_move_next_word(line);
+      if (buffer[0] == 27 && strcmp(&buffer[1], "[1;5C"))
+	bind_move_prev_word(line);
+    }
 }
 
 int	parser_line_editor(char *buffer, t_line **line, t_shell *shell)
@@ -79,7 +96,6 @@ int	parser_line_editor(char *buffer, t_line **line, t_shell *shell)
     return (-1);
   parse_delete(buffer, line, size);
   parse_bind(buffer, line, size);
-  my_printf("%S", buffer);
   if (size == 1 && buffer[0] == 4)
     shell->end = 1;
   return (0);
