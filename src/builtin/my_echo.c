@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 16:53:37 2014 Nicolas Ades
-** Last update Sat May 24 17:38:07 2014 Nicolas Ades
+** Last update Sat May 24 18:02:06 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -14,10 +14,9 @@ void		print_cmd(char **cmd)
 {
   int		i;
 
-  i = 1;
+  i = go_to_arg(cmd);
   while (cmd[i] != NULL)
     {
-      if (cmd[i][0] == '-' && i <= 3)
       printf("%s", cmd[i]);
       if (cmd[i] != NULL)
 	my_putchar(' ');
@@ -28,8 +27,11 @@ void		print_cmd(char **cmd)
 
 int		echo_with_opt(int n, int e, char **cmd);
 {
+  int		i;
+  
+  i = go_to_arg(cmd);
   if (e == 1)
-    {}
+      printf_with_opt(i, cmd);
   print_cmd(cmd);
   if (n == 0)
     printf("\n");
@@ -45,11 +47,11 @@ int		get_opt_e(char *s1, char *s2)
   return (0);
 }
 
-int		get_opt_n()
+int		get_opt_n(char *s1, char *s2)
 {
-  if (s1[0] == '-' && (s1[1] == 'e' || s1[2] == 'e'))
+  if (s1[0] == '-' && (s1[1] == 'n' || s1[2] == 'n'))
     return (1);
-  if (s2[0] == '-' && (s2[1] == 'e' || s2[2] == 'e'))
+  if (s2[0] == '-' && (s2[1] == 'n' || s2[2] == 'n'))
     return (1);
   return (0);
 }
