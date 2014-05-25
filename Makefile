@@ -17,6 +17,7 @@ D_CONF		=	src/conf/
 D_FREE		=	src/free/
 D_ONLINE	=	src/online/
 D_ALIAS		=	src/alias/
+D_PARSER	=	src/parser/
 
 SRC		=	$(D_CORE)main.c				\
 			$(D_CORE)prompt.c			\
@@ -52,6 +53,16 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_ONLINE)mysql_2.c			\
 			$(D_ONLINE)mysql_3.c			\
 			$(D_ONLINE)mysql_4.c			\
+			$(D_PARSER)type.c			\
+			$(D_PARSER)tree.c			\
+			$(D_PARSER)token.c			\
+			$(D_PARSER)token2.c			\
+			$(D_PARSER)remove.c			\
+			$(D_PARSER)parser_tools.c		\
+			$(D_PARSER)parser_tools2.c		\
+			$(D_PARSER)parser.c			\
+			$(D_PARSER)list2.c			\
+			$(D_PARSER)access.c			\
 
 OBJ		=	$(SRC:.c=.o)
 
