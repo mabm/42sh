@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 09:12:55 2014 Joris Bertomeu
+** Last update Wed May 28 10:10:04 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -275,7 +275,7 @@ int	second_step(t_link *tmp, char ***cmd2, t_shell *shell, char ***cmd1)
       if ((pid = fork()) == 0)
 	{
 	  my_exec_without_fork(shell, *cmd1);
-	  /* exit(-1); */
+	  exit(-1);
 	}
       wait(NULL);
       return (1);
@@ -318,6 +318,13 @@ int		my_parser(t_link *list, t_shell *shell)
 	  while (tmp && tmp->type == 0)
 	    tmp = tmp->next;
 	}
+      else if (sep == 11)
+	{
+	  write(1, "> ", 3);
+	  memset(tmps, 0, 4096);
+	  read(0, tmps, 4096);
+	  cmd2 = my_strd_to_wordtab(tmps, " ");
+	}
       if (cmd2 == NULL)
 	{
 	  if (check_builtin(shell, cmd1) != -2)
@@ -357,7 +364,6 @@ int		my_parser_check(t_link *list, char *cmd, t_shell *shell)
   free_tree(tree);
   tmp = list;
   remove_old_links(&tmp, &list);
-  aff_my_list(list);
   my_parser(list, shell);
   return (0);
 }

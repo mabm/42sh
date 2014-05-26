@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 23:45:49 2014 Geoffrey Merran
-** Last update Wed May 28 01:35:49 2014 Joris Bertomeu
+** Last update Wed May 28 10:07:14 2014 Joris Bertomeu
 */
 
 #include "core.h"
@@ -46,7 +46,6 @@ char		**env_in_tab(t_list *list)
       tmp = tmp->next;
       i++;
     }
-  printf("I = %d\n", i);
   mtab[i - 1] = NULL;
   return (mtab);
 }
