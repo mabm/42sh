@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed May 21 08:37:45 2014 Nicolas Ades
-** Last update Sat May 24 15:54:13 2014 Nicolas Ades
+** Last update Mon May 26 15:14:47 2014 Nicolas Ades
 */
 
 int		create_oldpwd(t_shell *shell, char *new)
@@ -47,23 +47,6 @@ int		create_pwd(t_shell *shell, char *new)
   tmp = strcat(tmp, new);
   add_to_end(shell->env, tmp);
   return (0);
-}
-
-char		*concat_pwd(char *pwd)
-{
-  int		i;
-  char		*new;
-
-  i = 0;
-  if (new = my_xmalloc(strlen(pwd) *sizeof(*new)) == NULL)
-    return (NULL);
-  memset(strlen(pwd) *sizeof(*new));
-  while (pwd[i] != '\0')
-    {
-      /*Petit algo pour rendre le pwd propre apres des ../ bonne nuit mon chou  */
-      i++;
-    }
-  return (new);
 }
 
 char		*epur_pwd(char *path)
