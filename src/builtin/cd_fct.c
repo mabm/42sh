@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed May 21 06:05:57 2014 Nicolas Ades
-** Last update Mon May 26 18:03:17 2014 Nicolas Ades
+** Last update Mon May 26 21:08:31 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -13,14 +13,21 @@
 int		find_and_replace(t_shell *shell, char *var, char *new)
 {
   t_list	*tmp;
+  t_list	*save;
 
   tmp = shell->env;
+  while (tmp->prev != NULL)
+      tmp = tmp->prev;
+  tmp = tmp->next;
   while (tmp != NULL)
     {
-      printf("VAR: %s tmp : %s\n", var, tmp->data);
-      if (tmp != NULL && strncmp(tmp->data, var, strlen(var)) == 0)
+      printf("------>%s\n", tmp->data);
+      if (tmp != NULL && (strncmp(tmp->data, var, strlen(var)) == 0))
 	{
-	  tmp->data = strcpy(tmp->data ,new);
+	  save = shell->env;
+	  shell->env = tmp;
+	  shell->env->data = new;
+	  shell->env = save;
 	  return (0);
 	}
       tmp = tmp->next;
