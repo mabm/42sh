@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 16:53:37 2014 Nicolas Ades
-** Last update Sat May 24 18:02:06 2014 Nicolas Ades
+** Last update Mon May 26 07:04:07 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -31,7 +31,8 @@ int		echo_with_opt(int n, int e, char **cmd);
   
   i = go_to_arg(cmd);
   if (e == 1)
-      printf_with_opt(i, cmd);
+    if (printf_with_opt(i, cmd) == -1)
+      return (-1);
   print_cmd(cmd);
   if (n == 0)
     printf("\n");
@@ -66,7 +67,8 @@ int		my_echo(t_shell *shell, char **cmd)
   op[1] = get_opt_e();
   if (op[0] == 1 || op[1] == 1)
     {
-      echo_with_opt(op[0], op[1], cmd);
+      if (echo_with_opt(op[0], op[1], cmd) == -1)
+	return (-1);
       return (O);
     }
   print_cmd(cmd);
