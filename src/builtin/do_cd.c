@@ -1,15 +1,11 @@
 /*
-** do_cd.c for  in /home/nicolas/Workspace/Unix/42sh/src/builtin
+** do_cd.c for  in /home/nicolas/Workspace/Unix/42sh
 ** 
 ** Made by Nicolas Ades
 ** Login   <nicolas@epitech.net>
 ** 
-** Started on  Tue May 13 13:52:59 2014 Nicolas Ades
-<<<<<<< HEAD
-** Last update Mon May 26 20:54:14 2014 Nicolas Ades
-=======
-** Last update Wed May 28 12:35:42 2014 Jeremy Mediavilla
->>>>>>> f6d05c87b3dff822d4ebfe449c3054066c2e7726
+** Started on  Mon May 26 21:25:18 2014 Nicolas Ades
+** Last update Mon May 26 21:44:31 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -29,6 +25,17 @@ int		xchdir(const char *path)
   return (0);
 }
 
+char		*get_pwd()
+{
+  char *dest;
+  
+  if ((dest = my_xmalloc(500 * sizeof (*dest))) == NULL)
+    return (NULL);
+  memset(dest, 0, 500);
+  dest = getcwd(dest, 500);
+  return (dest);
+}
+
 int		do_cd_bis(t_shell *shell, char *path)
 {
   char		*new;
@@ -36,11 +43,13 @@ int		do_cd_bis(t_shell *shell, char *path)
 
   if (my_strcmp(path, "-/") == 0)
     {
-      if ((old = check_env_var(shell->env, "PWD=", 4)) == NULL)
+      if ((old = get_pwd()) == NULL)
 	return (-1);
       if ((new = check_env_var(shell->env, "OLDPWD=", 7)) == NULL)
 	return (-1);
       if ((xchdir(new)) == -1)
+	return (-1);
+      if ((new = get_pwd()) == NULL)
 	return (-1);
       change_old_pwd(shell, old);
       change_pwd(shell, new);
@@ -48,9 +57,11 @@ int		do_cd_bis(t_shell *shell, char *path)
     }
   else
     {
-      old = get_env_var("PWD=", 4);
-      new = strdup(path);
+      if ((old = get_pwd()) == NULL)
+	return (-1);
       if ((xchdir(path)) == -1)
+	return (-1);
+      if ((new = get_pwd()) == NULL)
 	return (-1);
       change_old_pwd(shell, old);
       change_pwd(shell, new);
@@ -64,18 +75,21 @@ int		do_cd(t_shell *shell, char **cmd)
   char		*old;
   char		*path;
 
-  path = strdup(cmd[1]);
-  if ((path = epur_path(path)) == NULL)
-    return (-1);
-  if ((path = add_slash(path)) == NULL)
+  if (cmd[1] == NULL)
+    path = strdup("~");
+  else
+    path = strdup(cmd[1]);
+    if ((path = add_slash(path)) == NULL)
     return (-1);
   if (my_strcmp(path, "~/") == 0 || path == NULL)
     {
-      if ((old = check_env_var(shell->env, "PWD=", 4)) == NULL)
+      if ((old = get_pwd()) == NULL)
 	return (-1);
       if ((new = check_env_var(shell->env, "HOME=", 5)) == NULL)
 	return (-1);
       if ((xchdir(new)) == -1)
+	return (-1);
+      if ((new = get_pwd()) == NULL)
 	return (-1);
       change_old_pwd(shell, old);
       change_pwd(shell, new);

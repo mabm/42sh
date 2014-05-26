@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:52:45 2014 Geoffrey Merran
-** Last update Mon May 26 18:55:03 2014 Nicolas Ades
+** Last update Mon May 26 21:30:09 2014 Nicolas Ades
 */
 
 #ifndef	CORE_H_
@@ -73,7 +73,6 @@ int		go_to_arg(char **);
 int		dirlen(char *);
 int		is_in_env(t_list *, char *);
 char		*modif_path(char *, char *);
-char		*epur_path(char *);
 char		*epur_pwd(char *);
 char		*add_slash(char *);
 char		*get_env_var(char *, int);

@@ -1,15 +1,11 @@
 /*
-** cd_fct.c for  in /home/nicolas/Workspace/Unix/test
+** cd_fct.c for  in /home/nicolas/Workspace/Unix/42sh
 ** 
 ** Made by Nicolas Ades
 ** Login   <nicolas@epitech.net>
 ** 
-** Started on  Wed May 21 06:05:57 2014 Nicolas Ades
-<<<<<<< HEAD
-** Last update Mon May 26 21:08:31 2014 Nicolas Ades
-=======
-** Last update Wed May 28 12:41:12 2014 Jeremy Mediavilla
->>>>>>> f6d05c87b3dff822d4ebfe449c3054066c2e7726
+** Started on  Mon May 26 21:29:24 2014 Nicolas Ades
+** Last update Mon May 26 21:45:24 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -25,7 +21,6 @@ int		find_and_replace(t_shell *shell, char *var, char *new)
   tmp = tmp->next;
   while (tmp != NULL)
     {
-      printf("------>%s\n", tmp->data);
       if (tmp != NULL && (strncmp(tmp->data, var, strlen(var)) == 0))
 	{
 	  save = shell->env;
@@ -81,27 +76,6 @@ int	change_pwd(t_shell *shell, char *new)
   var = strcat(var, new);
   find_and_replace(shell, "PWD=", var);
   return (0);
-}
-
-char	*epur_path(char *path)
-{
-  char	*new;
-  int	j;
-  int	i;
-
-  i = 0;
-  j = 0;
-  if ((new = malloc((strlen(path) + 1) * sizeof(*new))) == NULL)
-    return (NULL);
-  memset(new, 0, (strlen(path) + 1));
-  while (path[i] != '\0')
-    {
-      if (path[i] == '/' && path[i + 1] == '.' && path[i + 2] == '/')
-	i += 2;
-      new[j] = path[i];
-      i++;
-    }
-  return (new);
 }
 
 char	*add_slash(char *path)
