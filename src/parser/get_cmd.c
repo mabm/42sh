@@ -1,11 +1,11 @@
 /*
-** get_cmd.c for get_cmd in /home/merran_g/work/c_elem/42sh/src/core
+** get_cmd.c for getcmd in /home/merran_g/work/c_elem/42sh
 ** 
 ** Made by Geoffrey Merran
 ** Login   <merran_g@epitech.net>
 ** 
-** Started on  Tue May 27 21:59:27 2014 Geoffrey Merran
-** Last update Wed May 28 01:49:00 2014 Joris Bertomeu
+** Started on  Wed May 28 02:35:51 2014 Geoffrey Merran
+** Last update Wed May 28 02:35:57 2014 Geoffrey Merran
 */
 
 #include "parser.h"
@@ -20,7 +20,6 @@ char		**get_cmd(t_link *start)
   i = 0;
   while (tmp && tmp->type == 0)
     {
-      printf("Dedans get cmd : %s\n", tmp->data);
       i++;
       tmp = tmp->next;
     }

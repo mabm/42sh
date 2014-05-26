@@ -1,14 +1,24 @@
 /*
-** parser.c for  in /home/mediav_j/mabm/42sh/src
+** parser.c for parser in /home/merran_g/work/c_elem/42sh
 ** 
-** Made by Jeremy Mediavilla
-** Login   <mediav_j@epitech.net>
+** Made by Geoffrey Merran
+** Login   <merran_g@epitech.net>
 ** 
-** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Wed May 28 02:24:39 2014 Joris Bertomeu
+** Started on  Wed May 28 02:36:14 2014 Geoffrey Merran
+** Last update Wed May 28 02:48:04 2014 Joris Bertomeu
 */
 
 #include "parser.h"
+
+int		wait_father(pid_t pid)
+{
+  int		status;
+
+  while (pid != wait4(pid, &status, WNOHANG, 0))
+    {
+    }
+  return (status);
+}
 
 void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell *shell)
 {
@@ -22,7 +32,8 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
       if (fork() == 0)
 	{
 	  dup2((*pipefd)[1], 1);
-	  my_exec_without_fork(shell, cmd1);
+	  if (my_exec_without_fork(shell, cmd1) == -1)
+	    exit(0);
 	}
       wait(NULL);
     }
@@ -37,7 +48,8 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
     {
       dup2((*pipefd)[0], 0);
       dup2(pipefd2[1], 1);
-      my_exec_without_fork(shell, cmd2);
+      if (my_exec_without_fork(shell, cmd2) == -1)
+	exit (0);
     }
   wait(NULL);
   t = read(pipefd2[0], tmp, 4096);
@@ -61,7 +73,7 @@ int		my_parser(t_link *list, t_shell *shell)
   char		**cmd1;
   char		**cmd2;
   char		tmps[4096];
-  int		status;
+  int		pid;
 
   i = 0;
   tmp = list;
@@ -94,13 +106,14 @@ int		my_parser(t_link *list, t_shell *shell)
       if (cmd2 == NULL)
 	{
 	  pipe(pipefd);
-	  if ((status = fork()) == 0)
+	  if ((pid = fork()) == 0)
 	    {
 	      close(pipefd[0]);
 	      dup2(pipefd[1], 1);
-	      my_exec_without_fork(shell, cmd1);
+	      if (my_exec_without_fork(shell, cmd1) == -1)
+		exit(0);
 	    }
-	  wait(&status);
+	  wait_father(pid);
 	  break;
 	}
       choose_exec(cmd1, sep, cmd2, j, &pipefd, shell);

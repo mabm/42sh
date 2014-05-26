@@ -1,11 +1,11 @@
 /*
-** parser.h for  in /home/nicolas/Workspace/42sh/includes
+** parser.h for parser in /home/merran_g/work/c_elem/42sh
 ** 
-** Made by Nicolas Ades
-** Login   <nicolas@epitech.net>
+** Made by Geoffrey Merran
+** Login   <merran_g@epitech.net>
 ** 
-** Started on  Mon Apr 28 15:22:59 2014 Nicolas Ades
-** Last update Wed May 28 02:32:49 2014 Jeremy Mediavilla
+** Started on  Wed May 28 02:35:28 2014 Geoffrey Merran
+** Last update Wed May 28 02:35:36 2014 Geoffrey Merran
 */
 
 #ifndef PARSER_H_
@@ -155,6 +155,7 @@ void		free_tab(char **);
 ** Cmd tools
 */
 
+int		wait_father(pid_t pid);
 char		**get_cmd(t_link *start);
 
 #endif /* PARSER_H_ */
