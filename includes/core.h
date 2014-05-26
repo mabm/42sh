@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:52:45 2014 Geoffrey Merran
-** Last update Wed May 28 04:54:10 2014 Geoffrey Merran
+** Last update Mon May 26 18:55:03 2014 Nicolas Ades
 */
 
 #ifndef	CORE_H_
@@ -21,6 +21,14 @@
 # include "signal.h"
 # include "online.h"
 # include "parser.h"
+
+/* Struct echo */
+
+typedef struct	s_echo
+{
+  int		opt_n;
+  int		opt_e;
+}		t_echo;
 
 /*
 ** Print tabs
@@ -46,6 +54,11 @@ int		aff_env(t_shell *, char **);
 */
 
 char		*init_unsetenv_var(int, char **);
+int		get_opt_n(char **, int, t_echo *);
+int		get_opt_e(char **, int, t_echo *);
+int		go_to_arg(char **);
+int		do_echo(char **, t_echo *);
+int		do_echo_with_e(char **);
 int		do_cd_bis(t_shell *, char *);
 int		xchdir(const char *);
 int		create_oldpwd(t_shell *, char *);
@@ -53,15 +66,10 @@ int		create_pwd(t_shell *, char *);
 int		find_and_replace(t_shell *, char *, char *);
 int		change_old_pwd(t_shell *, char *);
 int		change_pwd(t_shell *, char *);
-int		print_with_opt(int, char **);
 void		get_all_env(t_list *, char **);
 void		*my_xrealloc(char *, int);
-void		print_cmd(char **);
 void		dircat(char *, char *);
 int		go_to_arg(char **);
-int		get_opt_n(char *, char *);
-int		get_opt_e(char *, char *);
-int		echo_with_opt(int, int, char **);
 int		dirlen(char *);
 int		is_in_env(t_list *, char *);
 char		*modif_path(char *, char *);

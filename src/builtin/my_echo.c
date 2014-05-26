@@ -5,71 +5,78 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 16:53:37 2014 Nicolas Ades
-** Last update Wed May 28 04:52:36 2014 Geoffrey Merran
+** Last update Mon May 26 18:56:56 2014 Nicolas Ades
 */
 
 #include "core.h"
 
-void		print_cmd(char **cmd)
+int		get_opt_n(char **cmd, int i, t_echo *echo)
+{
+  if (cmd[i][0] == '-' && cmd[i][1] == 'n')
+    echo->opt_n = 1;
+  return (i);
+}
+
+int		get_opt_e(char **cmd, int i, t_echo *echo)
+{
+  if (cmd[i][0] == '-' && cmd[i][1] == 'e')
+    echo->opt_e = 1;
+  return (i);
+}
+
+int		go_to_arg(char **cmd)
 {
   int		i;
 
-  i = go_to_arg(cmd);
+  i = 1;
   while (cmd[i] != NULL)
     {
-      printf("%s", cmd[i]);
-      if (cmd[i] != NULL)
-	my_putchar(' ');
-      i++;
+      if (cmd[i][0] == '-' && (cmd[i][1] == 'e' || cmd[i][1] == 'n'))
+	i++;
+      else
+	return (i);
     }
-  printf("\n");
+  return (i);
 }
 
-int		echo_with_opt(int n, int e, char **cmd)
+int		do_echo(char **cmd, t_echo *echo)
 {
   int		i;
 
   i = go_to_arg(cmd);
-  if (e == 1)
-    if (print_with_opt(i, cmd) == -1)
-      return (-1);
-  print_cmd(cmd);
-  if (n == 0)
-    printf("\n");
-  return (0);
-}
-
-int		get_opt_e(char *s1, char *s2)
-{
-  if (s1[0] == '-' && (s1[1] == 'e' || s1[2] == 'e'))
-    return (1);
-  if (s2[0] == '-' && (s2[1] == 'e' || s2[2] == 'e'))
-    return (1);
-  return (0);
-}
-
-int		get_opt_n(char *s1, char *s2)
-{
-  if (s1[0] == '-' && (s1[1] == 'n' || s1[2] == 'n'))
-    return (1);
-  if (s2[0] == '-' && (s2[1] == 'n' || s2[2] == 'n'))
-    return (1);
+  if (echo->opt_e == 1)
+    do_echo_with_e(cmd);
+  else
+    {
+      while (cmd[i] != NULL)
+	{
+	  my_putstr(cmd[i]);
+	  i++;
+	}
+    }
   return (0);
 }
 
 int		my_echo(t_shell *shell, char **cmd)
 {
-  int		op[1];
+  t_echo	*echo;
+  int		i;
 
   (void)shell;
-  op[0] = get_opt_n(cmd[1], cmd[2]);
-  op[1] = get_opt_e(cmd[1], cmd[2]);
-  if (op[0] == 1 || op[1] == 1)
+  if ((echo = my_xmalloc(sizeof(*echo))) == NULL)
+    return (-1);
+  echo->opt_n = 0;
+  echo->opt_e = 0;
+  i = 1;
+  while (cmd[i] != NULL)
     {
-      if (echo_with_opt(op[0], op[1], cmd) == -1)
-	return (-1);
-      return (0);
+      i = get_opt_n(cmd, i, echo);
+      i = get_opt_e(cmd, i, echo);
+      i++;
     }
-  print_cmd(cmd);
+  if (do_echo(cmd, echo) == -1)
+    return (-1);
+  if (echo->opt_n != 1)
+    printf("\n");
   return (0);
 }
