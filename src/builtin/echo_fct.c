@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 17:58:13 2014 Nicolas Ades
-** Last update Wed May 28 04:55:39 2014 Geoffrey Merran
+** Last update Mon May 26 17:19:21 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -16,7 +16,7 @@ int		print_with_opt(int i, char **cmd)
   int		j;
   char		*pr;
 
-  k = 0;
+  k = i;
   while (cmd[k] != NULL)
     {
       j = 0;
@@ -44,6 +44,7 @@ int		go_to_arg(char **cmd)
 {
   int		i;
 
+  i = 0;
   while (cmd[i] != NULL)
     {
       if (cmd[i][0] == '-' && (cmd[i][1] == 'e' || cmd[i][1] == 'n'))
