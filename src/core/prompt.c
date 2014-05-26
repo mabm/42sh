@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Sun May 25 21:47:30 2014 Geoffrey Merran
+** Last update Tue May 27 22:51:48 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -49,7 +49,7 @@ int		prompt(t_shell *shell)
 	  free(cmd);
 	  return (0);
 	}
-      my_lexer(cmd);
+      my_lexer(cmd, shell);
       /* check_builtin(shell->env, cmd); */
       add_cmd(shell->history, cmd);
       free(cmd);
