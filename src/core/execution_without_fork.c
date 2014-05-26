@@ -1,15 +1,11 @@
 /*
-** execution_without_fork.c for 42 in /home/jobertomeu/Work/42sh
+** execution_without_fork.c for  in /home/jobertomeu/Work/42sh
 ** 
 ** Made by Joris Bertomeu
 ** Login   <jobertomeu@epitech.net>
 ** 
-** Started on  Sun May 25 19:50:58 2014 Joris Bertomeu
-<<<<<<< HEAD
-** Last update Wed May 28 00:55:43 2014 Jeremy Mediavilla
-=======
-** Last update Wed May 28 00:56:17 2014 Geoffrey Merran
->>>>>>> 796667ce78049abe42dc9a594b02f133e680d7f1
+** Started on  Wed May 28 01:13:53 2014 Joris Bertomeu
+** Last update Wed May 28 01:13:55 2014 Joris Bertomeu
 */
 
 #include "core.h"
@@ -22,7 +18,12 @@ int		do_fork_bis2(char **envp, char **cmd)
 
 int		do_fork2(char **envp, char **cmd, char *path)
 {
-  execve(path, cmd, envp);
+  my_printf("%t\n-------%t\n---------%s\n", envp, cmd, path);
+  if (execve(path, cmd, envp) == -1)
+    {
+      perror("Error from fork2 ");
+      exit(-1);
+    }
   return (0);
 }
 
