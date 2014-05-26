@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed May 21 06:05:57 2014 Nicolas Ades
-** Last update Sat May 24 15:51:34 2014 Nicolas Ades
+** Last update Mon May 26 13:00:54 2014 Nicolas Ades
 */
 
 #include <stdlib.h>
@@ -49,6 +49,7 @@ int	change_old_pwd(t_shell *shell, char *new)
 
 int	change_pwd(t_shell *shell, char *new)
 {
+  new = modif_path(check_env_var(shell->env, "PWD=", 4), new);
   if (is_in_env(shell->env, "PWD=") != 1)
     {
       if (create_pwd(shell->env, new) == -1)

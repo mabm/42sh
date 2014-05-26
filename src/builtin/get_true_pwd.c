@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Tue May 27 12:09:49 2014 martelliere
-** Last update Tue May 27 13:06:32 2014 martelliere
+** Last update Mon May 26 12:57:49 2014 Nicolas Ades
 */
 
 #include <stdlib.h>
@@ -90,19 +90,4 @@ char	*modif_path(char *true_pwd, char *path)
 	}
     }
   return (true_pwd);
-}
-
-int	main()
-{
-  char	*true_pwd;
-  char	*path;
-
-  true_pwd = my_xmalloc(30 * sizeof(char));
-  *true_pwd = '\0';
-  strcat(true_pwd, "/home/nicolas/workspace/");
-  path = my_xmalloc(23 * sizeof(char));
-  memset(path, 0, 23);
-  strcat(path, "../Prog/../");
-  true_pwd = modif_path(true_pwd, path);
-  puts(true_pwd);
 }
