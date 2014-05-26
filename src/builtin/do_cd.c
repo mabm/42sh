@@ -5,7 +5,11 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Tue May 13 13:52:59 2014 Nicolas Ades
+<<<<<<< HEAD
 ** Last update Mon May 26 20:54:14 2014 Nicolas Ades
+=======
+** Last update Wed May 28 12:35:42 2014 Jeremy Mediavilla
+>>>>>>> f6d05c87b3dff822d4ebfe449c3054066c2e7726
 */
 
 #include "core.h"
@@ -61,8 +65,10 @@ int		do_cd(t_shell *shell, char **cmd)
   char		*path;
 
   path = strdup(cmd[1]);
-  path = epur_path(path);
-  path = add_slash(path);
+  if ((path = epur_path(path)) == NULL)
+    return (-1);
+  if ((path = add_slash(path)) == NULL)
+    return (-1);
   if (my_strcmp(path, "~/") == 0 || path == NULL)
     {
       if ((old = check_env_var(shell->env, "PWD=", 4)) == NULL)
