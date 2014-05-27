@@ -1,11 +1,11 @@
 /*
-** execution_without_fork.c for 42 in /home/jobertomeu/Work/42sh
+** execution_without_fork.c for  in /home/jobertomeu/Work/42sh
 ** 
 ** Made by Joris Bertomeu
 ** Login   <jobertomeu@epitech.net>
 ** 
-** Started on  Sun May 25 19:50:58 2014 Joris Bertomeu
-** Last update Wed May 28 01:11:33 2014 Joris Bertomeu
+** Started on  Wed May 28 01:13:53 2014 Joris Bertomeu
+** Last update Wed May 28 01:13:55 2014 Joris Bertomeu
 */
 
 #include "core.h"
@@ -16,7 +16,7 @@ int		do_fork_bis2(char **envp, char **cmd)
   return (0);
 }
 
-int		do_fork2(char **envp, char **cmd, char *path, int pos)
+int		do_fork2(char **envp, char **cmd, char *path)
 {
   my_printf("%t\n-------%t\n---------%s\n", envp, cmd, path);
   if (execve(path, cmd, envp) == -1)
@@ -58,7 +58,6 @@ char		*is_cmd_exist2(char **cmd, char **path)
 
 int		my_exec_without_fork(t_shell *shell, char **cmd)
 {
-  int		pos;
   char		**envp;
   char		**path;
   char		*tmp;
@@ -76,7 +75,7 @@ int		my_exec_without_fork(t_shell *shell, char **cmd)
   path = my_strd_to_wordtab(tmp, ":");
   if ((tmp2 = is_cmd_exist2(cmd, path)) == NULL)
     return (-1);
-  if (do_fork2(envp, cmd, tmp2, pos) == -1)
+  if (do_fork2(envp, cmd, tmp2) == -1)
     return (-1);
   return (0);
 }
