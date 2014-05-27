@@ -110,7 +110,7 @@ int		do_pipe(t_pipe *pipes)
   return (1);
 }
 
-int	do_pipestart()
+int	do_pipestart(char **cmd)
 {
   t_pipe	*pipe;
 
