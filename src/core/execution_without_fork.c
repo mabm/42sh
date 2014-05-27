@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 19:50:58 2014 Joris Bertomeu
-** Last update Wed May 28 00:45:03 2014 Joris Bertomeu
+** Last update Wed May 28 00:55:43 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -16,7 +16,7 @@ int		do_fork_bis2(char **envp, char **cmd)
   return (0);
 }
 
-int		do_fork2(char **envp, char **cmd, char *path, int pos)
+int		do_fork2(char **envp, char **cmd, char *path)
 {
   execve(path, cmd, envp);
   return (0);
@@ -53,7 +53,6 @@ char		*is_cmd_exist2(char **cmd, char **path)
 
 int		my_exec_without_fork(t_shell *shell, char **cmd)
 {
-  int		pos;
   char		**envp;
   char		**path;
   char		*tmp;
@@ -71,7 +70,7 @@ int		my_exec_without_fork(t_shell *shell, char **cmd)
   path = my_strd_to_wordtab(tmp, ":");
   if ((tmp2 = is_cmd_exist2(cmd, path)) == NULL)
     return (-1);
-  if (do_fork2(envp, cmd, tmp2, pos) == -1)
+  if (do_fork2(envp, cmd, tmp2) == -1)
     return (-1);
   return (0);
 }
