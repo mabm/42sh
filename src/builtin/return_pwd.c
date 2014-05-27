@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 19:23:05 2014 Joris Bertomeu
-** Last update Sun May 25 21:09:17 2014 Joris Bertomeu
+** Last update Mon May 26 15:56:25 2014 Joris Bertomeu
 */
 
 #include <stdlib.h>
@@ -45,7 +45,7 @@ char	**fill_tree(int nbr, char *str)
   i = 0;
   k = 0;
   j = 0;
-  tree = malloc(nbr * sizeof(char*));
+  tree = malloc((nbr + 10) * sizeof(char*));
   tree[j] = malloc(128 * sizeof(char));
   while (str[i])
     {
@@ -63,25 +63,74 @@ char	**fill_tree(int nbr, char *str)
   return (tree);
 }
 
-void	browse_tree(char **tree, char *str, int nbr)
+char	**do_place(char **tree, int nbr, int save)
 {
   int	i;
 
+  i = save + 1;
+  tree[i] = malloc(128 * sizeof(char));
+  while (i >= nbr)
+    {
+      strcpy(tree[i], tree[i - 1]);
+      i--;
+    }
+  return (tree);
+}
+
+void	browse_tree(char **tree, char *str, int nbr)
+{
+  int	i;
+  int	j;
+  char	*tmp;
+  char	**tree2;
+  int	svnb;
+  int	flag;
+
   i = 0;
+  svnb = nbr;
+  tmp = malloc(128 * sizeof(char));
+  tree2 = malloc(20 * sizeof(char*));
   while (str[i])
     {
       if (str[i] == '.' && str[i + 1] == '.')
 	{
 	  nbr--;
-	  printf("Goes to %s\n", tree[nbr]);
+	  flag = 1;
+	  printf("-Goes to %s (%d)\n", tree[nbr], nbr);
 	}
       else if (str[i] == '/' && str[i + 1] != '.')
 	{
-	  nbr++;
-	  printf("Goes to %s\n", tree[nbr]);
+	  j = 0;
+	  i++;
+	  memset(tmp, 0, 128);
+	  while (str[i] && str[i] != '/')
+	    tmp[j++] = str[i++];
+	  printf("+Goes to %s -> %s (%d)\n", tree[nbr], tmp, nbr);
+	  if (flag == 1)
+	    {
+	      tree = do_place(tree, nbr, svnb);
+	      strcpy(tree[nbr], tmp);
+	      printf("Placed to %s\n", tree[nbr]);
+	      flag = 0;
+	    }
 	}
+      /* else */
+      /* 	{ */
+      /* 	  j = 0; */
+      /* 	  memset(tmp, 0, 128); */
+      /* 	  while (str[i] && str[i] != '/') */
+      /* 	    tmp[j++] = str[i++]; */
+      /* 	  printf("+Goes to %s -> %s (%d)\n", tree[nbr], tmp, nbr); */
+      /* 	  tree[nbr + 1] = malloc(128 * sizeof(char)); */
+      /* 	  strcpy(tree[nbr + 1], tmp); */
+      /* 	  nbr++; */
+      /* 	} */
       i++;
     }
+  int	l = 0;
+  while (l <= nbr)
+    printf("/%s", tree[l++]);
+  printf("\n");
 }
 
 char	*return_pwd(char *origin, char *target)
@@ -100,6 +149,6 @@ int	main()
   char	*pwd;
 
   pwd = return_pwd("/home/jobertomeu/tamere/current",
-		   "../tonfils/../current/../../Documents");
+		   "../tonfils");
   /* printf("PWD : %s\n", pwd); */
 }

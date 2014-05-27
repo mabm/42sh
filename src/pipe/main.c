@@ -38,9 +38,9 @@ int	do_pipe_middle(t_pipe *pipes)
   if ((pipes->pid = fork()) == 0)
     {
       if (dup2(pipes->pipefd[0], 0) == -1)
-	printf("\nFAILED DUP2\n");
+  	printf("\nFAILED DUP2\n");
       if (dup2(pipes->pipefd2[1], 1) == -1)
-	printf("\nFAILED DUP2\n");
+  	printf("\nFAILED DUP2\n");
       execvp(pipes->cmds[pipes->i][0], &(pipes->cmds[pipes->i][1]));
       perror("erreur from middle");
     }
@@ -59,6 +59,7 @@ int	do_pipe_first(t_pipe *pipes)
       if (dup2(pipes->pipefd[1], 1) == -1)
 	return (-1);
       execvp(pipes->cmds[pipes->i][0], &(pipes->cmds[pipes->i][1]));
+      perror("r : ");
     }
   if (waitpid(pipes->pid, &(pipes->status), 0) == -1)
     return (-1);
@@ -97,8 +98,10 @@ int		do_pipe(t_pipe *pipes)
       if (pipes->i == 0)
 	do_pipe_first(pipes);
       else if (pipes->i == pipes->total -1)
-	if (do_pipe_end(pipes) == -1)
-	  return (-1);
+	{
+	  if (do_pipe_end(pipes) == -1)
+	    return (-1);
+	}
       else
 	if (do_pipe_middle(pipes) == -1)
 	  return (-1);
@@ -107,7 +110,7 @@ int		do_pipe(t_pipe *pipes)
   return (1);
 }
 
-int	main(int ac, char *argv[])
+int	do_pipestart()
 {
   t_pipe	*pipe;
 
@@ -130,7 +133,7 @@ int	main(int ac, char *argv[])
   pipe->cmds[1][2] = malloc(128 * sizeof(char));
   strcpy(pipe->cmds[1][2], "-e");
   pipe->cmds[1][3] = malloc(128 * sizeof(char));
-  strcpy(pipe->cmds[1][3], "HOME");
+  strcpy(pipe->cmds[1][3], "=");
   pipe->cmds[1][4] = malloc(128 * sizeof(char));
   pipe->cmds[1][4] = NULL;
 
@@ -153,7 +156,5 @@ int	main(int ac, char *argv[])
   pipe->total = 2;
 
   if (do_pipe(pipe) != -1)
-    printf("\t\t\t\t\t\t=> Infinite Pipe successed\n");
-  else
-    printf("\t\t\t\t\t\t=> Infinite Pipe failed\n");
+    printf("ERROR\n");
 }

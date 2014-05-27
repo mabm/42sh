@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 05:58:25 2014 Joris Bertomeu
-** Last update Sun May 25 20:44:12 2014 Joris Bertomeu
+** Last update Mon May 26 17:33:03 2014 Joris Bertomeu
 */
 
 #include <stdlib.h>
@@ -25,31 +25,39 @@ int	start_right_redirect(char **cmd)
   char	buff[4096];
 
   i = 0;
-  pipe(pipefd);
-  if (fork() == 0)
-    {
-      dup2(pipefd[1], 1);
-      execvp("/bin/ls", tab);
-      perror("Error : ");
-      close(pipefd[0]);
-    }
-  else
-    wait(NULL);
+  /* pipe(pipefd); */
+  /* if (fork() == 0) */
+  /*   { */
+  /*     dup2(pipefd[1], 1); */
+  /*     execvp("/bin/ls", tab); */
+  /*     perror("Error : "); */
+  /*     close(pipefd[0]); */
+  /*   } */
+  /* else */
+  /*   wait(NULL); */
   if ((fd = open(cmd[1], O_WRONLY | O_TRUNC | O_CREAT, 0666)) == -1)
     perror("Erreur : ");
-  read(pipefd[0], buff, 4096);
-  close(pipefd[0]);
-  write(fd, buff, strlen(buff));
+  /* read(pipefd[0], buff, 4096); */
+  /* close(pipefd[0]); */
+  write(fd, cmd[0], strlen(cmd[0]));
 }
 
 int	main()
 {
   char	**cmd;
+  int	pipefd[2];
+  char	*tmp;
 
+  tmp = malloc(4096 * sizeof(char));
+  memset(tmp, 0, 4096);
   cmd = malloc(2 * sizeof(char*));
-  cmd[0] = malloc(128 * sizeof(char));
+  cmd[0] = malloc(4096 * sizeof(char));
   cmd[1] = malloc(128 * sizeof(char));
-  strcpy(cmd[0], "ls -l | grep toto");
+  pipe(pipefd);
+  dup2(pipefd[1], 1);
+  do_pipestart();
+  read(pipefd[0], tmp, 4096);
+  strcpy(cmd[0], tmp);
   strcpy(cmd[1], "lol");
   start_right_redirect(cmd);
 }
