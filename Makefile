@@ -18,6 +18,7 @@ D_FREE		=	src/free/
 D_ONLINE	=	src/online/
 D_ALIAS		=	src/alias/
 D_PARSER	=	src/parser/
+D_JOBCONTROL	=	src/jobcontrol/
 
 SRC		=	$(D_CORE)main.c				\
 			$(D_CORE)prompt.c			\
@@ -64,6 +65,7 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_PARSER)list2.c			\
 			$(D_PARSER)access.c			\
 			$(D_PARSER)free.c			\
+			$(D_JOBCONTROL)jobcontrol.c		\
 
 OBJ		=	$(SRC:.c=.o)
 

@@ -5,12 +5,28 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 15:36:16 2014 Geoffrey Merran
-** Last update Tue May 27 15:38:07 2014 Geoffrey Merran
+** Last update Tue May 27 18:23:44 2014 Geoffrey Merran
 */
 
 #include JOBCONTROL_
 # define JOBCONTROL_
+# include <sys/types.h>
+# include <signal.h>
+# include "my.h"
 
-int	init_jobcontrol(t_shell *shell);
+/*
+** Built in
+*/
+
+int    	builtin_fg(t_shell *shell, char **cmd);
+int    	builtin_jobs(t_shell *shell, char **cmd);
+
+/*
+** Jobs
+*/
+
+int	init_jobcontrol(t_shell **shell);
+int    	add_job(int pid, char **cmd, t_bg **bg);
+int    	restaure_jobs(t_bg *bg, t_blist *job);
 
 #endif /* JOBCONTROL_ */

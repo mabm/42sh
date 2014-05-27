@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 22 11:35:41 2014 Geoffrey Merran
-** Last update Sun May 25 21:37:51 2014 Geoffrey Merran
+** Last update Tue May 27 17:53:54 2014 Geoffrey Merran
 */
 
 #ifndef MYSH_
@@ -31,6 +31,7 @@ typedef	struct		s_alist
 typedef	struct		s_blist
 {
   int			pid;
+  char			*cmd;
   struct s_blist	*next;
 }			t_blist;
 

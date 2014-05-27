@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Tue May 27 16:30:07 2014 Jeremy Mediavilla
+** Last update Tue May 27 18:26:44 2014 Geoffrey Merran
 */
 
 #include "parser.h"
@@ -46,7 +46,7 @@ void		my_sort_tab(int ***mtab, int size)
       i++;
     }
   if (is_sorted((*mtab), size) == -1)
-    my_sort_tab((*mtab), size);
+    my_sort_tab(mtab, size);
 }
 
 int		**init_tab_priority()
@@ -112,7 +112,7 @@ t_link		*get_pos_link(t_link *list, int pos)
 void	exec_cmd_from_parser(char *left, char *right, int type)
 {
   if (type == 11)
-    do_pipestart(listepipe, nb_cmd);
+    do_pipestart(listepipe, 0);
   printf("On exécute %s %d %s\n", left, type, right);
 }
 
