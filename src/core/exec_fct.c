@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 23:45:49 2014 Geoffrey Merran
-** Last update Tue May 27 23:45:50 2014 Geoffrey Merran
+** Last update Wed May 28 00:26:28 2014 Joris Bertomeu
 */
 
 #include "core.h"
@@ -31,18 +31,19 @@ char		**env_in_tab(t_list *list)
   int		size;
   int		i;
   int		len;
+  t_list	*tmp;
 
   i = 0;
   size = list_size(list);
   mtab = my_xmalloc(size * sizeof(char *));
-  list = list->next;
-  while (list != NULL)
+  tmp = list->next;
+  while (tmp != NULL)
     {
-      len = strlen(list->data) + 1;
+      len = strlen(tmp->data) + 1;
       mtab[i] = my_xmalloc(len * sizeof(char));
       memset(mtab[i], '\0', len);
-      mtab[i] = list->data;
-      list = list->next;
+      mtab[i] = tmp->data;
+      tmp = tmp->next;
       i++;
     }
   return (mtab);
