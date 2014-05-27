@@ -12,3 +12,4 @@ typedef struct		s_pipe
 }			t_pipe;
 
 int		do_pipe(t_pipe *);
+int		my_exec_without_fork(t_shell *, char **);
