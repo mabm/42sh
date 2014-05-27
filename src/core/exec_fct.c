@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 16:09:23 2014 Nicolas Ades
-** Last update Sat May 24 16:10:40 2014 Nicolas Ades
+** Last update Tue May 27 23:28:50 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -17,7 +17,7 @@ char		**env_in_tab(t_list *list)
   int		i;
   int		len;
 
-  i = 0; 
+  i = 0;
   size = list_size(list);
   tab = xmalloc(size * sizeof(char *));
   list = list->next;
