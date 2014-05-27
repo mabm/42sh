@@ -5,13 +5,15 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 15:22:59 2014 Nicolas Ades
-** Last update Tue May 27 23:14:37 2014 Jeremy Mediavilla
+** Last update Wed May 28 01:01:20 2014 Jeremy Mediavilla
 */
 
 #ifndef PARSER_H_
 # define PARSER_H_
 
 # include <stdlib.h>
+# include <sys/wait.h>
+# include <sys/types.h>
 # include "main.h"
 # include "my.h"
 # include "mysh.h"
