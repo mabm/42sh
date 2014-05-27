@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:13:23 2014 Geoffrey Merran
-** Last update Sun May 25 04:56:37 2014 Geoffrey Merran
+** Last update Wed May 28 00:54:33 2014 Geoffrey Merran
 */
 
 #define _BSD_SOURCE
@@ -28,8 +28,9 @@ int	init_term(struct termios *t, struct termios *t_save)
   return (0);
 }
 
-char	*reset_term(char *cmd, struct termios *t_save)
+char	*reset_term(char *cmd, struct termios *t_save, t_shell *shell)
 {
+  shell->history->current = NULL;
   if (xtcsetattr(0, 0, t_save) == -1)
     return (NULL);
   if (change_cursor(1) == -1)
@@ -96,5 +97,5 @@ char			*line_editor(t_shell *shell)
       if (parser_line_editor(buffer, &line, shell) == -1)
 	return (NULL);
     }
-  return (reset_term(build_line(line), &t_save));
+  return (reset_term(build_line(line), &t_save, shell));
 }

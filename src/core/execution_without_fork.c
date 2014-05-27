@@ -5,7 +5,11 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 19:50:58 2014 Joris Bertomeu
+<<<<<<< HEAD
 ** Last update Wed May 28 00:55:43 2014 Jeremy Mediavilla
+=======
+** Last update Wed May 28 00:56:17 2014 Geoffrey Merran
+>>>>>>> 796667ce78049abe42dc9a594b02f133e680d7f1
 */
 
 #include "core.h"
