@@ -10,3 +10,5 @@ typedef struct		s_pipe
   int			tmp;
   char			***cmds;
 }			t_pipe;
+
+int		do_pipe(t_pipe *);

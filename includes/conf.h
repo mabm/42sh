@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 15 21:06:01 2014 Geoffrey Merran
-** Last update Sat May 24 21:39:36 2014 Geoffrey Merran
+** Last update Tue May 27 23:14:07 2014 Jeremy Mediavilla
 */
 
 #ifndef CONF_
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include "gnl.h"
 # include "mysh.h"
 # include "my.h"

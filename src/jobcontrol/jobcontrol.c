@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 15:35:36 2014 Geoffrey Merran
-** Last update Tue May 27 18:23:26 2014 Geoffrey Merran
+** Last update Tue May 27 23:12:57 2014 Jeremy Mediavilla
 */
 
 #include "jobcontrol.h"
@@ -94,7 +94,7 @@ int	init_jobcontrol(t_shell **shell)
 {
   if (((*shell)->bg = my_xmalloc(sizeof(*(*shell)->bg))) == NULL)
     return (-1);
-  (*shell)->nb = 0;
-  (*shell)->list = NULL;
+  (*shell)->bg->nb = 0;
+  (*shell)->bg->list = NULL;
   return (0);
 }
