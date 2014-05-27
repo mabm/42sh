@@ -5,12 +5,12 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Tue May 27 22:52:38 2014 Jeremy Mediavilla
+** Last update Tue May 27 22:56:31 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
 
-void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd)
+void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd, t_shell *shell)
 {
   int	pipefd2[2];
   char	tmp[4096];
@@ -82,7 +82,7 @@ int		my_parser(t_link *list, t_shell *shell)
 	  while (tmp->type == 0 && tmp)
 	    tmp = tmp->next;
 	}
-      choose_exec(cmd1, sep, cmd2, j, pipefd);
+      choose_exec(cmd1, sep, cmd2, j, pipefd, shell);
       /* tmp = tmp->next; */
       i++;
     }
