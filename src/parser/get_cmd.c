@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 21:59:27 2014 Geoffrey Merran
-** Last update Tue May 27 22:08:51 2014 Geoffrey Merran
+** Last update Tue May 27 23:53:50 2014 Geoffrey Merran
 */
 
 #include "parser.h"
@@ -18,8 +18,9 @@ char		**get_cmd(t_link *start)
 
   tmp = start;
   i = 0;
-  while (tmp->next && tmp->type == 0)
+  while (tmp && tmp->type == 0)
     {
+      printf("%s\n", tmp->data);
       i++;
       tmp = tmp->next;
     }
@@ -28,7 +29,7 @@ char		**get_cmd(t_link *start)
   cmd = my_xmalloc((i + 1) * sizeof(char *));
   tmp = start;
   i = 0;
-  while (tmp->next && tmp->type == 0)
+  while (tmp && tmp->type == 0)
     {
       cmd[i++] = strdup(tmp->data);
       tmp = tmp->next;

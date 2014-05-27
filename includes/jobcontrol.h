@@ -5,14 +5,16 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 15:36:16 2014 Geoffrey Merran
-** Last update Tue May 27 23:13:42 2014 Jeremy Mediavilla
+** Last update Tue May 27 23:50:31 2014 Geoffrey Merran
 */
 
 #ifndef JOBCONTROL_
 # define JOBCONTROL_
 # include <sys/types.h>
 # include <signal.h>
+# include <string.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include "mysh.h"
 # include "my.h"
 

@@ -5,9 +5,10 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 15:35:36 2014 Geoffrey Merran
-** Last update Tue May 27 23:12:57 2014 Jeremy Mediavilla
+** Last update Tue May 27 23:50:49 2014 Geoffrey Merran
 */
 
+#define _BSD_SOURCE
 #include "jobcontrol.h"
 
 int		builtin_jobs(t_shell *shell, char **cmd)
@@ -88,6 +89,7 @@ int		add_job(int pid, char **cmd, t_bg **bg)
   new->next = (*bg)->list;
   (*bg)->list = new;
   (*bg)->nb = (*bg)->nb + 1;
+  return (0);
 }
 
 int	init_jobcontrol(t_shell **shell)
