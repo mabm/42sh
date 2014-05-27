@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:12:40 2014 Geoffrey Merran
-** Last update Tue May 27 12:46:59 2014 Geoffrey Merran
+** Last update Wed May 28 00:58:29 2014 Geoffrey Merran
 */
 
 #ifndef LINE_EDITOR_
@@ -73,7 +73,7 @@ void   	delete_line_edit(t_line *line);
 char   	*build_line(t_line *line);
 int	init_line_editor(struct termios *t, struct termios *t_save, t_line **line);
 int	init_term(struct termios *t, struct termios *t_save);
-char	*reset_term(char *cmd, struct termios *t_save);
+char	*reset_term(char *cmd, struct termios *t_save, t_shell *shell);
 int    	show_edit_line(t_line *line);
 
 /*
