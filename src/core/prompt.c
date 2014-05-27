@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Sun May 25 21:47:30 2014 Geoffrey Merran
+** Last update Tue May 27 22:56:59 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -16,25 +16,29 @@ t_builtin	builtin[] =
     {"env", aff_env},
     {"unsetenv", my_unsetenv},
     {"setenv", my_setenv},
-    {"alias", builtin_alias}
+    {"alias", builtin_alias},
+    {"history", builtin_history},
+    {"cd", my_cd}
   };
 
-void            check_builtin(t_shell *shell, char **cmd)
+/*
+** Ajouter des built-in seulement de la forme
+**	int	my_builtin(t_shell *shell, char **cmd);
+**
+*/
+
+int            check_builtin(t_shell *shell, char **cmd)
 {
   int           i;
 
   i = 0;
-  while (i < 4)
+  while (i < 6)
     {
       if (strncmp(cmd[0], builtin[i].name, strlen(builtin[i].name)) == 0)
-        {
-          builtin[i].fptr(shell, cmd);
-          i = 5;
-        }
+	return (builtin[i].fptr(shell, cmd));
       i++;
     }
-  if (i == 5)
-    fprintf(stderr, "%s : n'est pas une commande\n", cmd[0]);
+  return (1);
 }
 
 int		prompt(t_shell *shell)

@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:50:11 2014 martelliere
-** Last update Sat May 24 17:30:31 2014 Geoffrey Merran
+** Last update Tue May 27 22:54:28 2014 Geoffrey Merran
 */
 
 #ifndef		HISTORY_H_
@@ -21,6 +21,12 @@
 # include	"gnl.h"
 # include	"online.h"
 # include	"my.h"
+
+/*
+** Built in History
+*/
+
+int		builtin_history(t_shell *shell, char **cmd);
 
 /*
 ** History

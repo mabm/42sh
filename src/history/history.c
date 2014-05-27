@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Fri May  9 15:49:56 2014 martelliere
-** Last update Sat May 24 19:33:32 2014 Geoffrey Merran
+** Last update Tue May 27 22:28:01 2014 Geoffrey Merran
 */
 
 #include "history.h"
@@ -25,6 +25,13 @@ void		show_history(t_history *history)
     }
 }
 
+int		builtin_history(t_shell *shell, char **cmd)
+{
+  (void) cmd;
+  show_history(shell->history);
+  return (0);
+}
+
 int		init_history(t_shell **shell)
 {
   (*shell)->history->head = NULL;
@@ -33,3 +40,4 @@ int		init_history(t_shell **shell)
   (*shell)->history->size = 0;
   return (get_history((*shell)->history, *shell));
 }
+
