@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Tue May 27 22:56:31 2014 Jeremy Mediavilla
+** Last update Tue May 27 23:02:19 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -26,7 +26,7 @@ void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd, t_shell *
     }
   else if (cmd1 == NULL)
     {
-      pipe(pipefd2[1], 1);
+      pipe(pipefd2);
       dup2((*pipefd)[0], 0);
       dup2(pipefd2[1], 1);
       if (sep == 11)
@@ -53,7 +53,7 @@ int		my_parser(t_link *list, t_shell *shell)
   int		pipefd[2];
   char		**cmd1;
   char		**cmd2;
-  char		tmp[4096];
+  char		tmps[4096];
 
   i = 0;
   tmp = list;
@@ -82,12 +82,16 @@ int		my_parser(t_link *list, t_shell *shell)
 	  while (tmp->type == 0 && tmp)
 	    tmp = tmp->next;
 	}
+      if (cmd2 == NULL)
+	break;
       choose_exec(cmd1, sep, cmd2, j, pipefd, shell);
       /* tmp = tmp->next; */
       i++;
     }
-  read(pipefd[0], tmp, 4096);
-  write(1, tmp, 4096);
+  exec_without_fork(shell, cmd1);
+  memset(tmps, 0, 4096);
+  read(pipefd[0], tmps, 4096);
+  write(1, tmps, 4096);
   close(pipefd[0]);
   close(pipefd[1]);
   return (0);
