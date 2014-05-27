@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 23:04:16 2014 Geoffrey Merran
-** Last update Tue May 27 23:04:25 2014 Geoffrey Merran
+** Last update Tue May 27 23:37:31 2014 Joris Bertomeu
 */
 
 #include "core.h"
@@ -18,7 +18,7 @@ t_builtin	builtin[] =
     {"setenv", my_setenv},
     {"alias", builtin_alias},
     {"history", builtin_history},
-    {"cd", my_cd}
+    /* {"cd", my_cd} */
   };
 
 /*

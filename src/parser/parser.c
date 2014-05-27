@@ -5,12 +5,12 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Tue May 27 23:02:19 2014 Joris Bertomeu
+** Last update Tue May 27 23:43:46 2014 Joris Bertomeu
 */
 
 #include "parser.h"
 
-void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd, t_shell *shell)
+void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell *shell)
 {
   int	pipefd2[2];
   char	tmp[4096];
@@ -19,10 +19,10 @@ void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd, t_shell *
     {
       pipe(*pipefd);
       dup2((*pipefd)[1], 1);
-      if (sep == 11)
-	do_pipe(cmd1, cmd2, 2);
-      else if (sep == 13)
-	do_redirect();
+      /* if (sep == 11) */
+      /* 	do_pipe(cmd1, cmd2, 2); */
+      /* else if (sep == 13) */
+      /* 	do_redirect(); */
     }
   else if (cmd1 == NULL)
     {
@@ -30,7 +30,7 @@ void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd, t_shell *
       dup2((*pipefd)[0], 0);
       dup2(pipefd2[1], 1);
       if (sep == 11)
-	exec_without_fork(shell, cmd2);
+	my_exec_without_fork(shell, cmd2);
       close((*pipefd)[1]);
       close((*pipefd)[0]);
       pipe(*pipefd);
@@ -50,7 +50,7 @@ int		my_parser(t_link *list, t_shell *shell)
   int		j;
   int		**priority_tab;
   int		sep;
-  int		pipefd[2];
+  int		*pipefd;
   char		**cmd1;
   char		**cmd2;
   char		tmps[4096];
@@ -58,6 +58,7 @@ int		my_parser(t_link *list, t_shell *shell)
   i = 0;
   tmp = list;
   j = 0;
+  pipefd = malloc(2 * sizeof(int));
   if (tmp->next != NULL && tmp->type == -1)
     tmp = tmp->next;
   while (tmp != NULL)
@@ -67,8 +68,9 @@ int		my_parser(t_link *list, t_shell *shell)
       if (tmp->type == 0)
 	{
 	  cmd1 = get_cmd(tmp);
-	  while (tmp->type == 0 && tmp)
+	  while (tmp && tmp->type == 0)
 	    tmp = tmp->next;
+	  printf(">>>>> %s\n", cmd1[0]);
 	}
       if (tmp && tmp->type != 0)
 	{
@@ -84,11 +86,11 @@ int		my_parser(t_link *list, t_shell *shell)
 	}
       if (cmd2 == NULL)
 	break;
-      choose_exec(cmd1, sep, cmd2, j, pipefd, shell);
+      choose_exec(cmd1, sep, cmd2, j, &pipefd, shell);
       /* tmp = tmp->next; */
       i++;
     }
-  exec_without_fork(shell, cmd1);
+  my_exec_without_fork(shell, cmd1);
   memset(tmps, 0, 4096);
   read(pipefd[0], tmps, 4096);
   write(1, tmps, 4096);
