@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 18:05:01 2014 Geoffrey Merran
-** Last update Sun May 25 06:18:00 2014 Geoffrey Merran
+** Last update Tue May 27 12:42:38 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -75,6 +75,8 @@ void	parse_bind(char *buffer, t_line **line, int size)
 	bind_clear_term();
       if (buffer[0] == 11)
 	bind_suppr_to_end(line);
+      if (buffer[0] == 20)
+	bind_swap_char(line);
     }
   if (size == 6)
     {

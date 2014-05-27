@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 15 18:29:02 2014 Geoffrey Merran
-** Last update Sat May 24 06:50:00 2014 Geoffrey Merran
+** Last update Tue May 27 13:00:56 2014 Geoffrey Merran
 */
 
 #include "line_editor.h"
@@ -45,5 +45,21 @@ int	delete_char(t_char *c, t_line **line)
     c->next->prev = c->prev;
   free(c);
   (*line)->size--;
+  return (0);
+}
+
+int		swap_char(t_char *c, t_char *d)
+{
+  t_char	*swap;
+
+  swap = c->prev;
+  if (c->prev != NULL)
+    c->prev->next = d;
+  if (d->next != NULL)
+    d->next->prev = c;
+  c->next = d->next;
+  d->next = c;
+  c->prev = d;
+  d->prev = swap;
   return (0);
 }

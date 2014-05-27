@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Sat May 24 23:32:44 2014 Geoffrey Merran
+** Last update Tue May 27 13:08:18 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -26,6 +26,8 @@ int		loading_shell(t_shell **shell, char **env, int ac, char **av)
   if (signal(SIGINT, SIG_IGN) == SIG_ERR)
     return (-1);
   if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+    return (-1);
+  if (signal(SIGTSTP, SIG_IGN) == SIG_ERR)
     return (-1);
   *shell = my_xmalloc(sizeof(**shell));
   if (shell == NULL)

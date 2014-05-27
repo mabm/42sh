@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 14 15:12:40 2014 Geoffrey Merran
-** Last update Sun May 25 06:15:15 2014 Geoffrey Merran
+** Last update Tue May 27 12:46:59 2014 Geoffrey Merran
 */
 
 #ifndef LINE_EDITOR_
@@ -94,6 +94,7 @@ void	bind_clear_term();
 void   	bind_suppr_to_end(t_line **line);
 void   	bind_move_next_word(t_line **line);
 void	bind_move_prev_word(t_line **line);
+void   	bind_swap_char(t_line **line);
 
 /*
 ** Parser
@@ -121,6 +122,7 @@ void	move_cursor(int direction, t_line **line);
 
 int    	add_char(char c, t_line **line);
 int	delete_char(t_char *c, t_line **line);
+int    	swap_char(t_char *c, t_char *d);
 int	write_prompt_char(t_char *c);
 int	rev_mode(char c);
 
