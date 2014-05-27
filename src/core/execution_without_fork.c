@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 19:50:58 2014 Joris Bertomeu
-** Last update Sun May 25 19:58:27 2014 Joris Bertomeu
+** Last update Tue May 27 23:41:36 2014 Joris Bertomeu
 */
 
 #include "core.h"
@@ -34,19 +34,19 @@ int		is_cmd_exist2(char **cmd, char **path)
 	return (-1);
       memset(tmp, 0, (strlen(path[i]) + 1));
       tmp = strcat(tmp, path[i]);
-      tmp = strcart(tmp, cmd[0]);
+      tmp = strcat(tmp, cmd[0]);
       if (access(tmp, F_OK) != -1)
 	{
 	  if (access(tmp, X_OK) == -1)
 	    {
-	      fprintf(stderr, "%s: Permission denied\n", cmd[0]);
+	      fprintf(stderr, "%s : Permission denied\n", cmd[0]);
 	      return (-1);
 	    }
 	  return (i);
 	}
       i++;
     }
-  fprintf(stderr, "%: Command not found\n", cmd[0]);
+  fprintf(stderr, "%s : Command not found\n", cmd[0]);
   return (-1);
 }
 
@@ -55,16 +55,19 @@ int		my_exec_without_fork(t_shell *shell, char **cmd)
   int		pos;
   char		**envp;
   char		**path;
+  char		*tmp;
 
   envp = env_in_tab(shell->env);
+  printf(">%s<\n", cmd[0]);
   if (strstr(cmd[0], "/") != NULL)
     {
       if (do_fork_bis2(envp, cmd) == -1)
 	return (-1);
       return (0);
     }
-  if ((path = check_env_var(shell->env, "PATH=", 5)) == NULL)
+  if ((tmp = check_env_var(shell->env, "PATH=", 5)) == NULL)
     return (-1);
+  path = my_strd_to_wordtab(tmp, ":");
   if ((pos = is_cmd_exist2(cmd, path)) == -1)
     return (-1);
   if (do_fork2(envp, cmd, path, pos) == -1)

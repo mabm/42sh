@@ -22,7 +22,9 @@ D_JOBCONTROL	=	src/jobcontrol/
 
 SRC		=	$(D_CORE)main.c				\
 			$(D_CORE)prompt.c			\
+			$(D_CORE)execution_without_fork.c				\
 			$(D_CORE)gnl.c				\
+			$(D_CORE)exec_fct.c				\
 			$(D_CORE)tab_functions.c		\
 			$(D_BUILTIN)env.c			\
 			$(D_BUILTIN)builtin.c			\
@@ -65,6 +67,7 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_PARSER)list2.c			\
 			$(D_PARSER)access.c			\
 			$(D_PARSER)free.c			\
+			$(D_PARSER)get_cmd.c			\
 			$(D_JOBCONTROL)jobcontrol.c		\
 
 OBJ		=	$(SRC:.c=.o)

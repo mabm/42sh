@@ -1,34 +1,49 @@
 /*
-** exec_fct.c for  in /home/nicolas/Workspace/Unix/42sh/src/core
+** exec_fct.c for env in /home/jobertomeu/Work/42sh
 ** 
-** Made by Nicolas Ades
-** Login   <nicolas@epitech.net>
+** Made by Joris Bertomeu
+** Login   <jobertomeu@epitech.net>
 ** 
-** Started on  Sat May 24 16:09:23 2014 Nicolas Ades
-** Last update Sat May 24 16:10:40 2014 Nicolas Ades
+** Started on  Tue May 27 23:33:01 2014 Joris Bertomeu
+** Last update Tue May 27 23:40:17 2014 Joris Bertomeu
 */
 
 #include "core.h"
 
+int		list_size(t_list *list)
+{
+  int		i;
+  t_list	*tmp;
+
+  tmp = list;
+  i = 0;
+  while (tmp != NULL)
+    {
+      i++;
+      tmp = tmp->next;
+    }
+  return (i);
+}
+
 char		**env_in_tab(t_list *list)
 {
-  char		**tab;
+  char		**mtab;
   int		size;
   int		i;
   int		len;
 
-  i = 0; 
+  i = 0;
   size = list_size(list);
-  tab = xmalloc(size * sizeof(char *));
+  mtab = my_xmalloc(size * sizeof(char *));
   list = list->next;
   while (list != NULL)
     {
-      len = my_strlen(list->data) + 1;
-      tab[i] = xmalloc(len * sizeof(char));
-      my_memset(tab[i], '\0', len);
-      tab[i] = list->data;
+      len = strlen(list->data) + 1;
+      mtab[i] = my_xmalloc(len * sizeof(char));
+      memset(mtab[i], '\0', len);
+      mtab[i] = list->data;
       list = list->next;
       i++;
     }
-  return (tab);
+  return (mtab);
 }

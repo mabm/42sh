@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Tue May 27 22:55:59 2014 Geoffrey Merran
+** Last update Tue May 27 23:32:11 2014 Joris Bertomeu
 */
 
 #ifndef	CORE_H_
@@ -49,6 +49,7 @@ int		is_in_env(t_list *, char *);
 char		*get_env_var(char *, int);
 char		*check_env_var(t_list *, char *, int);
 t_online	*online_mode();
+char		**env_in_tab(t_list *list);
 
 /*
 ** Prompt
