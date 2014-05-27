@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 21:59:27 2014 Geoffrey Merran
-** Last update Tue May 27 23:53:50 2014 Geoffrey Merran
+** Last update Wed May 28 01:36:25 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -34,5 +34,6 @@ char		**get_cmd(t_link *start)
       cmd[i++] = strdup(tmp->data);
       tmp = tmp->next;
     }
+  cmd[i] = NULL;
   return (cmd);
 }

@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Wed May 28 01:08:56 2014 Joris Bertomeu
+** Last update Wed May 28 01:27:45 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -25,7 +25,7 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
 	  dup2((*pipefd)[1], 1);
 	  my_exec_without_fork(shell, cmd1);
 	}
-      wait();
+      wait(NULL);
       printf("After\n");
       /* if (sep == 11) */
       /* 	do_pipe(cmd1, cmd2, 2); */
