@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 15:22:59 2014 Nicolas Ades
-** Last update Tue May 27 22:52:42 2014 Jeremy Mediavilla
+** Last update Tue May 27 22:58:10 2014 Jeremy Mediavilla
 */
 
 #ifndef PARSER_H_
@@ -14,6 +14,7 @@
 # include <stdlib.h>
 # include "main.h"
 # include "my.h"
+# include "mysh.h"
 
 # define ALPHA_NUM "abcdefghijklmnopqrstuvwxyz\
 ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_\\.,+*"
