@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 15:22:59 2014 Nicolas Ades
-** Last update Tue May 27 22:09:25 2014 Geoffrey Merran
+** Last update Tue May 27 22:58:10 2014 Jeremy Mediavilla
 */
 
 #ifndef PARSER_H_
@@ -14,6 +14,7 @@
 # include <stdlib.h>
 # include "main.h"
 # include "my.h"
+# include "mysh.h"
 
 # define ALPHA_NUM "abcdefghijklmnopqrstuvwxyz\
 ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_\\.,+*"
@@ -85,9 +86,9 @@ typedef struct		s_link
 }			t_link;
 
 /* fonctions dans parser.c */
-int		my_parser(t_link *);
-int		my_parser_check(t_link *, char *);
-int		my_lexer(char *);
+int		my_parser(t_link *, t_shell *);
+int		my_parser_check(t_link *, char *, t_shell *);
+int		my_lexer(char *, t_shell *);
 
 /* fonctions dans list2.c */
 t_link		*init_list(char *, t_type);

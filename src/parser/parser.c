@@ -5,12 +5,12 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Tue May 27 22:35:34 2014 Joris Bertomeu
+** Last update Tue May 27 22:56:31 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
 
-void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd)
+void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd, t_shell *shell)
 {
   int	pipefd2[2];
   char	tmp[4096];
@@ -41,7 +41,7 @@ void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd)
     }
 }
 
-int		my_parser(t_link *list)
+int		my_parser(t_link *list, t_shell *shell)
 {
   t_link	*tmp;
   int		**my_tab;
@@ -82,7 +82,7 @@ int		my_parser(t_link *list)
 	  while (tmp->type == 0 && tmp)
 	    tmp = tmp->next;
 	}
-      choose_exec(cmd1, sep, cmd2, j, pipefd);
+      choose_exec(cmd1, sep, cmd2, j, pipefd, shell);
       /* tmp = tmp->next; */
       i++;
     }
@@ -93,7 +93,7 @@ int		my_parser(t_link *list)
   return (0);
 }
 
-int		my_parser_check(t_link *list, char *cmd)
+int		my_parser_check(t_link *list, char *cmd, t_shell *shell)
 {
   t_tree	*tree;
   t_link	*tmp;
@@ -114,11 +114,11 @@ int		my_parser_check(t_link *list, char *cmd)
   tmp = list;
   remove_old_links(&tmp, &list);
   aff_my_list(list);
-  my_parser(list);
+  my_parser(list, shell);
   return (0);
 }
 
-int		my_lexer(char *cmd)
+int		my_lexer(char *cmd, t_shell *shell)
 {
   int		i;
   int		len;
@@ -141,7 +141,7 @@ int		my_lexer(char *cmd)
 	if (check_token(cmd, &i, list) == -1)
 	  return (-1);
     }
-  if (my_parser_check(list, cmd) == -1)
+  if (my_parser_check(list, cmd, shell) == -1)
     return (-1);
   return (0);
 }

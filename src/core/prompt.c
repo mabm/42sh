@@ -1,11 +1,11 @@
 /*
-** prompt.c for  in /home/mediav_j/mabm/42sh/src/core
+** prompt.c for prompt in /home/merran_g/work/c_elem/42sh
 ** 
-** Made by Jeremy Mediavilla
-** Login   <mediav_j@epitech.net>
+** Made by Geoffrey Merran
+** Login   <merran_g@epitech.net>
 ** 
-** Started on  Wed May  7 17:48:19 2014 Jeremy Mediavilla
-** Last update Tue May 27 22:56:59 2014 Geoffrey Merran
+** Started on  Tue May 27 23:04:16 2014 Geoffrey Merran
+** Last update Tue May 27 23:04:25 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -53,7 +53,7 @@ int		prompt(t_shell *shell)
 	  free(cmd);
 	  return (0);
 	}
-      my_lexer(cmd);
+      my_lexer(cmd, shell);
       /* check_builtin(shell->env, cmd); */
       add_cmd(shell->history, cmd);
       free(cmd);
