@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 15:22:59 2014 Nicolas Ades
-** Last update Sun May 25 18:50:52 2014 Jeremy Mediavilla
+** Last update Tue May 27 22:09:25 2014 Geoffrey Merran
 */
 
 #ifndef PARSER_H_
@@ -145,7 +145,12 @@ int		is_valid_end_access(t_tree *);
 /* fonctions dans free.c */
 void		free_tree(t_tree *);
 void		free_list(t_link *);
-
 void		free_tab(char **);
+
+/*
+** Cmd tools
+*/
+
+char		**get_cmd(t_link *start);
 
 #endif /* PARSER_H_ */
