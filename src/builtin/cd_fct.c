@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed May 21 06:05:57 2014 Nicolas Ades
-** Last update Mon May 26 13:00:54 2014 Nicolas Ades
+** Last update Mon May 26 14:11:13 2014 Nicolas Ades
 */
 
 #include <stdlib.h>
@@ -13,18 +13,23 @@
 
 int	find_and_replace(t_shell *shell, char *var, char *new)
 {
-  if (list == NULL)
+  t_list	*tmp;
+
+  tmp = shell->env;
+  while (tmp)
     {
-      fprintf(stderr, "var is not in the env\n");
-      return (-1);
+      if (tmp == NULL)
+	{
+	  fprintf(stderr, "%s is not int the env\n", var);
+	  return (-1);
+	}
+      if (strncmp(tmp->data, var, strlen(var)) == 0)
+	{
+	  tmp->data = strcpy(tmp->data ,new);
+	  return (0);
+	}
+      tmp->env = tmp->next;
     }
-  if (strncmp(shell->env->data, var, strlen(var)) == 0)
-    {
-      list->data = strcpy(shell->env->data ,new);
-      return (0);
-    }
-  shell->env = shell->env->next;
-  find_and_replace(shell, var, new);
   return (0);
 }
 

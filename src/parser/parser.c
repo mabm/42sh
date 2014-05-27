@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Tue May 27 23:43:46 2014 Joris Bertomeu
+** Last update Wed May 28 00:46:18 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -15,10 +15,18 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
   int	pipefd2[2];
   char	tmp[4096];
 
+  printf("cmd1 = %s - cmd2 = %s\n", cmd1[0], cmd2[0]);
   if (cmd1 != NULL && cmd2 != NULL)
     {
       pipe(*pipefd);
-      dup2((*pipefd)[1], 1);
+      printf("Before\n");
+      if (fork() == 1)
+	{
+	  dup2((*pipefd)[1], 1);
+	  my_exec_without_fork(shell, cmd1);
+	}
+      wait();
+      printf("After\n");
       /* if (sep == 11) */
       /* 	do_pipe(cmd1, cmd2, 2); */
       /* else if (sep == 13) */
@@ -70,7 +78,6 @@ int		my_parser(t_link *list, t_shell *shell)
 	  cmd1 = get_cmd(tmp);
 	  while (tmp && tmp->type == 0)
 	    tmp = tmp->next;
-	  printf(">>>>> %s\n", cmd1[0]);
 	}
       if (tmp && tmp->type != 0)
 	{
@@ -85,17 +92,27 @@ int		my_parser(t_link *list, t_shell *shell)
 	    tmp = tmp->next;
 	}
       if (cmd2 == NULL)
-	break;
+	{
+	  /* pipe(pipefd); */
+	  if (fork() == 0)
+	    {
+	      /* close(pipefd[0]); */
+	      /* dup2(pipefd[1], 1); */
+	      /* perror("Erreur "); */
+	      my_exec_without_fork(shell, cmd1);
+	    }
+	  wait();
+	  break;
+	}
       choose_exec(cmd1, sep, cmd2, j, &pipefd, shell);
       /* tmp = tmp->next; */
       i++;
     }
-  my_exec_without_fork(shell, cmd1);
-  memset(tmps, 0, 4096);
-  read(pipefd[0], tmps, 4096);
-  write(1, tmps, 4096);
-  close(pipefd[0]);
-  close(pipefd[1]);
+  /* memset(tmps, 0, 4096); */
+  /* read(pipefd[0], tmps, 4096); */
+  /* write(1, tmps, 4096); */
+  /* close(pipefd[0]); */
+  /* close(pipefd[1]); */
   return (0);
 }
 
