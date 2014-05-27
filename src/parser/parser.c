@@ -5,115 +5,40 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Tue May 27 16:30:07 2014 Jeremy Mediavilla
+** Last update Tue May 27 22:27:37 2014 Joris Bertomeu
 */
 
 #include "parser.h"
 
-int		is_sorted(int **mtab, int size)
+void	choose_exec(char *cmd1, int sep, char *cmd2, int j, int **pipefd)
 {
-  int		i;
+  int	pipefd2[2];
+  char	tmp[4096];
 
-  i = 0;
-  while (i < (size - 1))
+  if (cmd1 != NULL && cmd2 != NULL)
     {
-      if (mtab[i][1] < mtab[i + 1][1])
-	return (-1);
-      i++;
+      pipe(*pipefd);
+      dup2((*pipefd)[1], 1);
+      if (sep == 11)
+	do_pipe(cmd1, cmd2, 2);
+      else if (sep == 13)
+	do_redirect();
     }
-  return (1);
-}
-
-void		my_sort_tab(int ***mtab, int size)
-{
-  int		i;
-  int		tmp;
-  int		tmp2;
-
-  i = 0;
-  while (i < (size - 1))
+  else if (cmd1 == NULL)
     {
-      if ((*mtab)[i][1] < (*mtab)[i + 1][1])
-	{
-	  tmp = (*mtab)[i][0];
-	  tmp2 = (*mtab)[i][1];
-	  (*mtab)[i][0] = (*mtab)[i + 1][0];
-	  (*mtab)[i][1] = (*mtab)[i + 1][1];
-	  (*mtab)[i + 1][0] = tmp;
-	  (*mtab)[i + 1][1] = tmp2;
-	  i = 0;
-	}
-      i++;
+      pipe(pipefd2[1], 1);
+      dup2((*pipefd)[0], 0);
+      dup2(pipefd2[1], 1);
+      if (sep == 11)
+	exec_without_fork(shell, cmd2);
+      close((*pipefd)[1]);
+      close((*pipefd)[0]);
+      pipe(*pipefd);
+      read(pipefd2[0], tmp, 4096);
+      write((*pipefd)[1], tmp, 4096);
+      close(pipefd2[0]);
+      close(pipefd2[1]);
     }
-  if (is_sorted((*mtab), size) == -1)
-    my_sort_tab((*mtab), size);
-}
-
-int		**init_tab_priority()
-{
-  int		**mtab;
-  int		i;
-
-  i = 0;
-  mtab = malloc(7 * sizeof(int *));
-  while (i < 7)
-    {
-      mtab[i] = malloc(2 * sizeof(int));
-      i++;
-    }
-  mtab[0][0] = PIPE;
-  mtab[0][1] = 2;
-  mtab[1][0] = OR;
-  mtab[1][1] = 1;
-  mtab[2][0] = DOUBLE_AND;
-  mtab[2][1] = 1;
-  mtab[3][0] = R_CHEV;
-  mtab[3][1] = 0;
-  mtab[4][0] = RR_CHEV;
-  mtab[4][1] = 0;
-  mtab[5][0] = L_CHEV;
-  mtab[5][1] = 0;
-  mtab[6][0] = LL_CHEV;
-  mtab[6][1] = 0;
-  return (mtab);
-}
-
-int		is_special_sep(int sep, int **mtab)
-{
-  int		i;
-
-  i = 0;
-  while (i < 7)
-    {
-      if (sep == mtab[i][0])
-	return (mtab[i][1]);
-      i++;
-    }
-  return (-1);
-}
-
-t_link		*get_pos_link(t_link *list, int pos)
-{
-  t_link	*tmp;
-  int		i;
-
-  i = -1;
-  tmp = list;
-  while (tmp != NULL)
-    {
-      if (i == pos)
-	return (tmp);
-      i++;
-      tmp = tmp->next;
-    }
-  return (NULL);
-}
-
-void	exec_cmd_from_parser(char *left, char *right, int type)
-{
-  if (type == 11)
-    do_pipestart(listepipe, nb_cmd);
-  printf("On exécute %s %d %s\n", left, type, right);
 }
 
 int		my_parser(t_link *list)
@@ -124,55 +49,47 @@ int		my_parser(t_link *list)
   int		i;
   int		j;
   int		**priority_tab;
+  int		sep;
+  int		pipefd[2];
+  char		**cmd1;
+  char		**cmd2;
+  char		tmp[4096];
 
   i = 0;
-  j = 0;
   tmp = list;
-  my_tab = init_tab_priority();
+  j = 0;
   if (tmp->next != NULL && tmp->type == -1)
     tmp = tmp->next;
   while (tmp != NULL)
     {
-      if ((priority = is_special_sep(tmp->type, my_tab)) != -1)
+      cmd1 = NULL;
+      cmd2 = NULL;
+      if (tmp->type == 0)
 	{
-	  if (j == 0)
-	    {
-	      priority_tab = malloc(1 * sizeof(int *));
-	      priority_tab[0] = malloc(3 * sizeof(int));
-	      printf("First pass\n");
-	    }
-	  else
-	    {
-	      priority_tab = realloc(priority_tab, (j + 1) * sizeof(int *));
-	      priority_tab[j] = malloc(3 * sizeof(int));
-	    }
-	  priority_tab[j][0] = tmp->type;
-	  priority_tab[j][1] = priority;
-	  priority_tab[j][2] = i;
+	  cmd1 = get_cmd(tmp);
+	  while (tmp->type == 0 && tmp)
+	    tmp = tmp->next;
+	}
+      if (tmp && tmp->type != 0)
+	{
+	  sep = tmp->type;
+	  tmp = tmp->next;
 	  j++;
 	}
-      tmp = tmp->next;
+      if (tmp && tmp->type == 0)
+	{
+	  cmd2 = get_cmd(tmp);
+	  while (tmp->type == 0 && tmp)
+	    tmp = tmp->next;
+	}
+      choose_exec(cmd1, sep, cmd2, j, pipefd);
+      /* tmp = tmp->next; */
       i++;
     }
-  /* my_sort_tab(&priority_tab, j); */
-  i = 0;
-  printf("J = %d\n", j);
-  int	flag = -1;
-  if (j == 1)
-    exec_cmd_from_parser(get_pos_link(list, (priority_tab[0][2] - 1))->data, get_pos_link(list, (priority_tab[0][2] + 1))->data, priority_tab[0][0]);
-  else
-    {
-      while (i < j)
-	{
-	  printf("==> type = [%i] - Priorite = [%i] - Position = %d\n", priority_tab[i][0], priority_tab[i][1], priority_tab[i][2]);
-	  
-	  /* printf("On execute : %s %i %s\n", */
-	  /* 	     get_pos_link(list, (priority_tab[i][0] -1))->data, */
-	  /* 	     get_pos_link(list, priority_tab[i][0])->type, */
-	  /* 	     get_pos_link(list, (priority_tab[i][0] -1))->data); */
-	  i++;
-	}
-    }
+  read(pipefd[0], tmp, 4096);
+  write(1, tmp, 4096);
+  close(pipefd[0]);
+  close(pipefd[1]);
   return (0);
 }
 

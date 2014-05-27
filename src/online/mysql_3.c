@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:45:45 2014 Joris Bertomeu
-** Last update Tue May 27 09:44:58 2014 Joris Bertomeu
+** Last update Tue May 27 12:59:32 2014 Joris Bertomeu
 */
 
 #include "my.h"
@@ -100,10 +100,10 @@ int		check_user_exist(char *user, int flag)
 	    flag = 1;
 	  }
       mysql_close(&mysql);
+      free(result);
     }
   else
     flag = -1;
-  free(result);
   return (flag);
 }
 

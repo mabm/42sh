@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:44:52 2014 Joris Bertomeu
-** Last update Tue May 27 09:46:35 2014 Joris Bertomeu
+** Last update Tue May 27 12:59:50 2014 Joris Bertomeu
 */
 
 #include "my.h"
@@ -32,10 +32,10 @@ int		add_alias_from_bdd(t_alias *alias, t_shell *shell)
 	    add_alias(alias, strdup(row[1]), strdup(row[2]));
 	  }
       mysql_close(&mysql);
+      free(result);
     }
   else
     return (-1);
-  free(result);
   return (1);
 }
 
@@ -57,10 +57,10 @@ int		fetch_friends(char *user, int flag)
 	if (strcmp(row[1], user) == 0)
 	  printf("\033[33mFetching friend %s\t\t\t[OK]\033[00m\n", row[2]);
       mysql_close(&mysql);
+      free(result);
     }
   else
     printf("\033[31mError server connection\t\t[ERROR]\033[00m\n");
-  free(result);
   return (flag);
 }
 

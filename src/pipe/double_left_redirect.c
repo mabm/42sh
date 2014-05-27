@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 05:02:01 2014 Joris Bertomeu
-** Last update Sun May 25 07:42:49 2014 Joris Bertomeu
+** Last update Tue May 27 12:36:16 2014 Joris Bertomeu
 */
 
 #include <stdlib.h>
@@ -17,14 +17,14 @@
 
 int	do_under_doublel(int *pipefd)
 {
-  char	*tab[] = {"cat", NULL};
+  char	*tab[] = {"wc", "-l", NULL};
 
   close(pipefd[1]);
   if (fork() == 0)
     {
       if (dup2(pipefd[0], 0) == -1)
 	return (-1);
-      execvp("/bin/cat", tab);
+      execvp("/usr/bin/wc", tab);
       close(pipefd[0]);
     }
   else

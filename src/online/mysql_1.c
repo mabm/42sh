@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:53:45 2014 Joris Bertomeu
-** Last update Tue May 27 09:47:25 2014 Joris Bertomeu
+** Last update Tue May 27 13:00:05 2014 Joris Bertomeu
 */
 
 #include "my.h"
@@ -31,6 +31,7 @@ int		check_account(char *user, char *pass, int flag)
 	    flag = 1;
 	  }
       mysql_close(&mysql);
+      free(result);
     }
   else
     flag = -1;
