@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Wed May 28 00:46:18 2014 Joris Bertomeu
+** Last update Wed May 28 01:08:56 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -62,6 +62,7 @@ int		my_parser(t_link *list, t_shell *shell)
   char		**cmd1;
   char		**cmd2;
   char		tmps[4096];
+  int		status;
 
   i = 0;
   tmp = list;
@@ -94,14 +95,13 @@ int		my_parser(t_link *list, t_shell *shell)
       if (cmd2 == NULL)
 	{
 	  /* pipe(pipefd); */
-	  if (fork() == 0)
+	  if ((status = fork()) == 0)
 	    {
 	      /* close(pipefd[0]); */
 	      /* dup2(pipefd[1], 1); */
-	      /* perror("Erreur "); */
 	      my_exec_without_fork(shell, cmd1);
 	    }
-	  wait();
+	  wait(&status);
 	  break;
 	}
       choose_exec(cmd1, sep, cmd2, j, &pipefd, shell);

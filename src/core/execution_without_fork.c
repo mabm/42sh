@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 19:50:58 2014 Joris Bertomeu
-** Last update Wed May 28 00:45:03 2014 Joris Bertomeu
+** Last update Wed May 28 01:11:33 2014 Joris Bertomeu
 */
 
 #include "core.h"
@@ -18,7 +18,12 @@ int		do_fork_bis2(char **envp, char **cmd)
 
 int		do_fork2(char **envp, char **cmd, char *path, int pos)
 {
-  execve(path, cmd, envp);
+  my_printf("%t\n-------%t\n---------%s\n", envp, cmd, path);
+  if (execve(path, cmd, envp) == -1)
+    {
+      perror("Error from fork2 ");
+      exit(-1);
+    }
   return (0);
 }
 
