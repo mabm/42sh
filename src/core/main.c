@@ -5,12 +5,12 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Tue May 27 13:08:18 2014 Geoffrey Merran
+** Last update Tue May 27 15:42:51 2014 Geoffrey Merran
 */
 
 #include "core.h"
 
-int		init_shell(t_shell **shell)
+int		init_shell(t_shell **shell, int ac, char **av)
 {
   (*shell)->history = my_xmalloc(sizeof(*(*shell)->history));
   if ((*shell)->history == NULL)
@@ -18,6 +18,11 @@ int		init_shell(t_shell **shell)
   (*shell)->alias = my_xmalloc(sizeof(*(*shell)->alias));
   if ((*shell)->alias == NULL)
     return (-1);
+  default_conf(shell);
+  if (ac == 2)
+    load_conf(shell, av[1]);
+  init_history(shell);
+  init_aliasing(shell);
   return (0);
 }
 
@@ -35,13 +40,8 @@ int		loading_shell(t_shell **shell, char **env, int ac, char **av)
   (*shell)->env = create_list(NULL);
   get_all_env((*shell)->env, env);
   (*shell)->online = online_mode();
-  if (init_shell(shell) == -1)
+  if (init_shell(shell, ac, av) == -1)
     return (-1);
-  default_conf(shell);
-  if (ac == 2)
-    load_conf(shell, av[1]);
-  init_history(shell);
-  init_aliasing(shell);
   (*shell)->error = 0;
   (*shell)->end = 0;
   return (xtgetent(NULL, "xterm"));

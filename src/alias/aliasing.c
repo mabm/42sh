@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Mon May 12 15:16:12 2014 martelliere
-** Last update Sat May 24 19:05:35 2014 Geoffrey Merran
+** Last update Tue May 27 15:46:48 2014 Geoffrey Merran
 */
 
 #include "aliasing.h"
@@ -74,6 +74,5 @@ int	builtin_alias(t_shell *shell, char **cmd)
 int		init_aliasing(t_shell **shell)
 {
   (*shell)->alias->list = NULL;
-  get_alias((*shell)->alias, *shell);
-  return (0);
+  return (get_alias((*shell)->alias, *shell));
 }
