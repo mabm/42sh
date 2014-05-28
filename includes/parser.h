@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:35:28 2014 Geoffrey Merran
-** Last update Wed May 28 02:35:36 2014 Geoffrey Merran
+** Last update Wed May 28 02:43:05 2014 Geoffrey Merran
 */
 
 #ifndef PARSER_H_
@@ -18,6 +18,7 @@
 # include "my.h"
 # include "mysh.h"
 # include "pipe.h"
+# include "core.h"
 
 # define ALPHA_NUM "abcdefghijklmnopqrstuvwxyz\
 ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_\\/.,+*"

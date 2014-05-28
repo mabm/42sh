@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 23:04:16 2014 Geoffrey Merran
-** Last update Tue May 27 23:37:31 2014 Joris Bertomeu
+** Last update Wed May 28 02:41:23 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -38,7 +38,7 @@ int            check_builtin(t_shell *shell, char **cmd)
 	return (builtin[i].fptr(shell, cmd));
       i++;
     }
-  return (1);
+  return (-2);
 }
 
 int		prompt(t_shell *shell)

@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 13:51:04 2014 Nicolas Ades
-** Last update Tue May 27 23:32:11 2014 Joris Bertomeu
+** Last update Wed May 28 02:45:21 2014 Geoffrey Merran
 */
 
 #ifndef	CORE_H_
@@ -34,6 +34,7 @@ void		print_tab(char **);
 */
 
 int		my_cd(t_shell *shell, char **cmd);
+int		check_builtin(t_shell *shell, char **cmd);
 
 /*
 ** Builtin Env
