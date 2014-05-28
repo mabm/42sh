@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 03:52:31 2014 Joris Bertomeu
+** Last update Wed May 28 06:35:23 2014 Geoffrey Merran
 */
 
 #include "parser.h"
@@ -127,12 +127,13 @@ int		my_parser(t_link *list, t_shell *shell)
       if (cmd2 == NULL)
 	{
 	  pipe(pipefd);
+	  if (check_builtin(shell, cmd1) != -2)
+	    return (0);
 	  if ((pid = fork()) == 0)
 	    {
 	      close(pipefd[0]);
 	      dup2(pipefd[1], 1);
-	      if (check_builtin(shell, cmd1) == -2)
-		my_exec_without_fork(shell, cmd1);
+	      my_exec_without_fork(shell, cmd1);
 	      exit(-1);
 	    }
 	  wait(NULL);

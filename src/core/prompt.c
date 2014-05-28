@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 23:04:16 2014 Geoffrey Merran
-** Last update Wed May 28 03:57:40 2014 Geoffrey Merran
+** Last update Wed May 28 06:41:37 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -65,6 +65,7 @@ int		prompt(t_shell *shell)
   if (shell->error == 10)
     return (my_error("42sh: critical errors: too much error, \
 can't continue. Exiting\n"));
-  prompt(shell);
+  if (shell->end != 1)
+    prompt(shell);
   return (0);
 }

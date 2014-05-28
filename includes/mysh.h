@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Thu May 22 11:35:41 2014 Geoffrey Merran
-** Last update Tue May 27 23:13:43 2014 Jeremy Mediavilla
+** Last update Wed May 28 06:38:07 2014 Geoffrey Merran
 */
 
 #ifndef MYSH_
@@ -76,6 +76,7 @@ typedef struct	s_shell
   int		prompt;
   int		error;
   int		end;
+  int		exit_val;
 }		t_shell;
 
 typedef struct	s_builtin
