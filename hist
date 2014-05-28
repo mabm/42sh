@@ -1,0 +1,38 @@
+1 ls -R | wc -l
+2 exit
+3 df > df
+4 exit
+5 ls -l > tamere
+6 ls
+7 ls > ta
+8 ls
+9 clear
+10 env | grep HOME
+11 env | grep HOME
+12 ls |
+13 ls |
+14 cat | cat
+15 ls -l > tata
+16 cat tata
+17 clear
+18 ls -l > toto
+19 cat toto
+20 ls -l > titi
+21 cat titi
+22 exit
+23 clear
+24 !n
+25 env > jojo
+26 cat jojo
+27 klo7
+28 cat | |
+29 git pull origin master
+30 ;
+31 ;
+32 |
+33 >
+34 <
+35 <
+36 exit
+37 history
+38 clear

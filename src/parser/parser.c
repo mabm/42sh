@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 03:28:52 2014 Joris Bertomeu
+** Last update Wed May 28 03:47:13 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -49,9 +49,9 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
       if (fork() == 0)
 	{
 	  dup2((*pipefd)[1], 1);
-	  /* if (check_builtin(shell, cmd2) == -2) */
-	    if (my_exec_without_fork(shell, cmd1) == -1)
-	      exit(0);
+	  if (check_builtin(shell, cmd1) == -2)
+	    my_exec_without_fork(shell, cmd1);
+	  exit(-1);
 	}
       wait(NULL);
     }
@@ -69,9 +69,9 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
 	{
 	  dup2((*pipefd)[0], 0);
 	  dup2(pipefd2[1], 1);
-	  /* if (check_builtin(shell, cmd2) == -2) */
-	  if (my_exec_without_fork(shell, cmd2) == -1)
-	    exit(0);
+	  if (check_builtin(shell, cmd2) == -2)
+	    my_exec_without_fork(shell, cmd2);
+	  exit(-1);
 	}
       wait(NULL);
       t = read(pipefd2[0], tmp, 4096);
@@ -84,7 +84,7 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
     {
       right_redirect(tmp, cmd2[0]);
       pipe(*pipefd);
-      write((*pipefd)[1], " ", 1);
+      write((*pipefd)[1], "\n", 1);
     }
   close((*pipefd)[1]);
 
@@ -140,11 +140,11 @@ int		my_parser(t_link *list, t_shell *shell)
 	    {
 	      close(pipefd[0]);
 	      dup2(pipefd[1], 1);
-	      /* if (check_builtin(shell, cmd1) == -2) */
-		if (my_exec_without_fork(shell, cmd1) == -1)
-		  exit(0);
+	      if (check_builtin(shell, cmd1) == -2)
+		my_exec_without_fork(shell, cmd1);
+	      exit(-1);
 	    }
-	  wait_father(pid);
+	  wait(NULL);
 	  break;
 	}
       choose_exec(cmd1, sep, cmd2, j, &pipefd, shell);

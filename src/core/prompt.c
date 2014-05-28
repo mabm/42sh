@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 23:04:16 2014 Geoffrey Merran
-** Last update Wed May 28 02:41:23 2014 Geoffrey Merran
+** Last update Wed May 28 03:18:02 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -32,9 +32,9 @@ int            check_builtin(t_shell *shell, char **cmd)
   int           i;
 
   i = 0;
-  while (i < 6)
+  while (i < 5)
     {
-      if (strncmp(cmd[0], builtin[i].name, strlen(builtin[i].name)) == 0)
+      if (strcmp(cmd[0], builtin[i].name) == 0)
 	return (builtin[i].fptr(shell, cmd));
       i++;
     }
@@ -54,7 +54,6 @@ int		prompt(t_shell *shell)
 	  return (0);
 	}
       my_lexer(cmd, shell);
-      /* check_builtin(shell->env, cmd); */
       add_cmd(shell->history, cmd);
       free(cmd);
       shell->error = 0;
