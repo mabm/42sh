@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 16:53:37 2014 Nicolas Ades
-** Last update Mon May 26 18:56:56 2014 Nicolas Ades
+** Last update Mon May 26 19:21:53 2014 Nicolas Ades
 */
 
 #include "core.h"
@@ -77,6 +77,6 @@ int		my_echo(t_shell *shell, char **cmd)
   if (do_echo(cmd, echo) == -1)
     return (-1);
   if (echo->opt_n != 1)
-    printf("\n");
+    my_putchar('\n');
   return (0);
 }
