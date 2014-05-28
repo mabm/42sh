@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 21:59:27 2014 Geoffrey Merran
-** Last update Wed May 28 01:36:25 2014 Joris Bertomeu
+** Last update Wed May 28 01:49:00 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -20,7 +20,7 @@ char		**get_cmd(t_link *start)
   i = 0;
   while (tmp && tmp->type == 0)
     {
-      printf("%s\n", tmp->data);
+      printf("Dedans get cmd : %s\n", tmp->data);
       i++;
       tmp = tmp->next;
     }

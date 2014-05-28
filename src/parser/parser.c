@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Wed May 28 01:27:45 2014 Joris Bertomeu
+** Last update Wed May 28 02:24:39 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -14,39 +14,38 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
 {
   int	pipefd2[2];
   char	tmp[4096];
+  int	t;
 
-  printf("cmd1 = %s - cmd2 = %s\n", cmd1[0], cmd2[0]);
   if (cmd1 != NULL && cmd2 != NULL)
     {
       pipe(*pipefd);
-      printf("Before\n");
-      if (fork() == 1)
+      if (fork() == 0)
 	{
 	  dup2((*pipefd)[1], 1);
 	  my_exec_without_fork(shell, cmd1);
 	}
       wait(NULL);
-      printf("After\n");
-      /* if (sep == 11) */
-      /* 	do_pipe(cmd1, cmd2, 2); */
-      /* else if (sep == 13) */
-      /* 	do_redirect(); */
     }
-  else if (cmd1 == NULL)
+  t = read((*pipefd)[0], tmp, 4096);
+  close((*pipefd)[1]);
+  close((*pipefd)[0]);
+  pipe(pipefd2);
+  pipe(*pipefd);
+  write((*pipefd)[1], tmp, t);
+  close((*pipefd)[1]);
+  if (fork() == 0)
     {
-      pipe(pipefd2);
       dup2((*pipefd)[0], 0);
       dup2(pipefd2[1], 1);
-      if (sep == 11)
-	my_exec_without_fork(shell, cmd2);
-      close((*pipefd)[1]);
-      close((*pipefd)[0]);
-      pipe(*pipefd);
-      read(pipefd2[0], tmp, 4096);
-      write((*pipefd)[1], tmp, 4096);
-      close(pipefd2[0]);
-      close(pipefd2[1]);
+      my_exec_without_fork(shell, cmd2);
     }
+  wait(NULL);
+  t = read(pipefd2[0], tmp, 4096);
+  close(pipefd2[0]);
+  close(pipefd2[1]);
+  pipe(*pipefd);
+  write((*pipefd)[1], tmp, t);
+  close((*pipefd)[1]);
 }
 
 int		my_parser(t_link *list, t_shell *shell)
@@ -89,16 +88,16 @@ int		my_parser(t_link *list, t_shell *shell)
       if (tmp && tmp->type == 0)
 	{
 	  cmd2 = get_cmd(tmp);
-	  while (tmp->type == 0 && tmp)
+	  while (tmp && tmp->type == 0)
 	    tmp = tmp->next;
 	}
       if (cmd2 == NULL)
 	{
-	  /* pipe(pipefd); */
+	  pipe(pipefd);
 	  if ((status = fork()) == 0)
 	    {
-	      /* close(pipefd[0]); */
-	      /* dup2(pipefd[1], 1); */
+	      close(pipefd[0]);
+	      dup2(pipefd[1], 1);
 	      my_exec_without_fork(shell, cmd1);
 	    }
 	  wait(&status);
@@ -108,11 +107,11 @@ int		my_parser(t_link *list, t_shell *shell)
       /* tmp = tmp->next; */
       i++;
     }
-  /* memset(tmps, 0, 4096); */
-  /* read(pipefd[0], tmps, 4096); */
-  /* write(1, tmps, 4096); */
-  /* close(pipefd[0]); */
-  /* close(pipefd[1]); */
+  memset(tmps, 0, 4096);
+  read(pipefd[0], tmps, 4096);
+  close(pipefd[0]);
+  close(pipefd[1]);
+  write(1, tmps, 4096);
   return (0);
 }
 
