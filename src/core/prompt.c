@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 23:04:16 2014 Geoffrey Merran
-** Last update Wed May 28 06:41:37 2014 Geoffrey Merran
+** Last update Wed May 28 06:58:34 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -34,6 +34,8 @@ int            check_builtin(t_shell *shell, char **cmd)
   int           i;
 
   i = 0;
+  if (cmd == NULL)
+    return (-1);
   while (i < 8)
     {
       if (strcmp(cmd[0], builtin[i].name) == 0)

@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 04:15:38 2014 Joris Bertomeu
-** Last update Sun May 25 07:39:47 2014 Joris Bertomeu
+** Last update Wed May 28 04:57:02 2014 Joris Bertomeu
 */
 
 #include <stdlib.h>
@@ -65,7 +65,6 @@ Check your rights.\n");
   if (exec_cmd(fd, cmd[0]) == -1)
     return (-1);
 }
-
 int	main()
 {
   char	**cmd;

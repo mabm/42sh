@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:35:28 2014 Geoffrey Merran
-** Last update Wed May 28 05:01:20 2014 Geoffrey Merran
+** Last update Wed May 28 06:44:29 2014 Geoffrey Merran
 */
 
 #ifndef PARSER_H_
@@ -151,6 +151,9 @@ int		is_valid_end_access(t_tree *);
 void		free_tree(t_tree *);
 void		free_list(t_link *);
 void		free_tab(char **);
+
+/* fonctions dans get_dollar.c */
+void		get_dollar_bitch(t_link **, t_list *);
 
 /*
 ** Cmd tools
