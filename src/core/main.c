@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Wed May 28 03:05:35 2014 Geoffrey Merran
+** Last update Wed May 28 06:40:14 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -44,12 +44,14 @@ int		loading_shell(t_shell **shell, char **env, int ac, char **av)
     return (-1);
   (*shell)->error = 0;
   (*shell)->end = 0;
+  (*shell)->exit_val = EXIT_SUCCESS;
   return (xtgetent(NULL, "xterm"));
 }
 
 int		main(int ac, char **av, char **env)
 {
   t_shell	*shell;
+  int		val;
 
   if (ac > 2)
     return (my_error("USAGE: ./42sh <conf_file>"));
@@ -60,6 +62,7 @@ int		main(int ac, char **av, char **env)
   save_history(shell->history, shell);
   if (shell->online->active == 1)
     modify_active(shell->online->pseudo, "0");
+  val = shell->exit_val;
   free_shell(shell);
-  return (EXIT_SUCCESS);
+  return (val);
 }

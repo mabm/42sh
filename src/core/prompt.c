@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 23:04:16 2014 Geoffrey Merran
-** Last update Wed May 28 03:57:40 2014 Geoffrey Merran
+** Last update Wed May 28 06:58:34 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -34,6 +34,8 @@ int            check_builtin(t_shell *shell, char **cmd)
   int           i;
 
   i = 0;
+  if (cmd == NULL)
+    return (-1);
   while (i < 8)
     {
       if (strcmp(cmd[0], builtin[i].name) == 0)
@@ -65,6 +67,7 @@ int		prompt(t_shell *shell)
   if (shell->error == 10)
     return (my_error("42sh: critical errors: too much error, \
 can't continue. Exiting\n"));
-  prompt(shell);
+  if (shell->end != 1)
+    prompt(shell);
   return (0);
 }

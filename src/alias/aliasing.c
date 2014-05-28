@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Mon May 12 15:16:12 2014 martelliere
-** Last update Tue May 27 15:46:48 2014 Geoffrey Merran
+** Last update Wed May 28 05:09:19 2014 Geoffrey Merran
 */
 
 #include "aliasing.h"
@@ -53,7 +53,7 @@ int	builtin_alias(t_shell *shell, char **cmd)
   int	size;
   int	i;
 
-  i = 0;
+  i = 1;
   size = my_strlen_tabs(cmd);
   if (size == 1)
     display_all_alias(shell->alias);

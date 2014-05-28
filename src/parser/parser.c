@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 08:54:27 2014 Joris Bertomeu
+** Last update Wed May 28 09:12:55 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -323,9 +323,7 @@ int		my_parser(t_link *list, t_shell *shell)
 	  if (check_builtin(shell, cmd1) != -2)
 	    return (1);
 	  if ((pid = fork()) == 0)
-	    {
-	      my_exec_without_fork(shell, cmd1);
-	    }
+	    my_exec_without_fork(shell, cmd1);
 	  wait(NULL);
 	  return (1);
 	}
