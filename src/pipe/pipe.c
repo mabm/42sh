@@ -1,3 +1,13 @@
+/*
+** pipe.c for  in /home/mediav_j/mabm/42sh/src
+** 
+** Made by Jeremy Mediavilla
+** Login   <mediav_j@epitech.net>
+** 
+** Started on  Wed May 28 14:37:02 2014 Jeremy Mediavilla
+** Last update Wed May 28 14:37:03 2014 Jeremy Mediavilla
+*/
+
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>

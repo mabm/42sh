@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:45:45 2014 Joris Bertomeu
-** Last update Tue May 27 12:59:32 2014 Joris Bertomeu
+** Last update Wed May 28 14:39:11 2014 Jeremy Mediavilla
 */
 
 #include "my.h"
@@ -57,7 +57,7 @@ int	add_user(char *user, char *pass, t_online *sys)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "10.16.253.124", "labelec",
+  if (mysql_real_connect(&mysql, "10.16.253.124", "labelec",
 			"epitech", "42", 0, NULL, 0))
     {
       if ((requete = my_xmalloc(150 * sizeof(char))) == NULL)
@@ -86,7 +86,7 @@ int		check_user_exist(char *user, int flag)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "10.16.253.124", "labelec",
+  if (mysql_real_connect(&mysql, "10.16.253.124", "labelec",
 			"epitech", "42", 0, NULL, 0))
     {
       mysql_query(&mysql, "SELECT * FROM 42_user");

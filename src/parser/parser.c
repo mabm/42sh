@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 11:32:22 2014 Jeremy Mediavilla
+** Last update Wed May 28 14:42:24 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
@@ -83,7 +83,7 @@ int	start_left_redirect(char **cmd1, char **cmd2, t_shell *shell)
     }
   if (access(cmd2[0], R_OK) == -1)
     {
-      fprintf(stderr,"42sh: Redirection: can't read redirection file. \
+      fprintf(stderr, "42sh: Redirection: can't read redirection file. \
 Check your rights.\n");
       return (-1);
     }

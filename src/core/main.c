@@ -4,8 +4,8 @@
 ** Made by Jeremy Mediavilla
 ** Login   <mediav_j@epitech.net>
 ** 
-** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Wed May 28 06:40:14 2014 Geoffrey Merran
+** Started on  Wed May 28 14:43:30 2014 Jeremy Mediavilla
+** Last update Wed May 28 14:43:38 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -28,8 +28,6 @@ int		init_shell(t_shell **shell, int ac, char **av)
 
 int		loading_shell(t_shell **shell, char **env, int ac, char **av)
 {
-  /* if (signal(SIGINT, SIG_IGN) == SIG_ERR) */
-  /*   return (-1); */
   if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
     return (-1);
   if (signal(SIGTSTP, SIG_IGN) == SIG_ERR)

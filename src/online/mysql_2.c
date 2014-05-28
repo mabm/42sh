@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:44:52 2014 Joris Bertomeu
-** Last update Tue May 27 12:59:50 2014 Joris Bertomeu
+** Last update Wed May 28 14:38:51 2014 Jeremy Mediavilla
 */
 
 #include "my.h"
@@ -19,7 +19,7 @@ int		add_alias_from_bdd(t_alias *alias, t_shell *shell)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "10.16.253.124", "labelec",
+  if (mysql_real_connect(&mysql, "10.16.253.124", "labelec",
 			"epitech", "42", 0, NULL, 0))
     {
       mysql_query(&mysql, "SELECT * FROM alias");
@@ -47,7 +47,7 @@ int		fetch_friends(char *user, int flag)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "10.16.253.124", "labelec",
+  if (mysql_real_connect(&mysql, "10.16.253.124", "labelec",
 			"epitech", "42", 0, NULL, 0))
     {
       mysql_query(&mysql, "SELECT * FROM friends");
@@ -71,7 +71,7 @@ void	modify_active(char *user, char *active)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "10.16.253.124", "labelec",
+  if (mysql_real_connect(&mysql, "10.16.253.124", "labelec",
 			"epitech", "42", 0, NULL, 0))
     {
       if ((requete = my_xmalloc((strlen(user) + 100) * sizeof(char))) == NULL)
@@ -100,7 +100,7 @@ void		add_cmd_history_mysql(t_shell *shell, char *cmd)
     {
       mysql_init(&mysql);
       mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-      if(mysql_real_connect(&mysql, "10.16.253.124", "labelec",
+      if (mysql_real_connect(&mysql, "10.16.253.124", "labelec",
 			    "epitech", "42", 0, NULL, 0))
 	{
 	  if ((requete = my_xmalloc((strlen(cmd) + 100) * sizeof(char))) == NULL)

@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 04:15:38 2014 Joris Bertomeu
-** Last update Wed May 28 04:57:02 2014 Joris Bertomeu
+** Last update Wed May 28 14:42:58 2014 Jeremy Mediavilla
 */
 
 #include <stdlib.h>
@@ -56,7 +56,7 @@ int	start_left_redirect(char **cmd)
     }
   if (access(cmd[1], R_OK) == -1)
     {
-      fprintf(stderr,"42sh: Redirection: can't read redirection file. \
+      fprintf(stderr, "42sh: Redirection: can't read redirection file. \
 Check your rights.\n");
       return (-1);
     }

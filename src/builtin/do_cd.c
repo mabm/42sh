@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon May 26 21:25:18 2014 Nicolas Ades
-** Last update Mon May 26 21:44:31 2014 Nicolas Ades
+** Last update Wed May 28 14:44:24 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -19,7 +19,8 @@ int		xchdir(const char *path)
     }
   if ((chdir(path)) == -1)
     {
-      fprintf(stderr, "42sh: cd: Error on chdir with this path : [%s]\n", path);
+      fprintf(stderr, "42sh: cd: Error on chdir \
+with this path : [%s]\n", path);
       return (-1);
     }
   return (0);
@@ -28,7 +29,7 @@ int		xchdir(const char *path)
 char		*get_pwd()
 {
   char *dest;
-  
+
   if ((dest = my_xmalloc(500 * sizeof (*dest))) == NULL)
     return (NULL);
   memset(dest, 0, 500);

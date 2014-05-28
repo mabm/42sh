@@ -5,7 +5,7 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Mon May 12 15:16:12 2014 martelliere
-** Last update Wed May 28 05:09:19 2014 Geoffrey Merran
+** Last update Wed May 28 14:37:53 2014 Jeremy Mediavilla
 */
 
 #include "aliasing.h"
@@ -25,7 +25,7 @@ int		get_alias(t_alias *alias, t_shell *shell)
 	}
       if (access(alias->path, R_OK) == -1)
 	{
-	  fprintf(stderr,"42sh: alias: can't read alias file. \
+	  fprintf(stderr, "42sh: alias: can't read alias file. \
 Check your rights.\n");
 	  return (-1);
 	}

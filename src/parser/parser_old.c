@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Tue May 27 21:24:40 2014 Joris Bertomeu
+** Last update Wed May 28 14:42:08 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
@@ -154,7 +154,6 @@ int		my_parser(t_link *list)
       tmp = tmp->next;
       i++;
     }
-  /* my_sort_tab(&priority_tab, j); */
   i = 0;
   printf("J = %d\n", j);
   int	flag = -1;

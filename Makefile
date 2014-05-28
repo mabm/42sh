@@ -1,3 +1,13 @@
+##
+## Makefile for  in /home/mediav_j/mabm/42sh
+## 
+## Made by Jeremy Mediavilla
+## Login   <mediav_j@epitech.net>
+## 
+## Started on  Wed May 28 14:45:17 2014 Jeremy Mediavilla
+## Last update Wed May 28 14:45:18 2014 Jeremy Mediavilla
+##
+
 CC		=	gcc
 
 RM		=	rm -f
@@ -6,7 +16,7 @@ NAME		=	42sh
 
 IFLAGS		=	./includes/
 
-CFLAGS		+=	-W -Wextra -Wall -g3 -I$(IFLAGS) -I./mysql/include
+CFLAGS		+=	-W -Wextra -Wall -I$(IFLAGS) -I./mysql/include
 
 D_CORE		=	src/core/
 D_ENV		=	src/env/

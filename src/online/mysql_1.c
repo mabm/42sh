@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 07:53:45 2014 Joris Bertomeu
-** Last update Tue May 27 13:00:05 2014 Joris Bertomeu
+** Last update Wed May 28 14:39:35 2014 Jeremy Mediavilla
 */
 
 #include "my.h"
@@ -19,7 +19,7 @@ int		check_account(char *user, char *pass, int flag)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "10.16.253.124", "labelec",
+  if (mysql_real_connect(&mysql, "10.16.253.124", "labelec",
 			"epitech", "42", 0, NULL, 0))
     {
       mysql_query(&mysql, "SELECT * FROM 42_user");
@@ -57,7 +57,7 @@ void	modify_last(char *user)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "10.16.253.124", "labelec",
+  if (mysql_real_connect(&mysql, "10.16.253.124", "labelec",
 			"epitech", "42", 0, NULL, 0))
     {
       if ((requete = my_xmalloc(150 * sizeof(char))) == NULL)
@@ -87,7 +87,7 @@ int		fetch_history(char *user, int i, int flag, t_online *sys)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "10.16.253.124", "labelec",
+  if (mysql_real_connect(&mysql, "10.16.253.124", "labelec",
 			"epitech", "42", 0, NULL, 0))
     {
       mysql_query(&mysql, "SELECT * FROM history");

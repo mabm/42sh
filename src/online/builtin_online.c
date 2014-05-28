@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Wed May 21 16:58:05 2014 Joris Bertomeu
-** Last update Sun May 25 07:52:52 2014 Joris Bertomeu
+** Last update Wed May 28 14:41:24 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -27,7 +27,7 @@ int	check_user_exist_friend(char *user, int flag)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
+  if (mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
 			"epitech42", "labelec_epibot", 0, NULL, 0))
     {
       mysql_query(&mysql, "SELECT * FROM 42_user");
@@ -54,7 +54,7 @@ int	check_friend_with(char *user, char *friend, int flag)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
+  if (mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
 			"epitech42", "labelec_epibot", 0, NULL, 0))
     {
       mysql_query(&mysql, "SELECT * FROM friends");
@@ -78,7 +78,7 @@ void	add_friend_valid(char *user, char *friend)
 
   mysql_init(&mysql);
   mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-  if(mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
+  if (mysql_real_connect(&mysql, "mysql1.alwaysdata.com", "labelec",
 			"epitech42", "labelec_epibot", 0, NULL, 0))
     {
       requete = malloc(150 * sizeof(char));
@@ -104,7 +104,7 @@ char	*cut_arg(char *cmd)
   i = 0;
   while (cmd[i] != ' ' && cmd[i])
     i++;
-  strcpy(tmp, &cmd[i+1]);
+  strcpy(tmp, &cmd[i + 1]);
   return (tmp);
 }
 
@@ -120,5 +120,6 @@ void	my_add_friend(t_list *list, char *cmd)
       && check_friend_with(pseudo, friend, 0) != 1)
     add_friend_valid(pseudo, friend);
   else
-    printf("%s is not an user available or your are friend with yet\n", friend);
+    printf("%s is not an user available or your \
+are friend with yet\n", friend);
 }

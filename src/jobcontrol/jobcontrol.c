@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 15:35:36 2014 Geoffrey Merran
-** Last update Tue May 27 23:50:49 2014 Geoffrey Merran
+** Last update Wed May 28 14:41:33 2014 Jeremy Mediavilla
 */
 
 #define _BSD_SOURCE
@@ -29,7 +29,6 @@ int		restaure_jobs(t_bg *bg, t_blist *job)
 {
   t_blist	*tmp;
   int		pid;
-
 
   if (job == bg->list)
     bg->list = job->next;

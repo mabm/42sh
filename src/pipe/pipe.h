@@ -1,3 +1,13 @@
+/*
+** pipe.h for  in /home/mediav_j/mabm/42sh/src
+** 
+** Made by Jeremy Mediavilla
+** Login   <mediav_j@epitech.net>
+** 
+** Started on  Wed May 28 14:37:30 2014 Jeremy Mediavilla
+** Last update Wed May 28 14:37:31 2014 Jeremy Mediavilla
+*/
+
 typedef struct		s_pipe
 {
   int			i;

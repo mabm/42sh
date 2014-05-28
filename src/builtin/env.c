@@ -5,14 +5,10 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:45:44 2014 Jeremy Mediavilla
-** Last update Wed May 28 04:25:13 2014 Geoffrey Merran
+** Last update Wed May 28 14:36:32 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
-
-/* A utiliser de avec le '=' après le nom de la variable d'environnement recherchée */
-/* exemple : */
-/* utiliser is_in_env(list, "PWD=") et pas is_in_env(list, "PWD") */
 
 int             is_in_env(t_list *tmp, char *var)
 {
@@ -50,8 +46,6 @@ char            *get_env_var(char *var, int len)
     }
   return (value);
 }
-
-/* a utiliser de cette manière : check_env_var(list, "PWD=", 4) */
 
 char            *check_env_var(t_list *list, char *name, int len)
 {
