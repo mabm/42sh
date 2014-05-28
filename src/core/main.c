@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:26 2014 Jeremy Mediavilla
-** Last update Tue May 27 15:42:51 2014 Geoffrey Merran
+** Last update Wed May 28 03:05:35 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -28,8 +28,8 @@ int		init_shell(t_shell **shell, int ac, char **av)
 
 int		loading_shell(t_shell **shell, char **env, int ac, char **av)
 {
-  if (signal(SIGINT, SIG_IGN) == SIG_ERR)
-    return (-1);
+  /* if (signal(SIGINT, SIG_IGN) == SIG_ERR) */
+  /*   return (-1); */
   if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
     return (-1);
   if (signal(SIGTSTP, SIG_IGN) == SIG_ERR)
