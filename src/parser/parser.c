@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 03:52:31 2014 Joris Bertomeu
+** Last update Wed May 28 05:14:16 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -13,6 +13,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+
+char	*my_read_inf(int fd);
 
 int		wait_father(pid_t pid)
 {
@@ -33,57 +35,183 @@ void	right_redirect(char *left, char *right)
   write(fd, left, strlen(left));
 }
 
+void	right_redirect_double(char *left, char *right)
+{
+  int	fd;
+
+  if ((fd = open(right, O_WRONLY | O_CREAT | O_APPEND, 0666)) == -1)
+    perror("Erreur : ");
+  write(fd, left, strlen(left));
+}
+
+int	exec_cmd_lr(int fd, char **cmd, t_shell *shell)
+{
+  int	pipefd[2];
+  char	*s;
+
+  if (pipe(pipefd) == -1)
+    return (-1);
+  while ((s = get_next_line(fd)) != NULL)
+    {
+      write(pipefd[1], s, strlen(s));
+      write(pipefd[1], "\n", 1);
+      free(s);
+    }
+  close(pipefd[1]);
+  if (fork() == 0)
+    {
+      if (dup2(pipefd[0], 0) == -1)
+	return (-1);
+      if (check_builtin(shell, cmd) == -2)
+	if (my_exec_without_fork(shell, cmd) == -1)
+	  exit(-1);
+      close(pipefd[0]);
+    }
+  else
+    wait(NULL);
+  return (1);
+}
+
+int	start_left_redirect(char **cmd1, char **cmd2, t_shell *shell)
+{
+  int	fd;
+
+  if (access(cmd2[0], F_OK) == -1)
+    {
+      fprintf(stderr, "42sh: Redirection: can't access %s\n", cmd2[0]);
+      return (-1);
+    }
+  if (access(cmd2[0], R_OK) == -1)
+    {
+      fprintf(stderr,"42sh: Redirection: can't read redirection file. \
+Check your rights.\n");
+      return (-1);
+    }
+  if ((fd = open(cmd2[0], O_RDONLY)) == -1)
+    return (-1);
+  if (exec_cmd_lr(fd, cmd1, shell) == -1)
+    return (-1);
+  return (1);
+}
+
+int	do_under_doublel(int *pipefd, t_shell *shell, char **cmd1)
+{
+  close(pipefd[1]);
+  if (fork() == 0)
+    {
+      if (dup2(pipefd[0], 0) == -1)
+	return (-1);
+      if (check_builtin(shell, cmd1) == -2)
+	if (my_exec_without_fork(shell, cmd1) == -1)
+	  exit(-1);
+      close(pipefd[0]);
+    }
+  else
+    wait(NULL);
+  return (1);
+}
+
+int	start_double_left_redirect(char **cmd1, char **cmd2, t_shell *shell)
+{
+  char	*s;
+  int	pipefd[2];
+
+  if (pipe(pipefd) == -1)
+    return (-1);
+  write(1, "> ", 3);
+  while ((s = get_next_line(0)) != NULL)
+    {
+      if (strcmp(s, cmd2[0]) == 0)
+	{
+	  free(s);
+	  break;
+	}
+      else
+	{
+	  write(pipefd[1], s, strlen(s));
+	  write(pipefd[1], "\n", 1);
+	}
+      free(s);
+      write(1, "> ", 3);
+    }
+  return (do_under_doublel(pipefd, shell, cmd1));
+}
+
 void	choose_exec(char **cmd1, int sep, char **cmd2, int **pipefd, t_shell *shell)
 {
   int	pipefd2[2];
-  char	tmp[4096];
+  char	tmp[4096];;
   int	t;
 
-  if (cmd1 != NULL && cmd2 != NULL)
+  if (sep == 15)
     {
-      pipe(*pipefd);
-      if (fork() == 0)
-	{
-	  dup2((*pipefd)[1], 1);
-	  if (check_builtin(shell, cmd1) == -2)
-	    my_exec_without_fork(shell, cmd1);
-	  exit(-1);
-	}
-      wait(NULL);
-    }
-  memset(tmp, 0, 4096);
-  t = read((*pipefd)[0], tmp, 4096);
-  close((*pipefd)[1]);
-  close((*pipefd)[0]);
-  pipe(*pipefd);
-  write((*pipefd)[1], tmp, t);
-  close((*pipefd)[1]);
-  if (sep == 11)
-    {
-      pipe(pipefd2);
-      if (fork() == 0)
-	{
-	  dup2((*pipefd)[0], 0);
-	  dup2(pipefd2[1], 1);
-	  if (check_builtin(shell, cmd2) == -2)
-	    my_exec_without_fork(shell, cmd2);
-	  exit(-1);
-	}
-      wait(NULL);
-      t = read(pipefd2[0], tmp, 4096);
-      close(pipefd2[0]);
-      close(pipefd2[1]);
-      pipe(*pipefd);
-      write((*pipefd)[1], tmp, t);
-    }
-  else if (sep == 13)
-    {
-      right_redirect(tmp, cmd2[0]);
+      start_left_redirect(cmd1, cmd2, shell);
       pipe(*pipefd);
       write((*pipefd)[1], "\n", 1);
     }
-  close((*pipefd)[1]);
-
+  else if (sep == 16)
+    {
+      start_double_left_redirect(cmd1, cmd2, shell);
+      pipe(*pipefd);
+      write((*pipefd)[1], "\n", 1);
+    }
+  else
+    {
+      if (cmd1 != NULL && cmd2 != NULL)
+	{
+	  pipe(*pipefd);
+	  if (fork() == 0)
+	    {
+	      dup2((*pipefd)[1], 1);
+	      if (check_builtin(shell, cmd1) == -2)
+		if (my_exec_without_fork(shell, cmd1) == -1)
+		  exit(-1);
+	    }
+	  wait(NULL);
+	}
+      /* tmp = my_read_inf((*pipefd)[0]); */
+      /* t = strlen(tmp); */
+      memset(tmp, 0, 4096);
+      t = read((*pipefd)[0], tmp, 4096);
+      close((*pipefd)[1]);
+      close((*pipefd)[0]);
+      pipe(*pipefd);
+      write((*pipefd)[1], tmp, t);
+      close((*pipefd)[1]);
+      if (sep == 11)
+	{
+	  pipe(pipefd2);
+	  if (fork() == 0)
+	    {
+	      dup2((*pipefd)[0], 0);
+	      dup2(pipefd2[1], 1);
+	      if (check_builtin(shell, cmd2) == -2)
+		if (my_exec_without_fork(shell, cmd2) == -1)
+		  exit(-1);
+	    }
+	  wait(NULL);
+	  t = read(pipefd2[0], tmp, 4096);
+	  /* tmp = my_read_inf(pipefd2[0]); */
+	  /* t = strlen(tmp); */
+	  close(pipefd2[0]);
+	  close(pipefd2[1]);
+	  pipe(*pipefd);
+	  write((*pipefd)[1], tmp, t);
+	}
+      else if (sep == 13)
+	{
+	  right_redirect(tmp, cmd2[0]);
+	  pipe(*pipefd);
+	  write((*pipefd)[1], "\n", 1);
+	}
+      else if (sep == 14)
+	{
+	  right_redirect_double(tmp, cmd2[0]);
+	  pipe(*pipefd);
+	  write((*pipefd)[1], "\n", 1);
+	}
+      close((*pipefd)[1]);
+    }
 }
 
 int		my_parser(t_link *list, t_shell *shell)
@@ -126,17 +254,14 @@ int		my_parser(t_link *list, t_shell *shell)
 	}
       if (cmd2 == NULL)
 	{
-	  pipe(pipefd);
 	  if ((pid = fork()) == 0)
 	    {
-	      close(pipefd[0]);
-	      dup2(pipefd[1], 1);
 	      if (check_builtin(shell, cmd1) == -2)
 		my_exec_without_fork(shell, cmd1);
 	      exit(-1);
 	    }
 	  wait(NULL);
-	  break;
+	  return (0);
 	}
       choose_exec(cmd1, sep, cmd2, &pipefd, shell);
     }
@@ -153,8 +278,8 @@ int		my_parser_check(t_link *list, char *cmd, t_shell *shell)
   t_tree	*tree;
   t_link	*tmp;
 
+  (void)cmd;
   tmp = list;
-  printf("\n%s\n\n", cmd);
   if ((tree = init_access()) == NULL)
     return (-1);
   while (tmp != NULL)
