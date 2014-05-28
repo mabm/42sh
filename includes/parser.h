@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 15:22:59 2014 Nicolas Ades
-** Last update Wed May 28 01:01:20 2014 Jeremy Mediavilla
+** Last update Wed May 28 02:32:49 2014 Jeremy Mediavilla
 */
 
 #ifndef PARSER_H_
@@ -20,7 +20,7 @@
 # include "pipe.h"
 
 # define ALPHA_NUM "abcdefghijklmnopqrstuvwxyz\
-ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_\\.,+*"
+ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_\\/.,+*"
 # define WORD_ACCESS "0-1-2-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19"
 # define END_ACCESS "0-2-3-4-5-7-13-14-15-16-19"
 # define DOLL_ACCESS "0-4-5-6-7"
