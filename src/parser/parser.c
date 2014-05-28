@@ -4,8 +4,8 @@
 ** Made by Geoffrey Merran
 ** Login   <merran_g@epitech.net>
 ** 
-** Started on  Wed May 28 02:36:14 2014 Geoffrey Merran
-** Last update Wed May 28 02:43:59 2014 Geoffrey Merran
+** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
+** Last update Wed May 28 02:56:13 2014 Geoffrey Merran
 */
 
 #include "parser.h"
@@ -33,7 +33,8 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
 	{
 	  dup2((*pipefd)[1], 1);
 	  if (check_builtin(shell, cmd2) == -2)
-	    my_exec_without_fork(shell, cmd1);
+	    if (my_exec_without_fork(shell, cmd2) == -1)
+	      exit(0);
 	}
       wait(NULL);
     }
@@ -49,7 +50,8 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
       dup2((*pipefd)[0], 0);
       dup2(pipefd2[1], 1);
       if (check_builtin(shell, cmd2) == -2)
-	my_exec_without_fork(shell, cmd2);
+	if (my_exec_without_fork(shell, cmd2) == -1)
+	  exit(0);
     }
   wait(NULL);
   t = read(pipefd2[0], tmp, 4096);
@@ -110,8 +112,9 @@ int		my_parser(t_link *list, t_shell *shell)
 	    {
 	      close(pipefd[0]);
 	      dup2(pipefd[1], 1);
-	      if (check_builtin(shell, cmd2) == -2)
-		my_exec_without_fork(shell, cmd1);
+	      if (check_builtin(shell, cmd1) == -2)
+		if (my_exec_without_fork(shell, cmd1) == -1)
+		  exit(0);
 	    }
 	  wait_father(pid);
 	  break;

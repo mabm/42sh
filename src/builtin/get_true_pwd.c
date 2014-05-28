@@ -5,26 +5,13 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Tue May 27 12:09:49 2014 martelliere
-** Last update Mon May 26 12:57:49 2014 Nicolas Ades
+** Last update Mon May 26 15:15:33 2014 Nicolas Ades
 */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
-
-void            *my_xmalloc(int size)
-{
-  void          *str;
-
-  str = malloc(size);
-  if (str == NULL)
-    {
-      puts("Memory allocation failed, sorry");
-      return (NULL);
-    }
-  return (str);
-}
 
 void            *my_xrealloc(char *str, int size)
 {
