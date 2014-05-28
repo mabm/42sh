@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 05:17:47 2014 Jeremy Mediavilla
+** Last update Wed May 28 08:54:27 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -137,87 +137,155 @@ int	start_double_left_redirect(char **cmd1, char **cmd2, t_shell *shell)
   return (do_under_doublel(pipefd, shell, cmd1));
 }
 
-void	choose_exec(char **cmd1, int sep, char **cmd2, int **pipefd, t_shell *shell)
+void	do_lr(char **cmd1, char **cmd2, t_shell *shell, int **pipefd)
 {
-  int	pipefd2[2];
-  char	tmp[4096];;
+  start_left_redirect(cmd1, cmd2, shell);
+  pipe(*pipefd);
+  write((*pipefd)[1], "\n", 1);
+}
+
+void	do_dlr(char **cmd1, char **cmd2, t_shell *shell, int **pipefd)
+{
+  pipe(*pipefd);
+  start_double_left_redirect(cmd1, cmd2, shell);
+  write((*pipefd)[1], "\n", 1);
+}
+
+void	do_cmd1_cmd2(char **cmd1, t_shell *shell, int **pipefd)
+{
+  pipe(*pipefd);
+  if (fork() == 0)
+    {
+      dup2((*pipefd)[1], 1);
+      if (check_builtin(shell, cmd1) == -2)
+	my_exec_without_fork(shell, cmd1);
+      exit(-1);
+    }
+  wait(NULL);
+}
+
+char	*middle_op(int **pipefd, int *t)
+{
+  char	*tmp;
+
+  tmp = malloc(4096 * sizeof(char));
+  memset(tmp, 0, 4096);
+  *t = read((*pipefd)[0], tmp, 4096);
+  close((*pipefd)[1]);
+  close((*pipefd)[0]);
+  pipe(*pipefd);
+  write((*pipefd)[1], tmp, *t);
+  close((*pipefd)[1]);
+  return (tmp);
+}
+
+void	do_11(int **pipefd2, int **pipefd, char **cmd2, t_shell *shell)
+{
+  int	t;
+  char	tmp[4096];
+
+  pipe(*pipefd2);
+  if (fork() == 0)
+    {
+      dup2((*pipefd)[0], 0);
+      dup2((*pipefd2)[1], 1);
+      if (check_builtin(shell, cmd2) == -2)
+	my_exec_without_fork(shell, cmd2);
+      exit(-1);
+    }
+  wait(NULL);
+  t = read((*pipefd2)[0], tmp, 4096);
+  close((*pipefd2)[0]);
+  close((*pipefd2)[1]);
+  pipe(*pipefd);
+  write((*pipefd)[1], tmp, t);
+}
+
+void	do_13(int **pipefd, char *tmp, char **cmd2)
+{
+  right_redirect(tmp, cmd2[0]);
+  pipe(*pipefd);
+  write((*pipefd)[1], "\n", 1);
+}
+
+void	do_14(char *tmp, char **cmd2, int **pipefd)
+{
+  right_redirect_double(tmp, cmd2[0]);
+  pipe(*pipefd);
+  write((*pipefd)[1], "\n", 1);
+}
+
+void	choose_exec(char **cmd1, int sep, char **cmd2,
+		    int **pipefd, t_shell *shell)
+{
+  int	*pipefd2;
+  char	*tmp;
   int	t;
 
+  tmp = malloc(4096 * sizeof(char));
+  pipefd2 = malloc(2 * sizeof(int));
   if (sep == 15)
-    {
-      start_left_redirect(cmd1, cmd2, shell);
-      pipe(*pipefd);
-      write((*pipefd)[1], "\n", 1);
-    }
+    do_lr(cmd1, cmd2, shell, pipefd);
   else if (sep == 16)
-    {
-      start_double_left_redirect(cmd1, cmd2, shell);
-      pipe(*pipefd);
-      write((*pipefd)[1], "\n", 1);
-    }
+    do_dlr(cmd1, cmd2, shell, pipefd);
   else
     {
       if (cmd1 != NULL && cmd2 != NULL)
-	{
-	  pipe(*pipefd);
-	  if (fork() == 0)
-	    {
-	      dup2((*pipefd)[1], 1);
-	      if (check_builtin(shell, cmd1) == -2)
-		if (my_exec_without_fork(shell, cmd1) == -1)
-		  exit(-1);
-	    }
-	  wait(NULL);
-	}
-      /* tmp = my_read_inf((*pipefd)[0]); */
-      /* t = strlen(tmp); */
-      memset(tmp, 0, 4096);
-      t = read((*pipefd)[0], tmp, 4096);
-      close((*pipefd)[1]);
-      close((*pipefd)[0]);
-      pipe(*pipefd);
-      write((*pipefd)[1], tmp, t);
-      close((*pipefd)[1]);
+	do_cmd1_cmd2(cmd1, shell, pipefd);
+      tmp = middle_op(pipefd, &t);
       if (sep == 11)
-	{
-	  pipe(pipefd2);
-	  if (fork() == 0)
-	    {
-	      dup2((*pipefd)[0], 0);
-	      dup2(pipefd2[1], 1);
-	      if (check_builtin(shell, cmd2) == -2)
-		if (my_exec_without_fork(shell, cmd2) == -1)
-		  exit(-1);
-	    }
-	  wait(NULL);
-	  t = read(pipefd2[0], tmp, 4096);
-	  /* tmp = my_read_inf(pipefd2[0]); */
-	  /* t = strlen(tmp); */
-	  close(pipefd2[0]);
-	  close(pipefd2[1]);
-	  pipe(*pipefd);
-	  write((*pipefd)[1], tmp, t);
-	}
+	do_11(&pipefd2, pipefd, cmd2, shell);
       else if (sep == 13)
-	{
-	  right_redirect(tmp, cmd2[0]);
-	  pipe(*pipefd);
-	  write((*pipefd)[1], "\n", 1);
-	}
+	do_13(pipefd, tmp, cmd2);
       else if (sep == 14)
-	{
-	  right_redirect_double(tmp, cmd2[0]);
-	  pipe(*pipefd);
-	  write((*pipefd)[1], "\n", 1);
-	}
+	do_14(tmp, cmd2, pipefd);
       close((*pipefd)[1]);
     }
+}
+
+void	first_step(t_link *tmp, char ***cmd1, int *sep)
+{
+  if (tmp->type == 0)
+    {
+      *cmd1 = get_cmd(tmp);
+      while (tmp && tmp->type == 0)
+	tmp = tmp->next;
+    }
+  if (tmp && tmp->type != 0)
+    {
+      *sep = tmp->type;
+      tmp = tmp->next;
+    }
+}
+
+int	second_step(t_link *tmp, char ***cmd2, t_shell *shell, char ***cmd1)
+{
+  int	pid;
+
+  if (tmp && tmp->type == 0)
+    {
+      *cmd2 = get_cmd(tmp);
+      while (tmp && tmp->type == 0)
+	tmp = tmp->next;
+    }
+  if (*cmd2 == NULL)
+    {
+      if (check_builtin(shell, *cmd1) != -2)
+	return (1);
+      if ((pid = fork()) == 0)
+	{
+	  my_exec_without_fork(shell, *cmd1);
+	  /* exit(-1); */
+	}
+      wait(NULL);
+      return (1);
+    }
+  return (0);
 }
 
 int		my_parser(t_link *list, t_shell *shell)
 {
   t_link	*tmp;
-  int		j;
   int		sep;
   int		*pipefd;
   char		**cmd1;
@@ -226,7 +294,6 @@ int		my_parser(t_link *list, t_shell *shell)
   int		pid;
 
   tmp = list;
-  j = 0;
   pipefd = malloc(2 * sizeof(int));
   if (tmp->next != NULL && tmp->type == -1)
     tmp = tmp->next;
@@ -244,7 +311,6 @@ int		my_parser(t_link *list, t_shell *shell)
 	{
 	  sep = tmp->type;
 	  tmp = tmp->next;
-	  j++;
 	}
       if (tmp && tmp->type == 0)
 	{
@@ -254,14 +320,14 @@ int		my_parser(t_link *list, t_shell *shell)
 	}
       if (cmd2 == NULL)
 	{
+	  if (check_builtin(shell, cmd1) != -2)
+	    return (1);
 	  if ((pid = fork()) == 0)
 	    {
-	      if (check_builtin(shell, cmd1) == -2)
-		my_exec_without_fork(shell, cmd1);
-	      exit(-1);
+	      my_exec_without_fork(shell, cmd1);
 	    }
 	  wait(NULL);
-	  return (0);
+	  return (1);
 	}
       choose_exec(cmd1, sep, cmd2, &pipefd, shell);
     }
@@ -293,7 +359,6 @@ int		my_parser_check(t_link *list, char *cmd, t_shell *shell)
   free_tree(tree);
   tmp = list;
   remove_old_links(&tmp, &list);
-  get_dollar_bitch(&list, shell->env);
   aff_my_list(list);
   my_parser(list, shell);
   return (0);
@@ -326,3 +391,4 @@ int		my_lexer(char *cmd, t_shell *shell)
     return (-1);
   return (0);
 }
+
