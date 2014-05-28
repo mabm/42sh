@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 10:10:04 2014 Joris Bertomeu
+** Last update Wed May 28 11:32:22 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
@@ -283,6 +283,63 @@ int	second_step(t_link *tmp, char ***cmd2, t_shell *shell, char ***cmd1)
   return (0);
 }
 
+void		check_type(t_link **tmp, char ***cmd1, int *sep)
+{
+  if ((*tmp)->type == 0)
+    {
+      *cmd1 = get_cmd(*tmp);
+      while (*tmp && (*tmp)->type == 0)
+	*tmp = (*tmp)->next;
+    }
+  if (*tmp && (*tmp)->type != 0)
+    {
+      *sep = (*tmp)->type;
+      *tmp = (*tmp)->next;
+    }
+}
+
+void		check_type_2(t_link **tmp, char ***cmd2, int sep, char **tmps)
+{
+  if ((*tmp) && (*tmp)->type == 0)
+    {
+      *cmd2 = get_cmd((*tmp));
+      while ((*tmp) && (*tmp)->type == 0)
+	(*tmp) = (*tmp)->next;
+    }
+  else if (sep == 11)
+    {
+      write(1, "> ", 3);
+      memset(*tmps, 0, 4096);
+      read(0, *tmps, 4096);
+      *cmd2 = my_strd_to_wordtab(*tmps, " ");
+    }
+}
+
+int		second_cmd_null(t_shell **shell, char ***cmd1, char **cmd2)
+{
+  pid_t		pid;
+
+  if (cmd2 == NULL)
+    {
+      if (check_builtin(*shell, *cmd1) != -2)
+	return (1);
+      if ((pid = fork()) == 0)
+	my_exec_without_fork(*shell, *cmd1);
+      wait(NULL);
+      return (1);
+    }
+  return (0);
+}
+
+void		closepipe(char **tmps, int **pipefd)
+{
+  memset(*tmps, 0, 4096);
+  read((*pipefd)[0], *tmps, 4096);
+  close((*pipefd)[0]);
+  close((*pipefd)[1]);
+  write(1, *tmps, 4096);
+}
+
 int		my_parser(t_link *list, t_shell *shell)
 {
   t_link	*tmp;
@@ -290,9 +347,10 @@ int		my_parser(t_link *list, t_shell *shell)
   int		*pipefd;
   char		**cmd1;
   char		**cmd2;
-  char		tmps[4096];
-  int		pid;
+  char		*tmps;
 
+  tmps = my_xmalloc(4096);
+  sep = 0;
   tmp = list;
   pipefd = malloc(2 * sizeof(int));
   if (tmp->next != NULL && tmp->type == -1)
@@ -301,46 +359,13 @@ int		my_parser(t_link *list, t_shell *shell)
     {
       cmd1 = NULL;
       cmd2 = NULL;
-      if (tmp->type == 0)
-	{
-	  cmd1 = get_cmd(tmp);
-	  while (tmp && tmp->type == 0)
-	    tmp = tmp->next;
-	}
-      if (tmp && tmp->type != 0)
-	{
-	  sep = tmp->type;
-	  tmp = tmp->next;
-	}
-      if (tmp && tmp->type == 0)
-	{
-	  cmd2 = get_cmd(tmp);
-	  while (tmp && tmp->type == 0)
-	    tmp = tmp->next;
-	}
-      else if (sep == 11)
-	{
-	  write(1, "> ", 3);
-	  memset(tmps, 0, 4096);
-	  read(0, tmps, 4096);
-	  cmd2 = my_strd_to_wordtab(tmps, " ");
-	}
-      if (cmd2 == NULL)
-	{
-	  if (check_builtin(shell, cmd1) != -2)
-	    return (1);
-	  if ((pid = fork()) == 0)
-	    my_exec_without_fork(shell, cmd1);
-	  wait(NULL);
-	  return (1);
-	}
+      check_type(&tmp, &cmd1, &sep);
+      check_type_2(&tmp, &cmd2, sep, &tmps);
+      if (second_cmd_null(&shell, &cmd1, cmd2) == 1)
+	return (1);
       choose_exec(cmd1, sep, cmd2, &pipefd, shell);
     }
-  memset(tmps, 0, 4096);
-  read(pipefd[0], tmps, 4096);
-  close(pipefd[0]);
-  close(pipefd[1]);
-  write(1, tmps, 4096);
+  closepipe(&tmps, &pipefd);
   return (0);
 }
 
