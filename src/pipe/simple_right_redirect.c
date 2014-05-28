@@ -5,7 +5,7 @@
 ** Login   <jobertomeu@epitech.net>
 ** 
 ** Started on  Sun May 25 05:58:25 2014 Joris Bertomeu
-** Last update Mon May 26 17:33:03 2014 Joris Bertomeu
+** Last update Wed May 28 03:21:11 2014 Joris Bertomeu
 */
 
 #include <stdlib.h>
@@ -15,30 +15,16 @@
 #include <fcntl.h>
 #include <string.h>
 
-int	start_right_redirect(char **cmd)
+int	start_right_redirect(char *left, char *right)
 {
   int	fd;
-  int	pipefd[2];
   int	i;
-  char	*tab[] = {"ls", "-l", NULL};
   char	*s;
   char	buff[4096];
 
   i = 0;
-  /* pipe(pipefd); */
-  /* if (fork() == 0) */
-  /*   { */
-  /*     dup2(pipefd[1], 1); */
-  /*     execvp("/bin/ls", tab); */
-  /*     perror("Error : "); */
-  /*     close(pipefd[0]); */
-  /*   } */
-  /* else */
-  /*   wait(NULL); */
   if ((fd = open(cmd[1], O_WRONLY | O_TRUNC | O_CREAT, 0666)) == -1)
     perror("Erreur : ");
-  /* read(pipefd[0], buff, 4096); */
-  /* close(pipefd[0]); */
   write(fd, cmd[0], strlen(cmd[0]));
 }
 
