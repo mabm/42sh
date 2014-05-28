@@ -5,27 +5,39 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:42:35 2014 Jeremy Mediavilla
-** Last update Wed May 28 01:08:56 2014 Joris Bertomeu
+** Last update Wed May 28 01:27:32 2014 Geoffrey Merran
 */
 
 #include "parser.h"
+
+int		wait_father(pid_t pid)
+{
+  int		status;
+
+  while (pid != wait4(pid, &status, WNOHANG, 0))
+    {
+    }
+  return (status);
+}
 
 void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell *shell)
 {
   int	pipefd2[2];
   char	tmp[4096];
+  int	pid;
 
   printf("cmd1 = %s - cmd2 = %s\n", cmd1[0], cmd2[0]);
   if (cmd1 != NULL && cmd2 != NULL)
     {
       pipe(*pipefd);
       printf("Before\n");
-      if (fork() == 1)
+      pid = fork();
+      if (pid == 1)
 	{
 	  dup2((*pipefd)[1], 1);
 	  my_exec_without_fork(shell, cmd1);
 	}
-      wait();
+      wait_father(pid);
       printf("After\n");
       /* if (sep == 11) */
       /* 	do_pipe(cmd1, cmd2, 2); */
@@ -62,7 +74,7 @@ int		my_parser(t_link *list, t_shell *shell)
   char		**cmd1;
   char		**cmd2;
   char		tmps[4096];
-  int		status;
+  int		pid;
 
   i = 0;
   tmp = list;
@@ -95,13 +107,13 @@ int		my_parser(t_link *list, t_shell *shell)
       if (cmd2 == NULL)
 	{
 	  /* pipe(pipefd); */
-	  if ((status = fork()) == 0)
+	  if ((pid = fork()) == 0)
 	    {
 	      /* close(pipefd[0]); */
 	      /* dup2(pipefd[1], 1); */
 	      my_exec_without_fork(shell, cmd1);
 	    }
-	  wait(&status);
+	  wait_father(pid);
 	  break;
 	}
       choose_exec(cmd1, sep, cmd2, j, &pipefd, shell);

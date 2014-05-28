@@ -5,20 +5,10 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Sat May 24 08:06:43 2014 Nicolas Ades
-** Last update Sat May 24 15:59:53 2014 Nicolas Ades
+** Last update Wed May 28 01:22:10 2014 Geoffrey Merran
 */
 
 #include "core.h"
-
-int		wait_father(pid_t pid)
-{
-  int		status;
-
-  while (pid_fils != wait4(pid_fils, &status, WNOHANG, 0))
-    {
-    }
-  return (status);
-}
 
 int		do_fork_bis(char **envp, char **cmd)
 {

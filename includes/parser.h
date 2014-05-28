@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Mon Apr 28 15:22:59 2014 Nicolas Ades
-** Last update Wed May 28 01:01:20 2014 Jeremy Mediavilla
+** Last update Wed May 28 01:18:53 2014 Geoffrey Merran
 */
 
 #ifndef PARSER_H_
@@ -155,6 +155,7 @@ void		free_tab(char **);
 ** Cmd tools
 */
 
+int		wait_father(pid_t pid);
 char		**get_cmd(t_link *start);
 
 #endif /* PARSER_H_ */
