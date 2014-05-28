@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:52:45 2014 Geoffrey Merran
-** Last update Wed May 28 02:52:49 2014 Geoffrey Merran
+** Last update Wed May 28 04:54:10 2014 Geoffrey Merran
 */
 
 #ifndef	CORE_H_
@@ -34,14 +34,18 @@ void		print_tab(char **);
 */
 
 int		check_builtin(t_shell *shell, char **cmd);
+int		my_exit(t_shell *, char **);
+int		do_cd(t_shell *, char **);
+int		my_echo(t_shell *, char **);
+int		my_setenv(t_shell *, char **);
+int		my_unsetenv(t_shell *, char **);
+int		aff_env(t_shell *, char **);
 
 /*
 ** Builtin Env
 */
 
 char		*init_unsetenv_var(int, char **);
-int		my_echo(t_shell *, char **);
-int		do_cd(t_shell *, char **);
 int		do_cd_bis(t_shell *, char *);
 int		xchdir(const char *);
 int		create_oldpwd(t_shell *, char *);
@@ -49,23 +53,18 @@ int		create_pwd(t_shell *, char *);
 int		find_and_replace(t_shell *, char *, char *);
 int		change_old_pwd(t_shell *, char *);
 int		change_pwd(t_shell *, char *);
-int		my_setenv(t_shell *, char **);
-int		my_unsetenv(t_shell *, char **);
+int		print_with_opt(int, char **);
 void		get_all_env(t_list *, char **);
 void		*my_xrealloc(char *, int);
 void		print_cmd(char **);
-void		print_with_opt(int, char **);
 void		dircat(char *, char *);
 int		go_to_arg(char **);
-int		my_exit(t_shell, char **);
-int		my_echo(t_shell *, char **);
 int		get_opt_n(char *, char *);
 int		get_opt_e(char *, char *);
 int		echo_with_opt(int, int, char **);
 int		dirlen(char *);
-int		aff_env(t_shell *, char **);
 int		is_in_env(t_list *, char *);
-char		*modif(char *, char *);
+char		*modif_path(char *, char *);
 char		*epur_path(char *);
 char		*epur_pwd(char *);
 char		*add_slash(char *);

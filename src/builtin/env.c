@@ -5,7 +5,7 @@
 ** Login   <mediav_j@epitech.net>
 ** 
 ** Started on  Wed May  7 17:45:44 2014 Jeremy Mediavilla
-** Last update Sun May 25 21:41:02 2014 Geoffrey Merran
+** Last update Wed May 28 04:25:13 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -14,10 +14,12 @@
 /* exemple : */
 /* utiliser is_in_env(list, "PWD=") et pas is_in_env(list, "PWD") */
 
-int             is_in_env(t_list *list, char *var)
+int             is_in_env(t_list *tmp, char *var)
 {
   int           size;
+  t_list	*list;
 
+  list = tmp;
   size = strlen(var);
   while (list != NULL)
     {

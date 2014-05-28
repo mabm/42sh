@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Tue May 27 23:04:16 2014 Geoffrey Merran
-** Last update Wed May 28 03:18:02 2014 Geoffrey Merran
+** Last update Wed May 28 03:57:40 2014 Geoffrey Merran
 */
 
 #include "core.h"
@@ -18,7 +18,9 @@ t_builtin	builtin[] =
     {"setenv", my_setenv},
     {"alias", builtin_alias},
     {"history", builtin_history},
-    /* {"cd", my_cd} */
+    {"cd", do_cd},
+    {"echo", my_echo},
+    {"exit", my_exit}
   };
 
 /*
@@ -32,7 +34,7 @@ int            check_builtin(t_shell *shell, char **cmd)
   int           i;
 
   i = 0;
-  while (i < 5)
+  while (i < 8)
     {
       if (strcmp(cmd[0], builtin[i].name) == 0)
 	return (builtin[i].fptr(shell, cmd));

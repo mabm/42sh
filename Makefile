@@ -28,6 +28,13 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_CORE)tab_functions.c		\
 			$(D_BUILTIN)env.c			\
 			$(D_BUILTIN)builtin.c			\
+			$(D_BUILTIN)do_cd.c			\
+			$(D_BUILTIN)cd_fct.c			\
+			$(D_BUILTIN)cd_fct_bis.c		\
+			$(D_BUILTIN)my_exit.c			\
+			$(D_BUILTIN)get_true_pwd.c		\
+			$(D_BUILTIN)my_echo.c			\
+			$(D_BUILTIN)echo_fct.c			\
 			$(D_CORE)list.c				\
 			$(D_CORE)init.c				\
 			$(D_LINE_EDITOR)line_editor.c		\

@@ -5,13 +5,10 @@
 ** Login   <martel_c@epitech.net>
 **
 ** Started on  Tue May 27 12:09:49 2014 martelliere
-** Last update Mon May 26 15:15:33 2014 Nicolas Ades
+** Last update Wed May 28 04:48:35 2014 Geoffrey Merran
 */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
+#include "core.h"
 
 void            *my_xrealloc(char *str, int size)
 {
