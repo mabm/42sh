@@ -5,7 +5,7 @@
 ** Login   <nicolas@epitech.net>
 ** 
 ** Started on  Wed May 21 06:05:57 2014 Nicolas Ades
-** Last update Mon May 26 18:03:17 2014 Nicolas Ades
+** Last update Wed May 28 12:41:12 2014 Jeremy Mediavilla
 */
 
 #include "core.h"
@@ -43,9 +43,9 @@ int	change_old_pwd(t_shell *shell, char *new)
 	return (-1);
       return (0);
     }
-  if ((var = my_xmalloc((strlen(new) + 8) * sizeof(*new))) == NULL)
+  if ((var = my_xmalloc((strlen(new) + 20) * sizeof(*new))) == NULL)
     return (-1);
-  memset(var, 0, (strlen(new) + 8));
+  memset(var, 0, (strlen(new) + 20));
   var = strcat(var, "OLDPWD=");
   var = strcat(var, new);
   find_and_replace(shell, "OLDPWD=", var);
