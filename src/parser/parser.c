@@ -5,10 +5,14 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 03:19:49 2014 Geoffrey Merran
+** Last update Wed May 28 03:52:31 2014 Joris Bertomeu
 */
 
 #include "parser.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <string.h>
 
 int		wait_father(pid_t pid)
 {
@@ -20,7 +24,16 @@ int		wait_father(pid_t pid)
   return (status);
 }
 
-void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell *shell)
+void	right_redirect(char *left, char *right)
+{
+  int	fd;
+
+  if ((fd = open(right, O_WRONLY | O_TRUNC | O_CREAT, 0666)) == -1)
+    perror("Erreur : ");
+  write(fd, left, strlen(left));
+}
+
+void	choose_exec(char **cmd1, int sep, char **cmd2, int **pipefd, t_shell *shell)
 {
   int	pipefd2[2];
   char	tmp[4096];
@@ -38,38 +51,45 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
 	}
       wait(NULL);
     }
+  memset(tmp, 0, 4096);
   t = read((*pipefd)[0], tmp, 4096);
   close((*pipefd)[1]);
   close((*pipefd)[0]);
-  pipe(pipefd2);
   pipe(*pipefd);
   write((*pipefd)[1], tmp, t);
   close((*pipefd)[1]);
-  if (fork() == 0)
+  if (sep == 11)
     {
-      dup2((*pipefd)[0], 0);
-      dup2(pipefd2[1], 1);
-      if (check_builtin(shell, cmd2) == -2)
-	my_exec_without_fork(shell, cmd2);
-    exit(-1);
+      pipe(pipefd2);
+      if (fork() == 0)
+	{
+	  dup2((*pipefd)[0], 0);
+	  dup2(pipefd2[1], 1);
+	  if (check_builtin(shell, cmd2) == -2)
+	    my_exec_without_fork(shell, cmd2);
+	  exit(-1);
+	}
+      wait(NULL);
+      t = read(pipefd2[0], tmp, 4096);
+      close(pipefd2[0]);
+      close(pipefd2[1]);
+      pipe(*pipefd);
+      write((*pipefd)[1], tmp, t);
     }
-  wait(NULL);
-  t = read(pipefd2[0], tmp, 4096);
-  close(pipefd2[0]);
-  close(pipefd2[1]);
-  pipe(*pipefd);
-  write((*pipefd)[1], tmp, t);
+  else if (sep == 13)
+    {
+      right_redirect(tmp, cmd2[0]);
+      pipe(*pipefd);
+      write((*pipefd)[1], "\n", 1);
+    }
   close((*pipefd)[1]);
+
 }
 
 int		my_parser(t_link *list, t_shell *shell)
 {
   t_link	*tmp;
-  int		**my_tab;
-  int		priority;
-  int		i;
   int		j;
-  int		**priority_tab;
   int		sep;
   int		*pipefd;
   char		**cmd1;
@@ -77,7 +97,6 @@ int		my_parser(t_link *list, t_shell *shell)
   char		tmps[4096];
   int		pid;
 
-  i = 0;
   tmp = list;
   j = 0;
   pipefd = malloc(2 * sizeof(int));
@@ -119,9 +138,7 @@ int		my_parser(t_link *list, t_shell *shell)
 	  wait(NULL);
 	  break;
 	}
-      choose_exec(cmd1, sep, cmd2, j, &pipefd, shell);
-      /* tmp = tmp->next; */
-      i++;
+      choose_exec(cmd1, sep, cmd2, &pipefd, shell);
     }
   memset(tmps, 0, 4096);
   read(pipefd[0], tmps, 4096);

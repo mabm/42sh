@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:35:28 2014 Geoffrey Merran
-** Last update Wed May 28 02:43:05 2014 Geoffrey Merran
+** Last update Wed May 28 03:25:47 2014 Joris Bertomeu
 */
 
 #ifndef PARSER_H_
@@ -33,7 +33,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_\\/.,+*"
 # define C_PAR_ACCESS "0-1-7-8-9-10-11-12-13-14-15-16-17-18-19"
 # define O_HOOK_ACCESS "0-2-3-4-5-7-8-9-15-16"
 # define C_HOOK_ACCESS "0-1-7-8-9-10-11-12-13-14-15-16-17-18-19"
-# define PIPE_ACCESS "0-2-3-4-5-7-9-13-14-15-16"
+# define PIPE_ACCESS "0-2-3-4-5-7-9-13-14-15-16-19"
 # define OR_ACCESS "0-2-3-4-5-7-9-11-13-14-15-16"
 # define R_CHEV_ACCESS "0-2-3-4-5"
 # define RR_CHEV_ACCESS "0-2-3-4-5"
