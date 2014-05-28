@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 05:14:16 2014 Joris Bertomeu
+** Last update Wed May 28 05:17:47 2014 Jeremy Mediavilla
 */
 
 #include "parser.h"
@@ -293,6 +293,7 @@ int		my_parser_check(t_link *list, char *cmd, t_shell *shell)
   free_tree(tree);
   tmp = list;
   remove_old_links(&tmp, &list);
+  get_dollar_bitch(&list, shell->env);
   aff_my_list(list);
   my_parser(list, shell);
   return (0);
