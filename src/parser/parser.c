@@ -5,7 +5,7 @@
 ** Login   <merran_g@epitech.net>
 ** 
 ** Started on  Wed May 28 02:53:09 2014 Geoffrey Merran
-** Last update Wed May 28 03:47:13 2014 Joris Bertomeu
+** Last update Wed May 28 03:52:31 2014 Joris Bertomeu
 */
 
 #include "parser.h"
@@ -24,20 +24,16 @@ int		wait_father(pid_t pid)
   return (status);
 }
 
-int	right_redirect(char *left, char *right)
+void	right_redirect(char *left, char *right)
 {
   int	fd;
-  int	i;
-  char	*s;
-  char	buff[4096];
 
-  i = 0;
   if ((fd = open(right, O_WRONLY | O_TRUNC | O_CREAT, 0666)) == -1)
     perror("Erreur : ");
   write(fd, left, strlen(left));
 }
 
-void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell *shell)
+void	choose_exec(char **cmd1, int sep, char **cmd2, int **pipefd, t_shell *shell)
 {
   int	pipefd2[2];
   char	tmp[4096];
@@ -93,11 +89,7 @@ void	choose_exec(char **cmd1, int sep, char **cmd2, int j, int **pipefd, t_shell
 int		my_parser(t_link *list, t_shell *shell)
 {
   t_link	*tmp;
-  int		**my_tab;
-  int		priority;
-  int		i;
   int		j;
-  int		**priority_tab;
   int		sep;
   int		*pipefd;
   char		**cmd1;
@@ -105,7 +97,6 @@ int		my_parser(t_link *list, t_shell *shell)
   char		tmps[4096];
   int		pid;
 
-  i = 0;
   tmp = list;
   j = 0;
   pipefd = malloc(2 * sizeof(int));
@@ -147,9 +138,7 @@ int		my_parser(t_link *list, t_shell *shell)
 	  wait(NULL);
 	  break;
 	}
-      choose_exec(cmd1, sep, cmd2, j, &pipefd, shell);
-      /* tmp = tmp->next; */
-      i++;
+      choose_exec(cmd1, sep, cmd2, &pipefd, shell);
     }
   memset(tmps, 0, 4096);
   read(pipefd[0], tmps, 4096);
