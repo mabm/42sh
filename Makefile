@@ -68,6 +68,7 @@ SRC		=	$(D_CORE)main.c				\
 			$(D_PARSER)access.c			\
 			$(D_PARSER)free.c			\
 			$(D_PARSER)get_cmd.c			\
+			$(D_PARSER)get_dollar.c			\
 			$(D_JOBCONTROL)jobcontrol.c		\
 
 OBJ		=	$(SRC:.c=.o)
